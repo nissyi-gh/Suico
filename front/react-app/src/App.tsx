@@ -1,9 +1,21 @@
-import './css/output.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import { Graph } from "./components/Graph";
 
-export const App = () => {
+export const App = (): JSX.Element => {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <Router>
+      <div>
+        ヘッダー
+      </div>
+      <Routes>
+        <>
+          <Route path="/" element={ <Graph /> } />
+        </>
+      </Routes>
+    </Router>
   )
 }
