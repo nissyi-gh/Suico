@@ -3,7 +3,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import { Graph } from "./components/Graph";
+import { UsersIndex } from "./components/UsersIndex";
 
 export const App = (): JSX.Element => {
   return (
@@ -13,7 +13,8 @@ export const App = (): JSX.Element => {
       </div>
       <Routes>
         <>
-          <Route path="/" element={ <Graph /> } />
+          <Route path="/users" element={ <UsersIndex /> } />
+          <Route path="/" />
         </>
       </Routes>
     </Router>
