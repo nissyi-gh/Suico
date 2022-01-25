@@ -31,7 +31,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./front:/usr/src/app
-    command: sh -c "cd react-app && yarn start"
+    command: sh -c "cd react-app && yarn start && npm run tailwind"
     ports:
       - "3000:3000"
 volumes:
