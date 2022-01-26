@@ -1,5 +1,5 @@
 import { Modal } from "../Templates/Modal";
-import { LoginForm } from "../Organisms/LoginForm";
+import { LoginForm } from "./LoginForm";
 
 export const LoginModal = (props: { onClick: () => void }): JSX.Element => {
   return (
