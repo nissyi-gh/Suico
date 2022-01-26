@@ -10,8 +10,8 @@ export const inputAtom = (type: string, name: string, id: string, css: string,  
   return <input type={ type } name={ name } id={ id } defaultValue={ defaultValue } className={ css } />
 }
 
-export const buttonAtom = (text: string, onClickFunction?: () => void): JSX.Element => {
+export const buttonAtom = (text: string, css: string, onClickFunction?: () => void): JSX.Element => {
   return (
-    <button onClick={ onClickFunction }>{ text }</button>
+    <button onClick={ onClickFunction } className={ css }>{ text }</button>
   )
 }

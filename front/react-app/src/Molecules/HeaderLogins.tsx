@@ -17,7 +17,7 @@ export const HerderLogins = (): JSX.Element => {
     <div className="border-2 border-gray-400 p-2">
       <div className="flex">
         { showLoginModal ? <LoginModal onClick={ hideLoginModal } /> : <></> }
-        { buttonAtom("ログイン", openLoginModal) }
+        { buttonAtom("ログイン", "", openLoginModal) }
         <div>
           { linkAtom("#", "ログアウト", "block") }
           { linkAtom("#", "通知", "block") }

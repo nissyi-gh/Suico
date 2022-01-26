@@ -1,4 +1,4 @@
-import { inputAtom } from "../Atoms/form"
+import { inputAtom, buttonAtom } from "../Atoms/form"
 
 export const inputWithLabel = (itemName: string, type: string, name: string, id: string, defaultValue?: string): JSX.Element => {
   const inputCss: string = "border border-gray-600";
@@ -12,4 +12,12 @@ export const inputWithLabel = (itemName: string, type: string, name: string, id:
       </div>
     </>
   )
+}
+
+export const submitButton = (text: string, clickFunction?: (e: React.FormEvent<HTMLInputElement>) => void) =>  {
+  const css: string = "inline-block border border-black cursor-pointer bg-gray-200 p-2";
+
+  return (
+    <input type="submit" value={ text }  id="submit" className={ css } onClick={ clickFunction }/>
+  );
 }
