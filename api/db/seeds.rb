@@ -3,7 +3,7 @@ User.create!(
   name: "admin user",
   email: "admin.user@test.com",
   password: "adminuser",
-  password_confirmation: "adminuser",
+  password_confirmation: "adminuser"
 )
 
 # 一般テストユーザーを登録

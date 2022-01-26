@@ -61,6 +61,7 @@ GEM
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
     ast (2.4.2)
+    bcrypt (3.1.16)
     bootsnap (1.10.2)
       msgpack (~> 1.2)
     builder (3.2.4)
@@ -194,6 +195,7 @@ PLATFORMS
   aarch64-linux
 
 DEPENDENCIES
+  bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.4)
   byebug
   factory_bot_rails
