@@ -6,7 +6,12 @@ export const linkAtom = (url: string, text: string, css: string): JSX.Element =>
   )
 }
 
-export const inputAtom = (type: string): JSX.Element => {
-  return <input type={ type } />
+export const inputAtom = (type: string, name: string, id: string, css: string,  defaultValue?: string): JSX.Element => {
+  return <input type={ type } name={ name } id={ id } defaultValue={ defaultValue } className={ css } />
 }
 
+export const buttonAtom = (text: string, onClickFunction?: () => void): JSX.Element => {
+  return (
+    <button onClick={ onClickFunction }>{ text }</button>
+  )
+}
