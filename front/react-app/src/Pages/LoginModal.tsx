@@ -1,11 +1,10 @@
-export const LoginModal = (): JSX.Element => {
+import { Modal } from "../Templates/Modal";
+import { LoginForm } from "../Organisms/LoginForm";
+
+export const LoginModal = (props: { onClick: () => void }): JSX.Element => {
   return (
     <>
-      <h2 className="text-xl">ログインフォーム</h2>
-      <ul id="form_error"></ul>
-      <form>
-
-      </form>
+      { Modal(LoginForm(props.onClick)) }
     </>
   )
 }
