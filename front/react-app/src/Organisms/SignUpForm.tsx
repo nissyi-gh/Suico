@@ -5,7 +5,7 @@ import { NewUserData } from "../types/types";
 import { userCreate } from "../urls";
 
 export const SignUpForm = (hideModalFunction: () => void): JSX.Element => {
-  const [userData, setValues] = useState<NewUserData>({
+  const [user, setValues] = useState<NewUserData>({
     name: "",
     email: "",
     password: "",
@@ -14,15 +14,15 @@ export const SignUpForm = (hideModalFunction: () => void): JSX.Element => {
 
   const userDataEmptyCheck = useCallback(
     () => {
-      return (userData.name && userData.email && userData.password && userData.password_confirmation) ? true : false
+      return (user.name && user.email && user.password && user.password_confirmation) ? true : false
     },
-  [userData]);
+  [user]);
     
 
   // userに必要な情報が送信されたら、非同期通信を行う。
   useEffect(() => {
     if (userDataEmptyCheck()) {
-      axios.post(userCreate, { userData }, { withCredentials: true })
+      axios.post(userCreate, { user }, { withCredentials: true })
         .then(response => {
           console.log(response);
           setValues({
@@ -31,6 +31,7 @@ export const SignUpForm = (hideModalFunction: () => void): JSX.Element => {
             password: "",
             password_confirmation: ""
           });
+          hideModalFunction();
         })
         .catch(error => {
           console.log(error);
@@ -38,7 +39,7 @@ export const SignUpForm = (hideModalFunction: () => void): JSX.Element => {
           submitDisabledReturn();
         })
     }
-  }, [userData, userDataEmptyCheck])
+  }, [user, userDataEmptyCheck, hideModalFunction])
 
  // 入力したユーザーデータが正常ならtrueを返す。
   const userDataValidation = (name: string, email:string, password: string, passwordConfirm: string): boolean => {
@@ -106,7 +107,7 @@ export const SignUpForm = (hideModalFunction: () => void): JSX.Element => {
   }
 
 
-  const handleClick = (event: React.FormEvent<HTMLInputElement>) => {
+  const submitClick = (event: React.FormEvent<HTMLInputElement>) => {
     const inputName: string = (document.getElementById("input_name") as HTMLInputElement).value;
     const inputEmail: string = (document.getElementById("input_email") as HTMLInputElement).value;
     const inputPassword:string = (document.getElementById("input_password") as HTMLInputElement).value;
@@ -140,8 +141,8 @@ export const SignUpForm = (hideModalFunction: () => void): JSX.Element => {
         { inputWithLabel("お名前", "text", "name", "input_name") }
         { inputWithLabel("Email", "email", "email", "input_email") }
         { inputWithLabel("パスワード", "password", "password", "input_password") }
-        { inputWithLabel("パスワード再確認", "password", "password_confirmation", "input_password_confirmation") }
-        { submitButton("登録する", handleClick) }
+        { inputWithLabel("パスワード再確認", "password", "password_confirmation", "input_password_confirm") }
+        { submitButton("登録する", submitClick) }
       </form>
       <ul id="form_error"></ul>
     </>
