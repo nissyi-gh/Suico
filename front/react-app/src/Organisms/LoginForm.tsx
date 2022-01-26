@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { inputWithLabel, submitButton, inputCheckBox } from "../Molecules/Form";
 import { LoginContext } from "../providers/LoginFlagProvider";
-import { new_session } from "../urls";
+import { new_session, sleepLogsURL } from "../urls";
 
 type LoginUserData = {
   email: string,
@@ -17,6 +18,7 @@ export const LoginForm = (hideModalFunction: () => void): JSX.Element => {
     remember_me: false
   })
   const { setLoginFlag } = useContext(LoginContext);
+  const navigate = useNavigate();
 
   const resetErrors = () => {
     const formError = document.getElementById("form_error") as HTMLUListElement;
@@ -32,6 +34,8 @@ export const LoginForm = (hideModalFunction: () => void): JSX.Element => {
         .then(response => {
           console.log(response);
           setLoginFlag(true);
+          hideModalFunction();
+          navigate(sleepLogsURL);
         })
         .catch(error => {
           console.log(error);
@@ -39,7 +43,7 @@ export const LoginForm = (hideModalFunction: () => void): JSX.Element => {
           submitDisabledReturn();
         })
     }
-  }, [session, setLoginFlag])
+  }, [session, setLoginFlag, hideModalFunction])
 
   // 送信ボタンを連打させないようにする。
   const submitDisabledReturn = () => {

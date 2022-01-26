@@ -21,11 +21,11 @@ import {
 
 export const App = (): JSX.Element => {
   return (
-    <div>
-      <div className="w-2/3 mx-auto my-0">
+    <div className="h-full">
+      <div className="w-2/3 h-full mx-auto my-0">
         <Router>
           <Header />
-          <div className="border border-gray-500 h-2/3">
+          <div className="border border-gray-500 h-1/3">
             <Routes>
               <>
                 <Route path="/users" element={ <UsersIndex /> } />
