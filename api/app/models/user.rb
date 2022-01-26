@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  attr_accessor :remember_token
+
+  before_save { email.downcase! }
   validates :name,  presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
@@ -30,5 +33,10 @@ class User < ApplicationRecord
     return false if remember_digest.nil?
 
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
+
+  # ログイン情報を破棄
+  def forget
+    update_attribute(:remember_digest, nil)
   end
 end

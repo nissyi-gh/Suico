@@ -23,3 +23,18 @@ export const submitButton = (text: string, clickFunction?: (e: React.FormEvent<H
     </div>
   );
 }
+
+export const inputCheckBox = (spanText: string, name: string, id: string): JSX.Element  => {
+  const labelCss: string = "inline-block";
+
+  return (
+    <>
+      <div className="text-center">
+        <label htmlFor={ id } className={ labelCss }>
+          { inputAtom("checkbox", name, id, "")}
+          <span>{ spanText }</span>
+        </label>
+      </div>
+    </>
+  )
+}

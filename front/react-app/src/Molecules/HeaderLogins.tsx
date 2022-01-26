@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { LoginContext } from "../providers/LoginFlagProvider";
 import { linkAtom, buttonAtom } from "../Atoms/form";
 import { LoginModal } from "../Organisms/LoginModal";
 import { SignUpModal } from "../Organisms/SignUpModal";
@@ -6,6 +7,7 @@ import { SignUpModal } from "../Organisms/SignUpModal";
 export const HerderLogins = (): JSX.Element => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const [showSignUpModal, setShowSignUpModal] = useState<boolean>(false);
+  const { loginFlag, setLoginFlag } = useContext(LoginContext);
 
   const openLoginModal = (): void => {
     setShowLoginModal(true);
@@ -28,12 +30,16 @@ export const HerderLogins = (): JSX.Element => {
       <div className="flex">
         { showLoginModal ? <LoginModal onClick={ hideLoginModal } /> : <></> }
         { showSignUpModal ? <SignUpModal onClick={ hiddenSignUpModal } /> : <></> }
-        { buttonAtom("新規登録", "", openSignUpModal) }
-        { buttonAtom("ログイン", "", openLoginModal) }
-        <div>
-          { linkAtom("#", "ログアウト", "block") }
-          { linkAtom("#", "通知", "block") }
-        </div>
+        { loginFlag ? <>
+          { buttonAtom("アラーム", "", openSignUpModal) }
+          <div>
+            { linkAtom("#", "ログアウト", "block") }
+            { linkAtom("#", "通知", "block") }
+          </div>
+        </> : <>
+          { buttonAtom("新規登録", "", openSignUpModal) }
+          { buttonAtom("ログイン", "", openLoginModal) }
+        </>}
       </div>
     </div>
   )
