@@ -3,6 +3,8 @@ import { LoginContext } from "../providers/LoginFlagProvider";
 import { linkAtom, buttonAtom } from "../Atoms/form";
 import { LoginModal } from "../Organisms/LoginModal";
 import { SignUpModal } from "../Organisms/SignUpModal";
+import axios from "axios";
+import { delete_session } from "../urls";
 
 export const HerderLogins = (): JSX.Element => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
@@ -25,6 +27,15 @@ export const HerderLogins = (): JSX.Element => {
     setShowSignUpModal(false);
   }
 
+  const clickLogout = () => {
+    axios.delete(delete_session , { withCredentials: true })
+      .then(response => {
+        setLoginFlag(false);
+        console.log(response)
+      })
+      .catch(error => console.log(error))
+  }
+
   return (
     <div className="border-2 border-gray-400 p-2">
       <div className="flex">
@@ -33,7 +44,7 @@ export const HerderLogins = (): JSX.Element => {
         { loginFlag ? <>
           { buttonAtom("アラーム", "", openSignUpModal) }
           <div>
-            { linkAtom("#", "ログアウト", "block") }
+            { buttonAtom("ログアウト", "", clickLogout) }
             { linkAtom("#", "通知", "block") }
           </div>
         </> : <>
