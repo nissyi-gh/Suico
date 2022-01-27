@@ -57,6 +57,7 @@ export const LoginForm = (hideModalFunction: () => void): JSX.Element => {
   useEffect(() => {
     if (request === REQUEST_STATE.OK) {
       whenSuccessLogin();
+      setRequest(REQUEST_STATE.INITIAL);
     }
   }, [request, whenSuccessLogin])
 
