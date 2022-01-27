@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect, useCallback } from "react";
 import { inputWithLabel, submitButton } from "../Molecules/Form";
 import { NewUserData } from "../types/types";
-import { userCreate } from "../urls";
+import { userCreate } from "../constants/urls";
 
 export const SignUpForm = (hideModalFunction: () => void): JSX.Element => {
   const [user, setValues] = useState<NewUserData>({

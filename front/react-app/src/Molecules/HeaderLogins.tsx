@@ -4,7 +4,7 @@ import { linkAtom, buttonAtom } from "../Atoms/form";
 import { LoginModal } from "../Organisms/LoginModal";
 import { SignUpModal } from "../Organisms/SignUpModal";
 import axios from "axios";
-import { delete_session } from "../urls";
+import { delete_session } from "../constants/urls";
 
 export const HerderLogins = (): JSX.Element => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);

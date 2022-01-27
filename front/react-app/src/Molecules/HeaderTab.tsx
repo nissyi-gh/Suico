@@ -5,7 +5,7 @@ import {
   accountSettingsURL, 
   aboutURL, 
   contactURL
-} from "../urls/index";
+} from "../constants/urls";
 
 type HeaderLink = {
   url: string,

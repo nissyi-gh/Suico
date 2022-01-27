@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { inputWithLabel, submitButton, inputCheckBox } from "../Molecules/Form";
 import { LoginContext } from "../providers/LoginFlagProvider";
-import { new_session, sleepLogsURL } from "../urls";
+import { new_session, sleepLogsURL } from "../constants/urls";
+import { REQUEST_STATE } from '../constants/constants';
 
 type LoginUserData = {
   email: string,
@@ -18,6 +19,7 @@ export const LoginForm = (hideModalFunction: () => void): JSX.Element => {
     remember_me: false
   })
   const { setLoginFlag } = useContext(LoginContext);
+  const [request, setRequest] = useState(REQUEST_STATE.INITIAL);
   const navigate = useNavigate();
 
   const resetErrors = () => {
@@ -31,24 +33,37 @@ export const LoginForm = (hideModalFunction: () => void): JSX.Element => {
   useEffect(() => {
     if (session.email && session.password) {
       axios.post(new_session, { session }, { withCredentials: true })
-        .then(response => {
-          console.log(response);
-          setLoginFlag(true);
-          hideModalFunction();
-          navigate(sleepLogsURL);
-        })
-        .catch(error => {
-          console.log(error);
-          // setErrorOther("メールアドレスとパスワードの組合わせが正しくありません。");
-          submitDisabledReturn();
-        })
+      .then(response => {
+        console.log(response);
+        setRequest(REQUEST_STATE.OK);
+      })
+      .catch(error => {
+        console.log(error);
+        // setErrorOther("メールアドレスとパスワードの組合わせが正しくありません。");
+        submitDisabledReturn();
+        setRequest(REQUEST_STATE.INITIAL);
+      })
     }
-  }, [session, setLoginFlag, hideModalFunction])
+  }, [session])
+  
+  const whenSuccessLogin = useCallback(
+    () => {
+      setLoginFlag(true);
+      hideModalFunction();
+      navigate(sleepLogsURL);
+    }, [hideModalFunction, navigate, setLoginFlag]);
+
+  // Loginに成功したらModalを閉じる。
+  useEffect(() => {
+    if (request === REQUEST_STATE.OK) {
+      whenSuccessLogin();
+    }
+  }, [request, whenSuccessLogin])
 
   // 送信ボタンを連打させないようにする。
   const submitDisabledReturn = () => {
     const submit = document.getElementById("submit") as HTMLInputElement;
-    submit.disabled =  submit.disabled ? false : true
+    submit.disabled =  submit.disabled ? false : true;
   }
 
   // 入力したユーザーデータが正常ならtrueを返す。

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ReactElement, createContext, useState, useEffect } from "react";
-import { loggedIn } from '../urls/index';
+import { loggedIn } from '../constants/urls';
 
 export const LoginContext =  createContext({} as {
   loginFlag: boolean,

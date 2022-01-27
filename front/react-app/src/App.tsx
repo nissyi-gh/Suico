@@ -17,7 +17,7 @@ import {
   accountSettingsURL, 
   aboutURL, 
   contactURL
-} from "./urls";
+} from "./constants/urls";
 
 export const App = (): JSX.Element => {
   return (

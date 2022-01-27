@@ -1,4 +1,4 @@
-import { usersIndex } from '../urls/index';
+import { usersIndex } from '../constants/urls';
 import axios from 'axios';
 import { User } from '../types/types'
 import { useState, useEffect } from 'react';
