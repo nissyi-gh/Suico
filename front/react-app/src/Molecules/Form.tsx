@@ -1,4 +1,6 @@
-import { inputAtom } from "../Atoms/form"
+import { useEffect } from "react";
+import { inputAtom } from "../Atoms/form";
+import { formatNumberDigit } from "../Functions/Functions";
 
 export const inputWithLabel = (itemName: string, type: string, name: string, id: string, defaultValue?: string): JSX.Element => {
   const inputCss: string = "border border-gray-600";
@@ -35,6 +37,53 @@ export const inputCheckBox = (spanText: string, name: string, id: string): JSX.E
           <span>{ spanText }</span>
         </label>
       </div>
+    </>
+  )
+}
+
+const timerOptionCleate = (setter: HTMLSelectElement, limit: number) => {
+  const now = new Date();
+
+  for(let i: number = 0; i < limit; i++) {
+    const element = document.createElement('option');
+    
+    element.value = i.toString();
+    element.textContent = formatNumberDigit(i);
+
+    // 現在時刻をselected
+    switch (limit) {
+      case 24:
+        if (i === now.getHours()) {
+          element.selected = true;
+        }
+        break;
+      case 60:
+        if (i === now.getMinutes()) {
+          element.selected = true;
+        }
+        break;
+    }
+    setter.append(element);
+  }
+}
+
+export const AlarmSetterWithLabel = (itemName: string, name: string, id: string): JSX.Element => {
+  useEffect(() => {
+    const hourSetter = document.getElementById(`${ id }_hour`) as HTMLSelectElement;
+    const minSetter = document.getElementById(`${ id }_min`) as HTMLSelectElement;
+    
+    if(hourSetter && minSetter) {
+      timerOptionCleate(hourSetter, 24);
+      timerOptionCleate(minSetter, 60);
+    }
+  }, [id])
+
+  const selecterCSS: string = "border bg-inherit";
+  return (
+    <>
+      <label htmlFor={ id } className="block">{itemName}</label>
+      <select name={ name } id={ `${ id }_hour` } className={ selecterCSS }></select>
+      <select name={ name } id={ `${ id }_min` } className={ selecterCSS }></select>
     </>
   )
 }
