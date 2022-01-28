@@ -1,0 +1,105 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+
+# 対象外にする
+AllCops:
+  TargetRubyVersion: 3.0.3
+  Exclude:
+    - "vendor/**/*"
+    - "bin/**"
+    - "config/**/*"
+    - "db/schema.rb"
+    - "node_modules/**/*"
+    - "tmp/**/*"
+    - "lib/**/*"
+    - "spec/**/*"
+    - "Gemfile"
+  DisplayCopNames: true
+  NewCops: enable
+
+# trueかfalseを設定しないと警告が出る
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
+
+##################### Style ##################################
+
+# 日本語のコメントを許可する
+Style/AsciiComments:
+  Enabled: false
+
+# ドキュメントの無いpublic classを許可する
+Style/Documentation:
+  Enabled: false
+
+# !! のイディオムを許可
+Style/DoubleNegation:
+  Enabled: false
+
+# 処理が記述されていないメソッドは1行にする
+Style/EmptyMethod:
+  Enabled: false
+
+# 文字列をfreezeするか
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# 千単位の区切り文字にはアンダースコアを使用し、3桁ごとに区切る
+Style/NumericLiterals:
+  Enabled: false
+
+# selfが無くても良い時に省略するか。model内において、ローカル変数とメソッド呼び出しの区別をつけた方が分かりやすい場合が多い
+Style/RedundantSelf:
+  Enabled: false
+
+#文字列の結合は式展開を優先させる
+Style/StringConcatenation:
+  Enabled: false
+
+# シングルクォーテーションを基本的に使用する。
+Style/StringLiterals:
+  Enabled: false
+
+#文字列の配列は%wで作成する
+Style/WordArray:
+  Enabled: false
+
+##################### Layout ##################################
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+##################### Lint ##################################
+# 使用していない変数をチェック
+Lint/UselessAssignment:
+  Exclude:
+    - "spec/**/*"
+
+##################### Metrics ##################################
+
+# 変数の代入(A)、メソッドの呼び出し等(B)、条件分岐(C)から算出される複雑度
+Metrics/AbcSize:
+  Max: 30
+
+# 循環的複雑度 ≒ 分岐の数
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+# メソッドの行数
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - "db/migrate/*.rb"
+
+# ブロックの行数
+Metrics/BlockLength:
+  Enabled: false
+
+# validationをスキップしてしまうため、update_attributeを使用させない
+##################### Rails ##################################
+Rails/SkipsModelValidations:
+  Enabled: false
