@@ -1,5 +1,8 @@
 import { FormEvent, useEffect, useState } from "react";
-import { submitButton, AlarmSetterWithLabel } from "../Molecules/Form";
+import { submitButton, AlarmSetterWithLabel, TaskSelecterWithLabel } from "../Molecules/Form";
+import { setAlarmDateTime } from "../Functions/Alarm";
+import { AlarmSetter } from "../Molecules/AlarmSetter";
+import { AlarmStopper } from "../Molecules/AlarmStopper";
 // Day.js
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
@@ -8,6 +11,12 @@ dayjs.locale('ja');
 export const Alarm = (hideModalFunction: () => void): JSX.Element => {
   // 現在時刻を表示
   const [currentDateTime, setCurrentDateTime] = useState<dayjs.Dayjs>(dayjs());
+  // 睡眠を始めた日時を記録
+  const [sleepAt, setSleepAt] = useState<dayjs.Dayjs>();
+  // アラームが動作する日時
+  const [alarm, setAlarm] = useState<dayjs.Dayjs>();
+  // アラーム鳴動までの残り時間
+  const [alarmLeftTime, setAlarmLeftTime] = useState<dayjs.Dayjs>();
 
   // 時計更新
   useEffect(() => {
@@ -18,14 +27,12 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
     return () => clearInterval(timer);
   }, [])
 
-  const setAfterMinute = (event: FormEvent): void => {
-    const hourSetter = document.getElementById("wake_at_hour") as HTMLSelectElement;
-    const minSetter = document.getElementById("wake_at_min") as HTMLSelectElement;
-    const afterMinute: dayjs.Dayjs = dayjs().add(1, 'minute');
 
+  // おやすみボタンを押したとき
+  const onClickSleepIn = (event: FormEvent): void => {
     event.preventDefault();
-    hourSetter.selectedIndex = afterMinute.hour();
-    minSetter.selectedIndex = afterMinute.minute();
+    setSleepAt(dayjs());
+    setAlarm(setAlarmDateTime());
   }
 
   const titleCSS = 'underline text-lg bg-gray-400';
@@ -35,18 +42,16 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
         <p className="inline-block">アラーム画面</p>
         <button onClick={ hideModalFunction }>閉じる</button>
       </div>
-      <div className="border border-white text-white mb-2">
-        <h2 className={ titleCSS }>現在時刻</h2>
-        <p>{ currentDateTime.format('YYYY/MM/DD') }</p>
-        <p>{ currentDateTime.format('HH:MM') }</p>
+      <div className="border border-white mb-2">
+        <h2 className={ titleCSS }>現在 : </h2>
+        <p>{ currentDateTime.format('YYYY/MM/DD HH:mm') }</p>
       </div>
       <div>
-        <h2 className={ titleCSS }>アラーム</h2>
-        <form id="alarm_setter">
-          <div className="text-white">プリセット</div>
-          { AlarmSetterWithLabel("起床時刻", "timer", "wake_at") }
-          { submitButton('1分後に設定する', setAfterMinute)}
-        </form>
+        { alarm ? <>
+          <AlarmStopper alarm={ alarm }/>
+        </> : <>
+          <AlarmSetter onClickSleepIn={ onClickSleepIn } />
+        </>}
       </div>
     </>
   )

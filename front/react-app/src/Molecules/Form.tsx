@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { inputAtom } from "../Atoms/form";
+import { taskOptionCreate } from "../Functions/Alarm";
 import { formatNumberDigit } from "../Functions/Functions";
 
 export const inputWithLabel = (itemName: string, type: string, name: string, id: string, defaultValue?: string): JSX.Element => {
@@ -80,10 +81,26 @@ export const AlarmSetterWithLabel = (itemName: string, name: string, id: string)
 
   const selecterCSS: string = "border bg-inherit";
   return (
-    <>
-      <label htmlFor={ id } className="block">{itemName}</label>
+    <div>
+      <label htmlFor={ id } className="inline-block w-1/5">{ itemName }</label>
       <select name={ name } id={ `${ id }_hour` } className={ selecterCSS }></select>
       <select name={ name } id={ `${ id }_min` } className={ selecterCSS }></select>
-    </>
+    </div>
+  )
+}
+
+export const TaskSelecterWithLabel = (itemName:string, name: string, id: string): JSX.Element => {
+  useEffect(() => {
+    const selector = document.getElementById(id) as HTMLSelectElement;
+    taskOptionCreate(selector);
+  }, [id])
+
+  return (
+    <div>
+      <label htmlFor={ id } className="inline-block w-1/5">
+        { itemName }
+      </label>
+      <select name={ name } id={ id } className="border bg-inherit"></select>
+    </div>
   )
 }
