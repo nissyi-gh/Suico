@@ -1,3 +1,4 @@
+import { formatNumberDigit } from "./Functions";
 // dayjs
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
@@ -39,4 +40,21 @@ export const setHowToStop = (): number => {
   const taskSelector = (document.getElementById("task_selector") as HTMLSelectElement).value;
 
   return parseInt(taskSelector, 10);
+}
+
+// アラームの残り時間を設定
+export const setLeftTime = (now: dayjs.Dayjs, alarm: dayjs.Dayjs): string => {
+  if (alarm.diff(now, "ms") > 0) {
+    // 秒までしか残り時間を表示しないため、"00:00:00:xxx"のようにミリ秒が
+    // 残っていても残りは0秒と表示されてしまう。補正のため1秒をプラス。
+    const adjsutSecond = 1;
+
+    const leftHour: string = formatNumberDigit(alarm.diff(now, 'hour'));
+    const leftMin: string = formatNumberDigit(alarm.diff(now, 'minute'));
+    const leftSec: string = formatNumberDigit(alarm.diff(now, 'second') + adjsutSecond);
+
+    return `${leftHour}:${leftMin}:${leftSec}`;
+  } else {
+    return "00:00:00";
+  }
 }

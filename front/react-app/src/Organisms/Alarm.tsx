@@ -1,6 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { submitButton, AlarmSetterWithLabel, TaskSelecterWithLabel } from "../Molecules/Form";
-import { setAlarmDateTime, setHowToStop } from "../Functions/Alarm";
+import { setAlarmDateTime, setHowToStop, setLeftTime } from "../Functions/Alarm";
 import { AlarmSetter } from "../Molecules/AlarmSetter";
 import { AlarmStopper } from "../Molecules/AlarmStopper";
 // Day.js
@@ -16,7 +15,7 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
   // アラームが動作する日時
   const [alarm, setAlarm] = useState<dayjs.Dayjs>();
   // アラーム鳴動までの残り時間
-  const [alarmLeftTime, setAlarmLeftTime] = useState<dayjs.Dayjs>();
+  const [alarmLeftTime, setAlarmLeftTime] = useState<string>();
   // アラーム解除のタスク
   const [task, setTask] = useState<number>();
 
@@ -25,9 +24,13 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
     const timer = setInterval(() => {
       const now: dayjs.Dayjs = dayjs();
       setCurrentDateTime(now);
+
+      if (alarm) {
+        setAlarmLeftTime(setLeftTime(now, alarm));
+      }
     }, 1000);
     return () => clearInterval(timer);
-  }, [])
+  }, [alarm])
 
 
   // おやすみボタンを押したとき
@@ -51,7 +54,7 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
       </div>
       <div>
         { alarm ? <>
-          <AlarmStopper alarm={ alarm } task={ task } />
+          <AlarmStopper alarm={ alarm } task={ task } alarmLeftTime={ alarmLeftTime }/>
         </> : <>
           <AlarmSetter onClickSleepIn={ onClickSleepIn } />
         </>}

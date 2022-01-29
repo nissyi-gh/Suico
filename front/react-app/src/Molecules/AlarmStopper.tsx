@@ -6,13 +6,19 @@ dayjs.locale('ja');
 type propsFunctions = {
   alarm: dayjs.Dayjs,
   task: number | undefined,
+  alarmLeftTime: string | undefined, 
 }
 
-export const AlarmStopper = ({ alarm, task }: propsFunctions): JSX.Element => {
+export const AlarmStopper = ({ alarm, task, alarmLeftTime }: propsFunctions): JSX.Element => {
   return (
     <>
       <div className="border border-white">
-        アラーム日時 : { alarm.format('YYYY/MM/DD HH:mm') }
+        <p className="block">
+          アラーム日時 : { alarm.format('YYYY/MM/DD HH:mm') }
+        </p>
+        <p className="block">
+          残り時間 : { alarmLeftTime }
+        </p>
       </div>
       <form>
         <div className="text-right flex flex-end items-end">
