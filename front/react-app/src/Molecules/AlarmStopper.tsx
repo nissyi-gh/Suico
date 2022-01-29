@@ -3,7 +3,12 @@ import dayjs from "dayjs";
 import "dayjs/locale/ja";
 dayjs.locale('ja');
 
-export const AlarmStopper = ({ alarm }:{ alarm: dayjs.Dayjs }): JSX.Element => {
+type propsFunctions = {
+  alarm: dayjs.Dayjs,
+  task: number | undefined,
+}
+
+export const AlarmStopper = ({ alarm, task }: propsFunctions): JSX.Element => {
   return (
     <>
       <div className="border border-white">

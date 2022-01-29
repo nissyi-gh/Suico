@@ -6,7 +6,11 @@ import "dayjs/locale/ja";
 import { FormEvent } from "react";
 dayjs.locale('ja');
 
-export const AlarmSetter = ({ onClickSleepIn } : { onClickSleepIn: (event: FormEvent) => void} ): JSX.Element => {
+type propsFunctions = {
+  onClickSleepIn: (event: FormEvent) => void,
+}
+
+export const AlarmSetter = ({ onClickSleepIn } : propsFunctions ): JSX.Element => {
   // 1分後に設定
   const setAfterMinute = (event: FormEvent): void => {
     const hourSetter = document.getElementById("wake_at_hour") as HTMLSelectElement;
@@ -24,7 +28,7 @@ export const AlarmSetter = ({ onClickSleepIn } : { onClickSleepIn: (event: FormE
       <div className="border">
         <div className="text-white">プリセット</div>
         { AlarmSetterWithLabel("起床時刻", "timer", "wake_at") }
-        { TaskSelecterWithLabel("停止方法", "stop_method", "method_selector") }
+        { TaskSelecterWithLabel("停止方法", "stop_method", "task_selector") }
         { submitButton('1分後に設定する', setAfterMinute) }
       </div>
       { submitButton('おやすみ', onClickSleepIn) }

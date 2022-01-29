@@ -5,7 +5,7 @@ import { LoginModal } from "../Organisms/LoginModal";
 import { SignUpModal } from "../Organisms/SignUpModal";
 import axios from "axios";
 import { delete_session } from "../constants/urls";
-import { AlarmModal } from "../Organisms/AlarmModal";
+import { AlarmModal } from "../Pages/AlarmModal";
 
 export const HerderLogins = (): JSX.Element => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);

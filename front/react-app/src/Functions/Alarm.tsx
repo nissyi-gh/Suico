@@ -33,3 +33,10 @@ export const setAlarmDateTime = (): dayjs.Dayjs => {
 
   return willSetAlarm;
 }
+
+// アラームの止め方を取得
+export const setHowToStop = (): number => {
+  const taskSelector = (document.getElementById("task_selector") as HTMLSelectElement).value;
+
+  return parseInt(taskSelector, 10);
+}
