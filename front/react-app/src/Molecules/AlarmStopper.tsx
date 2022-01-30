@@ -100,11 +100,7 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime }: propsFunctions
           <img src="alarm_sheep.png" alt="Sheep" className="block w-full" />
         </div>
       </div>
-      { taskLeft ? 
-      <button onClick={ () => { setTaskLeft(taskLeft - 1)} } className="border bg-orange-50">へらすんご</button>
-      : <></>
-      }
-      <div id="wake_up_button" className="hidden border border-white w-24">おはようボタン</div>
+      <button id="wake_up_button" className="hidden border border-black w-24 bg-gray-200">おはよう</button>
     </>
   )
 })
