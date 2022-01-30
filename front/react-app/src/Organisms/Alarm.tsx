@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { setAlarmDateTime, setHowToStop, setLeftTime } from "../Functions/Alarm";
 import { AlarmSetter } from "../Molecules/AlarmSetter";
 import { AlarmStopper } from "../Molecules/AlarmStopper";
+import { ALARM_STATE } from "../constants/constants";
 // Day.js
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
@@ -27,7 +28,10 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
 
       if (alarm) {
         setAlarmLeftTime(setLeftTime(now, alarm));
+        if (alarm <= now){
+        }
       }
+
     }, 1000);
     return () => clearInterval(timer);
   }, [alarm])
@@ -54,7 +58,7 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
       </div>
       <div>
         { alarm ? <>
-          <AlarmStopper alarm={ alarm } task={ task } alarmLeftTime={ alarmLeftTime }/>
+          <AlarmStopper alarm={ alarm } task={ task } alarmLeftTime={ alarmLeftTime } />
         </> : <>
           <AlarmSetter onClickSleepIn={ onClickSleepIn } />
         </>}

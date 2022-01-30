@@ -4,3 +4,10 @@ export const formatNumberDigit = (num: number): string => {
   
   return returnString
 }
+
+// min以上max以下の整数を返す。
+export const getRandomIntInclusive = (min: number, max: number): number => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
