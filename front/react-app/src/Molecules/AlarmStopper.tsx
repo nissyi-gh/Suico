@@ -1,10 +1,11 @@
 import { memo, useCallback, useEffect, useState } from "react";
 import { calculateProblem } from '../types/types';
-import { problemTypeConverter, setCalclationProblems } from "../Functions/Tasks/Calculate";
+import { problemTypeConverter, randomAnswers, setCalclationProblems } from "../Functions/Tasks/Calculate";
 import { hiddenTaskField, showTaskField, showWakeUpButton } from "../Functions/Alarm";
 // Day.js
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
+import { getRandomIntInclusive } from "../Functions/Functions";
 dayjs.locale('ja');
 
 type propsFunctions = {
@@ -14,19 +15,29 @@ type propsFunctions = {
 }
 
 export const AlarmStopper = memo(({ alarm, task, alarmLeftTime }: propsFunctions): JSX.Element => {
-  const [taskLeft, setTaskLeft] = useState<number>(task === 0 ? 0 : 10);
+  const [taskLeft, setTaskLeft] = useState<number>(task === 0 ? 0 : getRandomIntInclusive(1, 5));
+  const [answers, setAnswers] = useState<number[] | undefined>();
   const [problem, setProblem] = useState<calculateProblem>({
-    leftNumber: 0,
-    type: 0,
-    rightNumber: 0,
-    answer: 0
+    leftNumber: undefined,
+    type: undefined,
+    rightNumber: undefined,
+    answer: undefined
   });
-  console.log(taskLeft)
-  console.log(problem)
 
   const createTask = useCallback(() => {
     task === 1 ? setCalclationProblems(setProblem) : console.log(2);
   }, [task]);
+
+  const answerCheck = (id: number): void => {
+    const status = document.getElementById("answer_status") as HTMLParagraphElement;
+
+    if(id === problem.answer) {
+      status.textContent = "正解です";
+      setTaskLeft(taskLeft - 1);
+    } else {
+      status.textContent = "答えが違います。";
+    }
+  }
 
   useEffect(() => {
     if (taskLeft) createTask();
@@ -43,6 +54,14 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime }: propsFunctions
     }
   }, [taskLeft, alarmLeftTime])
 
+  useEffect(() => {
+    if(problem.answer !== undefined) {
+      setAnswers(randomAnswers(problem.answer));
+    }
+  }, [problem.answer])
+
+  const answerPanelCSS: string = "inline-block border-2 text-center w-8 h-8 m-2 border-black text-gray-50 bg-gray-500 cursor-pointer select-none"
+
   return (
     <>
       <div className="border border-white">
@@ -58,12 +77,19 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime }: propsFunctions
         <div id="calculate">
           <p>
             <span id="question_left">{ problem.leftNumber }</span>
-            <span id="manipulate_type">{ problemTypeConverter(problem.type) }</span>
+            <span id="manipulate_type"> { problemTypeConverter(problem.type) } </span>
             <span id="question_right">{ problem.rightNumber }</span>
             <span id="question_equal">= ?</span>
           </p>
           <div id="answer">
             <p className="border-2 bg-gray-400">解答を選んでください。</p>
+            <ul id="answer_buttons" className="flex">
+              { answers?.map((item) => {
+                return(
+                  <li key={ item } id={ item.toString() } className={ answerPanelCSS } onClick={ () => answerCheck(item)}>{ item }</li>
+                  ) 
+                })}
+            </ul>
             <p id="answer_status"></p>
           </div>
         </div>
@@ -74,8 +100,11 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime }: propsFunctions
           <img src="alarm_sheep.png" alt="Sheep" className="block w-full" />
         </div>
       </div>
+      { taskLeft ? 
       <button onClick={ () => { setTaskLeft(taskLeft - 1)} } className="border bg-orange-50">へらすんご</button>
-      <div id="wake_up_button" className="hidden">おはようボタン</div>
+      : <></>
+      }
+      <div id="wake_up_button" className="hidden border border-white w-24">おはようボタン</div>
     </>
   )
 })

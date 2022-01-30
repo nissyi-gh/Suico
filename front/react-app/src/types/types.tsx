@@ -12,8 +12,8 @@ export type NewUserData = {
 }
 
 export type calculateProblem = {
-  leftNumber: number,
-  type: number,
-  rightNumber: number,
-  answer: number
+  leftNumber: number | undefined,
+  type: number | undefined,
+  rightNumber: number | undefined,
+  answer: number | undefined
 }
