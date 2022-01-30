@@ -10,3 +10,10 @@ export type NewUserData = {
   password: string,
   password_confirmation: string
 }
+
+export type calculateProblem = {
+  leftNumber: number,
+  type: number,
+  rightNumber: number,
+  answer: number
+}

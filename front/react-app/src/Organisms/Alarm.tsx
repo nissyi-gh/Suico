@@ -2,7 +2,6 @@ import { FormEvent, useEffect, useState } from "react";
 import { setAlarmDateTime, setHowToStop, setLeftTime } from "../Functions/Alarm";
 import { AlarmSetter } from "../Molecules/AlarmSetter";
 import { AlarmStopper } from "../Molecules/AlarmStopper";
-import { ALARM_STATE } from "../constants/constants";
 // Day.js
 import dayjs from "dayjs";
 import "dayjs/locale/ja";

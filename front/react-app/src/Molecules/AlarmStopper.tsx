@@ -1,8 +1,10 @@
+import { memo, useCallback, useEffect, useState } from "react";
+import { calculateProblem } from '../types/types';
+import { problemTypeConverter, setCalclationProblems } from "../Functions/Tasks/Calculate";
+import { hiddenTaskField, showTaskField, showWakeUpButton } from "../Functions/Alarm";
 // Day.js
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
-import { createElement, memo, useEffect, useState } from "react";
-import { ALARM_STATE } from "../constants/constants";
 dayjs.locale('ja');
 
 type propsFunctions = {
@@ -12,35 +14,34 @@ type propsFunctions = {
 }
 
 export const AlarmStopper = memo(({ alarm, task, alarmLeftTime }: propsFunctions): JSX.Element => {
-  console.log("RenderTest: AlarmStopper");
-  const [taskLeft, setTaskLeft] = useState<number>(task === 0 ? 0 : 100);
-  const taskField = document.getElementById("task_field") as HTMLDivElement;
+  const [taskLeft, setTaskLeft] = useState<number>(task === 0 ? 0 : 10);
+  const [problem, setProblem] = useState<calculateProblem>({
+    leftNumber: 0,
+    type: 0,
+    rightNumber: 0,
+    answer: 0
+  });
+  console.log(taskLeft)
+  console.log(problem)
 
-  const showWakeUpButton = () => {
-    const wakeUpButton = document.getElementById("wake_up_button") as HTMLDivElement;
+  const createTask = useCallback(() => {
+    task === 1 ? setCalclationProblems(setProblem) : console.log(2);
+  }, [task]);
 
-    wakeUpButton.classList.remove('hidden');
-  }
-
-  const taskCreate = (task: number | undefined) => {
-    const taskField = document.getElementById("task_field") as HTMLDivElement;
-
-    taskField.classList.remove("hidden");
-    switch (task) {
-      case 1: 
-        break;
-      case 2:
-        console.log("2");
-        break;
-    }
-  }
-  
   useEffect(() => {
-    if (alarmLeftTime === "00:00:00") {
-      taskLeft ? taskCreate(task) : showWakeUpButton();
-    }
-  }, [taskLeft, task, alarmLeftTime])
+    if (taskLeft) createTask();
+  }, [taskLeft, createTask])
 
+  useEffect(() => {
+    if(alarmLeftTime === "00:00:00") {
+      showTaskField();
+
+      if (!taskLeft) {
+        showWakeUpButton();
+        hiddenTaskField();
+      }
+    }
+  }, [taskLeft, alarmLeftTime])
 
   return (
     <>
@@ -56,9 +57,9 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime }: propsFunctions
         { taskLeft ? <p>残りの問題数 { taskLeft }</p> : <></> }
         <div id="calculate">
           <p>
-            <span id="question_left"></span>
-            <span id="manipulate_type"></span>
-            <span id="question_right"></span>
+            <span id="question_left">{ problem.leftNumber }</span>
+            <span id="manipulate_type">{ problemTypeConverter(problem.type) }</span>
+            <span id="question_right">{ problem.rightNumber }</span>
             <span id="question_equal">= ?</span>
           </p>
           <div id="answer">
@@ -73,6 +74,7 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime }: propsFunctions
           <img src="alarm_sheep.png" alt="Sheep" className="block w-full" />
         </div>
       </div>
+      <button onClick={ () => { setTaskLeft(taskLeft - 1)} } className="border bg-orange-50">へらすんご</button>
       <div id="wake_up_button" className="hidden">おはようボタン</div>
     </>
   )
