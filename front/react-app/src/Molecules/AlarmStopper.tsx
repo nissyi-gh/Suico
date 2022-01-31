@@ -10,6 +10,7 @@ import { REQUEST_STATE } from "../constants/constants";
 // Day.js
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
+import { useNavigate } from "react-router-dom";
 dayjs.locale('ja');
 
 type propsFunctions = {
@@ -32,6 +33,7 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: props
   const [panels, setPanels] = useState<number[]>();
   const [panelMax, setPanelMax] = useState<number>(0);
   const [panelAnswer, setPanelAnswer] = useState<number>(0);
+  const navigate = useNavigate();
 
   const createTask = useCallback(() => {
     task === 1 ? setCalclationProblems(setProblem) : setPanelMax(getRandomIntInclusive(5, 20));
@@ -94,6 +96,7 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: props
   // 睡眠データの登録が完了したらアラームモーダルを閉じる
   const onClickWakeUpButton = async (): Promise<void> => {
     if (await submitSleepLog(sleepAt) === REQUEST_STATE.OK) {
+      navigate("/sleep_logs");
       setShowAlarmFlag(false);
     }
   }
