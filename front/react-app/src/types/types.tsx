@@ -28,3 +28,10 @@ export type SleepLog = {
   wake_at: string,
   sleep_time: string
 }
+
+export type RequestState = {
+  INITIAL: 'INITIAL',
+  LOADING: 'LOADING',
+  OK: 'OK',
+  FAILED: 'FAILED'
+}

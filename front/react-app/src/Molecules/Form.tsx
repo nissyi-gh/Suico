@@ -104,3 +104,18 @@ export const TaskSelecterWithLabel = (itemName:string, name: string, id: string)
     </div>
   )
 }
+
+export const Satisfactionselector = (): JSX.Element => {
+  return (
+    <>
+      <select name="satisfaction" id="satisfaction" className="border">
+        <option value="null">記録しない</option>
+        <option value="0">X</option>
+        <option value="1">△</option>
+        <option value="2">◯</option>
+        <option value="3">◎</option>
+        <option value="4">☆</option>
+      </select>
+    </>
+  )
+}

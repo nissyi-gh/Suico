@@ -63,7 +63,7 @@ export const SleepLogs = (): JSX.Element => {
         setSleepLogs(returnLogsArray(res.data.sleep_logs));
       })
       .catch(e => console.log(e));
-  })
+  }, [])
 
   return (
     <>

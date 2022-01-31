@@ -22,6 +22,21 @@ module Api
           min: sleep_data[5]
         }, status: :ok
       end
+
+      def create
+        sleep_log = current_user.sleep_logs.build(sleep_log_params)
+        if sleep_log.save
+          render json: {}, status: :ok
+        else
+          render json: {}, status: :bad_request
+        end
+      end
+
+      private
+
+      def sleep_log_params
+        params.require(:sleep_log).permit(:sleep_at, :wake_at, :satisfaction)
+      end
     end
   end
 end

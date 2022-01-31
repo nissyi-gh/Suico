@@ -1,21 +1,26 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useContext, useEffect, useState } from "react";
 import { calculateProblem } from '../types/types';
 import { problemTypeConverter, randomAnswers, setCalclationProblems } from "../Functions/Tasks/Calculate";
-import { hiddenTaskField, showTaskField, showWakeUpButton } from "../Functions/Alarm";
+import { hiddenTaskField, showTaskField, showWakeUpButton, submitSleepLog } from "../Functions/Alarm";
+import { getRandomIntInclusive } from "../Functions/Functions";
+import { returnRandomPanels, reRenderPanleContent } from "../Functions/Tasks/Panles";
+import { Satisfactionselector } from "./Form";
+import { showAlarmContext } from "../providers/ShowAlarmFlagProvider";
+import { REQUEST_STATE } from "../constants/constants";
 // Day.js
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
-import { getRandomIntInclusive } from "../Functions/Functions";
-import { returnRandomPanels, reRenderPanleContent } from "../Functions/Tasks/Panles";
 dayjs.locale('ja');
 
 type propsFunctions = {
   alarm: dayjs.Dayjs,
   task: number | undefined,
-  alarmLeftTime: string | undefined, 
+  alarmLeftTime: string | undefined,
+  sleepAt: dayjs.Dayjs
 }
 
-export const AlarmStopper = memo(({ alarm, task, alarmLeftTime }: propsFunctions): JSX.Element => {
+export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: propsFunctions): JSX.Element => {
+  const { setShowAlarmFlag } = useContext(showAlarmContext);
   const [taskLeft, setTaskLeft] = useState<number>(task === 0 ? 0 : getRandomIntInclusive(1, 5));
   const [answers, setAnswers] = useState<number[] | undefined>();
   const [problem, setProblem] = useState<calculateProblem>({
@@ -86,6 +91,13 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime }: propsFunctions
     }
   }
 
+  // 睡眠データの登録が完了したらアラームモーダルを閉じる
+  const onClickWakeUpButton = async (): Promise<void> => {
+    if (await submitSleepLog(sleepAt) === REQUEST_STATE.OK) {
+      setShowAlarmFlag(false);
+    }
+  }
+
   const answerPanelCSS: string = "inline-block border-2 text-center w-8 h-8 m-2 border-black text-gray-50 bg-gray-500 cursor-pointer select-none"
 
   return (
@@ -142,7 +154,8 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime }: propsFunctions
           <img src="alarm_sheep.png" alt="Sheep" className="block w-full" />
         </div>
       </div>
-      <button id="wake_up_button" className="hidden border border-black w-24 bg-gray-200">おはよう</button>
+      { Satisfactionselector() }
+      <button id="wake_up_button" className="hidden border border-black w-24 bg-gray-200" onClick={ onClickWakeUpButton }>おはよう</button>
     </>
   )
 })

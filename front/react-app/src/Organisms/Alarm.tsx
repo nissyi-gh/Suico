@@ -11,7 +11,7 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
   // 現在時刻を表示
   const [currentDateTime, setCurrentDateTime] = useState<dayjs.Dayjs>(dayjs());
   // 睡眠を始めた日時を記録
-  const [sleepAt, setSleepAt] = useState<dayjs.Dayjs>();
+  const [sleepAt, setSleepAt] = useState<dayjs.Dayjs>(dayjs());
   // アラームが動作する日時
   const [alarm, setAlarm] = useState<dayjs.Dayjs>();
   // アラーム鳴動までの残り時間
@@ -57,7 +57,7 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
       </div>
       <div>
         { alarm ? <>
-          <AlarmStopper alarm={ alarm } task={ task } alarmLeftTime={ alarmLeftTime } />
+          <AlarmStopper alarm={ alarm } task={ task } alarmLeftTime={ alarmLeftTime } sleepAt={ sleepAt }/>
         </> : <>
           <AlarmSetter onClickSleepIn={ onClickSleepIn } />
         </>}

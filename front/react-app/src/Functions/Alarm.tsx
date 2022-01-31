@@ -1,4 +1,7 @@
 import { formatNumberDigit } from "./Functions";
+import { sleepLogsAPI } from "../constants/urls";
+import { REQUEST_STATE } from "../constants/constants";
+import axios from "axios";
 // dayjs
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
@@ -71,4 +74,25 @@ export const hiddenTaskField = () => {
 export const showTaskField = () => {
   const taskField = document.getElementById("task_field") as HTMLDivElement;
   taskField.classList.remove("hidden");
+}
+
+// 睡眠の記録をRaisに合わせてutc形式で送信。
+export const submitSleepLog = (sleepAt: dayjs.Dayjs): Promise<"OK" | "FAILED"> => {
+  const wakeAt: string = dayjs().utc().format();
+  const formattedSleepAt: string = sleepAt.second(0).utc().format();
+  const satisfaction: string | undefined = (document.getElementById("satisfaction") as HTMLSelectElement).value;
+
+  return axios.post(sleepLogsAPI, {
+    wake_at: wakeAt,
+    sleep_at: formattedSleepAt,
+    satisfaction: satisfaction ? satisfaction : null
+  }, {withCredentials: true})
+  .then(res => {
+    console.log(res);
+    return REQUEST_STATE.OK;
+  })
+  .catch(e => {
+    console.log(e);
+    return REQUEST_STATE.FAILED;
+  });
 }
