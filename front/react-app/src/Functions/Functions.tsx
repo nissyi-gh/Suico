@@ -11,3 +11,19 @@ export const getRandomIntInclusive = (min: number, max: number): number => {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+export const satisfactionConverter = (satisfaction: number): string => {
+  switch (satisfaction){
+    case 0:
+      return "X";
+    case 1:
+      return "△";
+    case 2:
+      return "◯";
+    case 3:
+      return "◎";
+    case 4:
+      return "☆";
+  }
+  return "-";
+}

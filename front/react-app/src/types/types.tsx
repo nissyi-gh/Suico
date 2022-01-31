@@ -17,3 +17,14 @@ export type calculateProblem = {
   rightNumber: number | undefined,
   answer: number | undefined
 }
+
+export type SleepLog = {
+  created_at: string,
+  id: number,
+  satisfaction: number,
+  sleep_at: string,
+  updated_at: string,
+  user_id: number,
+  wake_at: string,
+  sleep_time: string
+}
