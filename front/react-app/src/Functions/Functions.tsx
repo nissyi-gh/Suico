@@ -27,3 +27,10 @@ export const satisfactionConverter = (satisfaction: number): string => {
   }
   return "-";
 }
+
+// ex) 08:10 → 8.16のように変換する
+export const timeConverterForNumber = (hour: number, min: number): string => {
+  const minBase: number = 100 / 60 ;
+
+  return (hour + (min * minBase / 100)).toFixed(1);
+}

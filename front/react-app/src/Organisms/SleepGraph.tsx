@@ -1,49 +1,41 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { timeConverterForNumber } from '../Functions/Functions';
+import { memo } from 'react';
+import dayjs from "dayjs";
+import "dayjs/locale/ja";
+dayjs.locale('ja');
 
-export const SleepGraph = (): JSX.Element => {
+export const SleepGraph = memo((): JSX.Element => {
+  const now = dayjs();
 
   const data = [
     {
-      name: 'Page A',
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
+      date: now.format("MM/DD"),
+  
+      起床時刻: timeConverterForNumber(8, 10),
+      就寝時刻: timeConverterForNumber(24, 0),
+      満足度: 2
     },
     {
-      name: 'Page B',
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
+      date: now.add(1, 'day').format("MM/DD"),
+  
+      起床時刻: timeConverterForNumber(7, 12),
+      就寝時刻: timeConverterForNumber(23, 48),
+      満足度: 4
     },
     {
-      name: 'Page C',
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
+      date: now.add(2, 'day').format("MM/DD"),
+  
+      起床時刻: timeConverterForNumber(7, 38),
+      就寝時刻: timeConverterForNumber(22, 59),
+      満足度: 1
     },
     {
-      name: 'Page D',
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: 'Page E',
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: 'Page F',
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: 'Page G',
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
+      date: now.add(3, 'day').format("MM/DD"),
+  
+      起床時刻: timeConverterForNumber(6, 42),
+      就寝時刻: timeConverterForNumber(23, 48),
+      満足度: 3
     },
   ];
 
@@ -61,15 +53,15 @@ export const SleepGraph = (): JSX.Element => {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
+        <XAxis dataKey="date" />
+        <YAxis yAxisId={1} label={{ value: "時刻", angle: -90, dx: -12 }} />
+        <YAxis yAxisId={2} orientation="right" label={{ value: "満足度", angle: -90, dx: 12 }}/>
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+        <Line type="monotone" yAxisId={1} dataKey="起床時刻" stroke="#8884d8" activeDot={{ r: 8 }} />
+        <Line type="monotone" yAxisId={1} dataKey="就寝時刻" stroke="#fcca9d" />
+        <Line type="monotone" yAxisId={2} dataKey="満足度" stroke="#82ca9d" />
       </LineChart>
     </ResponsiveContainer>
   );
-    
-  
-}
+})
