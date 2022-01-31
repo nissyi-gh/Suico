@@ -61,9 +61,9 @@ export const setLeftTime = (now: dayjs.Dayjs, alarm: dayjs.Dayjs): string => {
   }
 }
 
-export const showWakeUpButton = () => {
-  const wakeUpButton = document.getElementById("wake_up_button") as HTMLDivElement;
-  wakeUpButton.classList.remove('hidden');
+export const showWakeUpSubmit = () => {
+  const wakeUpSubmit = document.getElementById("wake_up_submit") as HTMLDivElement;
+  wakeUpSubmit.classList.remove('hidden');
 }
 
 export const hiddenTaskField = () => {

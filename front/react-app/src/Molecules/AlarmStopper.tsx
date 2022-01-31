@@ -1,7 +1,7 @@
 import { memo, useCallback, useContext, useEffect, useState } from "react";
 import { calculateProblem } from '../types/types';
 import { problemTypeConverter, randomAnswers, setCalclationProblems } from "../Functions/Tasks/Calculate";
-import { hiddenTaskField, showTaskField, showWakeUpButton, submitSleepLog } from "../Functions/Alarm";
+import { hiddenTaskField, showTaskField, showWakeUpSubmit, submitSleepLog } from "../Functions/Alarm";
 import { getRandomIntInclusive } from "../Functions/Functions";
 import { returnRandomPanels, reRenderPanleContent } from "../Functions/Tasks/Panles";
 import { Satisfactionselector } from "./Form";
@@ -59,7 +59,7 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: props
       showTaskField();
 
       if (!taskLeft) {
-        showWakeUpButton();
+        showWakeUpSubmit();
         hiddenTaskField();
       }
     }
@@ -151,14 +151,17 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: props
           </div>
         </>}
       </div>
+      <div id="wake_up_submit" className="hidden border border-white">
+        { Satisfactionselector() }
+
+        <button className="border border-black w-24 bg-gray-200" onClick={ onClickWakeUpButton }>おはよう</button>
+      </div>
       <div className="text-right flex flex-end items-end">
         <div className="w-2/3"></div>
         <div className="w-1/3">
           <img src="alarm_sheep.png" alt="Sheep" className="block w-full" />
         </div>
       </div>
-      { Satisfactionselector() }
-      <button id="wake_up_button" className="hidden border border-black w-24 bg-gray-200" onClick={ onClickWakeUpButton }>おはよう</button>
     </>
   )
 })
