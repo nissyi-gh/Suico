@@ -27,8 +27,9 @@ export const setAlarmDateTime = (): dayjs.Dayjs => {
   // 時間と分は入力通りにする。秒は0秒で固定。
   let willSetAlarm = dayjs().hour(parseInt(wakeAtHour.value, 10)).minute(parseInt(wakeAtMin.value, 10)).second(0);
 
+  // Todo Debug用にオフ。
   // 現時点から23:59までは今日。0:00以降は明日に設定。
-  if (willSetAlarm.isBefore(dayjs())) willSetAlarm = willSetAlarm.add(1, 'day');
+  // if (willSetAlarm.isBefore(dayjs())) willSetAlarm = willSetAlarm.add(1, 'day');
 
   return willSetAlarm;
 }
