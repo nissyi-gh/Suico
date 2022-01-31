@@ -5,12 +5,14 @@ import { inputWithLabel, submitButton, inputCheckBox } from "../Molecules/Form";
 import { LoginContext } from "../providers/LoginFlagProvider";
 import { new_session, sleepLogsURL } from "../constants/urls";
 import { REQUEST_STATE } from '../constants/constants';
+import { RequestState } from "../types/types";
 
 type LoginUserData = {
   email: string,
   password: string,
   remember_me: boolean
 }
+
 
 export const LoginForm = (hideModalFunction: () => void): JSX.Element => {
   const [session, setValues] = useState<LoginUserData>({
@@ -19,7 +21,7 @@ export const LoginForm = (hideModalFunction: () => void): JSX.Element => {
     remember_me: false
   })
   const { setLoginFlag } = useContext(LoginContext);
-  const [request, setRequest] = useState(REQUEST_STATE.INITIAL);
+  const [request, setRequest] = useState<RequestState["INITIAL"] | RequestState["OK"]>(REQUEST_STATE.INITIAL);
   const navigate = useNavigate();
 
   const resetErrors = () => {
@@ -55,7 +57,6 @@ export const LoginForm = (hideModalFunction: () => void): JSX.Element => {
 
   // Loginに成功したらModalを閉じる。
   useEffect(() => {
-    console.log(request)
     if (request === REQUEST_STATE.OK) {
       whenSuccessLogin();
     }

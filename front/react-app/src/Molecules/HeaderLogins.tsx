@@ -5,11 +5,15 @@ import { LoginModal } from "../Organisms/LoginModal";
 import { SignUpModal } from "../Organisms/SignUpModal";
 import axios from "axios";
 import { delete_session } from "../constants/urls";
+import { AlarmModal } from "../Pages/AlarmModal";
+import { showAlarmContext } from "../providers/ShowAlarmFlagProvider";
 
 export const HerderLogins = (): JSX.Element => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const [showSignUpModal, setShowSignUpModal] = useState<boolean>(false);
+  // const [showAlarmModal, setShowAlarmModal] = useState<boolean>(false);
   const { loginFlag, setLoginFlag } = useContext(LoginContext);
+  const { showAlarmFlag, setShowAlarmFlag } = useContext(showAlarmContext);
 
   const openLoginModal = (): void => {
     setShowLoginModal(true);
@@ -27,6 +31,14 @@ export const HerderLogins = (): JSX.Element => {
     setShowSignUpModal(false);
   }
 
+  const openAlarmModal = (): void => {
+    setShowAlarmFlag(true);
+  }
+
+  const hiddenAlarmModal = (): void => {
+    setShowAlarmFlag(false);
+  }
+
   const clickLogout = () => {
     axios.delete(delete_session , { withCredentials: true })
       .then(response => {
@@ -41,8 +53,9 @@ export const HerderLogins = (): JSX.Element => {
       <div className="flex">
         { showLoginModal ? <LoginModal onClick={ hideLoginModal } /> : <></> }
         { showSignUpModal ? <SignUpModal onClick={ hiddenSignUpModal } /> : <></> }
+        { showAlarmFlag ? <AlarmModal onClick={ hiddenAlarmModal } /> : <></> }
         { loginFlag ? <>
-          { buttonAtom("アラーム", "", openSignUpModal) }
+          { buttonAtom("アラーム", "", openAlarmModal) }
           <div>
             { buttonAtom("ログアウト", "", clickLogout) }
             { linkAtom("#", "通知", "block") }

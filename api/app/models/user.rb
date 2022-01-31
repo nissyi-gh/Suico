@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 8 }, allow_nil: true
 
+  has_many :sleep_logs, dependent: :destroy
+
   # Userクラスのクラスメソッドを定義
   class << self
     # 渡された文字列のハッシュ値を返す

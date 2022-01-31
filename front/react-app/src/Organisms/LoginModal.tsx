@@ -4,7 +4,7 @@ import { LoginForm } from "./LoginForm";
 export const LoginModal = (props: { onClick: () => void }): JSX.Element => {
   return (
     <>
-      { Modal(LoginForm(props.onClick)) }
+      { Modal(LoginForm(props.onClick), 'gray') }
     </>
   )
 }

@@ -15,3 +15,16 @@ User.create!(
     password_confirmation: "testpass"
   )
 end
+
+# 管理者のみ睡眠データを登録
+t = Time.zone.now
+20.downto(1) do |i|
+  hour = rand(8..9)
+  min = rand(30)
+  satisfaction = rand(5)
+  SleepLog.create(
+    user_id: 1,
+    sleep_at: Time.mktime(t.year, t.month, t.day, hour, min, 0) - (i.day - 14.hours),
+    wake_at: Time.mktime(t.year, t.month, t.day, hour, min, 0) - (i - 1).day, satisfaction: satisfaction
+  )
+end
