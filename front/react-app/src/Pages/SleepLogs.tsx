@@ -16,8 +16,25 @@ type SleepLogListItem = {
   satisfaction: number
 }
 
+type sleepLogsData = {
+  satisfaction: number,
+  wakeAtAverage: string,
+  sleepInAverage: string,
+  sleepAverage: string,
+  sleepMax: string,
+  sleepMin: string
+}
+
 export const SleepLogs = (): JSX.Element => {
   const [sleepLogs, setSleepLogs] = useState<SleepLogListItem[]>([]);
+  const [sleepLogsData, setSleepLogsData] = useState<sleepLogsData>({
+    satisfaction: 0,
+    wakeAtAverage: "00:00",
+    sleepInAverage: "00:00",
+    sleepAverage: "00:00",
+    sleepMax: "00:00",
+    sleepMin: "00:00"
+  });
 
   const returnLogsArray = (logs: SleepLog[]) => {
   return logs.map((element: SleepLog) => {
@@ -34,20 +51,16 @@ export const SleepLogs = (): JSX.Element => {
   useEffect(() => {
     axios.get(sleepLogsAPI, { withCredentials: true })
     .then(res => {
-        const satisfactionText = document.getElementById("satisfaction_text") as HTMLSpanElement;
-        const wakeAtAverageText = document.getElementById("wake_at_average_text") as HTMLSpanElement;
-        const sleepInAverageText = document.getElementById("sleep_in_average_text") as HTMLSpanElement;
-        const sleepMaxText = document.getElementById("sleep_max_text") as HTMLSpanElement;
-        const sleepMinText = document.getElementById("sleep_min_text") as HTMLSpanElement;
-        const sleepAverageText = document.getElementById("sleep_average_text") as HTMLSpanElement;
+        setSleepLogsData({
+          satisfaction: res.data.average.satisfaction,
+          wakeAtAverage: res.data.average.wake_at,
+          sleepInAverage: res.data.average.sleep_at,
+          sleepAverage: res.data.average.sleep_time,
+          sleepMax: res.data.max,
+          sleepMin: res.data.min
+        })
         
         setSleepLogs(returnLogsArray(res.data.sleep_logs));
-        satisfactionText.textContent = `${res.data.average.satisfaction}`;
-        wakeAtAverageText.textContent = res.data.average.wake_at;
-        sleepInAverageText.textContent = res.data.average.sleep_at;
-        sleepAverageText.textContent = res.data.average.sleep_time;
-        sleepMaxText.textContent = res.data.max;
-        sleepMinText.textContent = res.data.min;
       })
       .catch(e => console.log(e));
   })
@@ -56,16 +69,19 @@ export const SleepLogs = (): JSX.Element => {
     <>
       <div className="flex h-full w-full justify-around">
         <div className="w-3/5 m-2">
-          <div className="border border-black w-full">
-            <div className="flex justify-around">
-              <div>起床平均<span id="wake_at_average_text"></span></div>
-              <div>就寝平均<span id="sleep_in_average_text"></span></div>
-              <div>睡眠最長<span id="sleep_max_text"></span></div>
+          <div className="h-3/5 border border-black bg-gray-100 mb-2">
+            グラフ
+          </div>
+          <div className="border border-black w-full bg-gray-100 h-1/5 leading-10 text-center">
+            <div className="flex justify-around h-1/2">
+              <div className="w-1/3">起床平均 : { sleepLogsData.wakeAtAverage }</div>
+              <div className="w-1/3">就寝平均 : { sleepLogsData.sleepInAverage }</div>
+              <div className="w-1/3">睡眠最長 : { sleepLogsData.sleepMax }</div>
             </div>
-            <div className="flex justify-around">
-              <div>睡眠平均<span id="sleep_average_text"></span></div>
-              <div>睡眠最短<span id="sleep_min_text"></span></div>
-              <div>平均満足度<span id="satisfaction_text"></span></div>
+            <div className="flex justify-around h-1/2">
+              <div className="w-1/3">睡眠平均 : { sleepLogsData.sleepAverage }</div>
+              <div className="w-1/3">睡眠最短 : { sleepLogsData.sleepMin }</div>
+              <div className="w-1/3">平均満足度 : { sleepLogsData.satisfaction }</div>
             </div>
           </div>
         </div>
