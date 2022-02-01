@@ -1,50 +1,29 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { timeConverterForNumber } from '../Functions/Functions';
 import { memo } from 'react';
+import { SleepLogListItem } from '../types/types';
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
 dayjs.locale('ja');
 
-export const SleepGraph = memo((): JSX.Element => {
-  const now = dayjs();
-
-  const data = [
-    {
-      date: now.format("MM/DD"),
-  
-      起床時刻: timeConverterForNumber(8, 10),
-      就寝時刻: timeConverterForNumber(24, 0),
-      満足度: 2
-    },
-    {
-      date: now.add(1, 'day').format("MM/DD"),
-  
-      起床時刻: timeConverterForNumber(7, 12),
-      就寝時刻: timeConverterForNumber(23, 48),
-      満足度: 4
-    },
-    {
-      date: now.add(2, 'day').format("MM/DD"),
-  
-      起床時刻: timeConverterForNumber(7, 38),
-      就寝時刻: timeConverterForNumber(22, 59),
-      満足度: 1
-    },
-    {
-      date: now.add(3, 'day').format("MM/DD"),
-  
-      起床時刻: timeConverterForNumber(6, 42),
-      就寝時刻: timeConverterForNumber(23, 48),
-      満足度: 3
-    },
-  ];
+export const SleepGraph = memo(({ sleepLogs } : { sleepLogs: SleepLogListItem[] } ): JSX.Element => {
+  // 1時などは25時として計算する。
+  // memo化で破壊的変更ができないためsliceで複製する。
+  const logs = sleepLogs.slice().reverse().map((log) => {
+    return {
+      date: log.wakeAt.format("MM/DD"),
+      起床時刻: timeConverterForNumber(log.wakeAt.hour(), log.wakeAt.minute()),
+      就寝時刻: timeConverterForNumber(log.sleepAt.hour(), log.sleepAt.minute()),
+      満足度: log.satisfaction
+    }
+  });
 
   return (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart
         width={500}
         height={300}
-        data={data}
+        data={logs}
         margin={{
           top: 5,
           right: 30,

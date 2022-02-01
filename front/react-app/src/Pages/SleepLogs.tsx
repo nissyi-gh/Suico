@@ -1,6 +1,6 @@
 import { useState, useEffect} from "react";
 import axios from "axios";
-import { SleepLog } from "../types/types";
+import { SleepLog, SleepLogListItem } from "../types/types";
 import { sleepLogsAPI } from "../constants/urls";
 // Day.js
 import dayjs from "dayjs";
@@ -8,14 +8,6 @@ import "dayjs/locale/ja";
 import { satisfactionConverter } from "../Functions/Functions";
 import { SleepGraph } from "../Organisms/SleepGraph";
 dayjs.locale('ja');
-
-type SleepLogListItem = {
-  sleepLogId: string, 
-  wakeAt: dayjs.Dayjs,
-  sleepAt: dayjs.Dayjs,
-  sleepTime: string,
-  satisfaction: number
-}
 
 type sleepLogsData = {
   satisfaction: number,
@@ -71,7 +63,7 @@ export const SleepLogs = (): JSX.Element => {
       <div className="flex h-full w-full justify-around">
         <div className="w-3/5 m-2">
           <div className="h-3/5 border border-black bg-gray-100 mb-2">
-            <SleepGraph />
+            <SleepGraph sleepLogs={ sleepLogs }/>
           </div>
           <div className="border border-black w-full bg-gray-100 h-1/5 leading-10 text-center">
             <div className="flex justify-around h-1/2">
