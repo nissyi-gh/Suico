@@ -13,3 +13,30 @@ export const ALARM_STATE = {
   TASK: 'TASK',
   WAKE: 'WAKE'
 }
+
+export const satisfactions = {
+  NULL: {
+    NUMBER: null,
+    CHARACTER: "-"
+  },
+  BAD: {
+    NUMBER: 0.0, 
+    CHARACTER: "X"
+  },
+  SOSO: {
+    NUMBER: 1.25, 
+    CHARACTER: "△"
+  },
+  GOOD: {
+    NUMBER: 2.5, 
+    CHARACTER: "◯"
+  },
+  BETTER: {
+    NUMBER: 3.75, 
+    CHARACTER: "◎"
+  },
+  BEST: {
+    NUMBER: 5.0, 
+    CHARACTER: "☆"
+  },
+}

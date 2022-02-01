@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_31_060916) do
+ActiveRecord::Schema.define(version: 2022_02_01_024352) do
 
   create_table "sleep_logs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.datetime "sleep_at"
     t.datetime "wake_at"
-    t.integer "satisfaction", limit: 1
+    t.float "satisfaction"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_sleep_logs_on_user_id"

@@ -1,3 +1,5 @@
+import { satisfactions } from "../constants/constants";
+
 export const formatNumberDigit = (num: number): string => {
   const DEFAULT_DIGIT = 2;
   const returnString: string = num.toString().padStart(DEFAULT_DIGIT, '0');
@@ -14,18 +16,18 @@ export const getRandomIntInclusive = (min: number, max: number): number => {
 
 export const satisfactionConverter = (satisfaction: number): string => {
   switch (satisfaction){
-    case 0:
-      return "X";
-    case 1:
-      return "△";
-    case 2:
-      return "◯";
-    case 3:
-      return "◎";
-    case 4:
-      return "☆";
+    case satisfactions.BAD.NUMBER:
+      return satisfactions.BAD.CHARACTER;
+    case satisfactions.SOSO.NUMBER:
+      return satisfactions.BAD.CHARACTER;
+    case satisfactions.GOOD.NUMBER:
+      return satisfactions.GOOD.CHARACTER;
+    case satisfactions.BETTER.NUMBER:
+      return satisfactions.BETTER.CHARACTER;
+    case satisfactions.BEST.NUMBER:
+      return satisfactions.BEST.CHARACTER;
   }
-  return "-";
+  return satisfactions.NULL.CHARACTER;
 }
 
 // ex) 08:10 → 8.16のように変換する

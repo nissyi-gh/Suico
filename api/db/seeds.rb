@@ -18,10 +18,11 @@ end
 
 # 管理者のみ睡眠データを登録
 t = Time.zone.now
-20.downto(1) do |i|
+satisfactions = [nil, 0.0, 1.25, 2.5, 3.75, 5.0]
+40.downto(1) do |i|
   hour = rand(8..9)
   min = rand(30)
-  satisfaction = rand(5)
+  satisfaction = satisfactions[rand(6)]
   SleepLog.create(
     user_id: 1,
     sleep_at: Time.mktime(t.year, t.month, t.day, hour, min, 0) - (i.day - 14.hours),

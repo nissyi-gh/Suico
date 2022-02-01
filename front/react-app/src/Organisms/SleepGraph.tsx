@@ -25,7 +25,7 @@ export const SleepGraph = memo(({ sleepLogs } : { sleepLogs: SleepLogListItem[] 
         height={300}
         data={logs}
         margin={{
-          top: 5,
+          top: 20,
           right: 30,
           left: 20,
           bottom: 5,
@@ -34,7 +34,7 @@ export const SleepGraph = memo(({ sleepLogs } : { sleepLogs: SleepLogListItem[] 
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
         <YAxis yAxisId={1} label={{ value: "時刻", angle: -90, dx: -12 }} />
-        <YAxis yAxisId={2} orientation="right" label={{ value: "満足度", angle: -90, dx: 12 }}/>
+        <YAxis yAxisId={2} orientation="right" label={{ value: "満足度", angle: -90, dx: 12 }} domain={[0, 5]} />
         <Tooltip />
         <Legend />
         <Line type="monotone" yAxisId={1} dataKey="起床時刻" stroke="#8884d8" activeDot={{ r: 8 }} />
