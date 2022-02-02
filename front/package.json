@@ -12,6 +12,7 @@
     "postcss": "^8.4.5",
     "tailwindcss": "^3.0.16"
   },
+  "license": "UNLICENSED",
   "scripts": {
     "tailwind": "npx tailwindcss -i ./react-app/src/css/input.css -o ./react-app/src/css/output.css --watch --minify"
   }
