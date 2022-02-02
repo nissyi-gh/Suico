@@ -6,7 +6,7 @@ import { ShowAlarmFlagProvider } from "../providers/ShowAlarmFlagProvider";
 export const Header = (): JSX.Element => {
   return (
     <header className="mt-10">
-      <div className="flex items-center justify-between">
+      <div className="flex h-20 mb-2 items-center justify-between">
         <HeaderLogo />
         <ShowAlarmFlagProvider>
           <HerderLogins />
