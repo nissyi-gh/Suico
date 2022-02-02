@@ -1,3 +1,7 @@
+import dayjs from "dayjs";
+import "dayjs/locale/ja";
+dayjs.locale('ja');
+
 export type User = {
   id: number,
   name: string,
@@ -34,4 +38,12 @@ export type RequestState = {
   LOADING: 'LOADING',
   OK: 'OK',
   FAILED: 'FAILED'
+}
+
+export type SleepLogListItem = {
+  sleepLogId: string, 
+  wakeAt: dayjs.Dayjs,
+  sleepAt: dayjs.Dayjs,
+  sleepTime: string,
+  satisfaction: number
 }

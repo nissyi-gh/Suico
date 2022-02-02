@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { inputAtom } from "../Atoms/form";
+import { satisfactions } from "../constants/constants";
 import { taskOptionCreate } from "../Functions/Alarm";
 import { formatNumberDigit } from "../Functions/Functions";
 
@@ -109,12 +110,12 @@ export const Satisfactionselector = (): JSX.Element => {
   return (
     <>
       <select name="satisfaction" id="satisfaction" className="border m-2">
-        <option value="null">記録しない</option>
-        <option value="0">X</option>
-        <option value="1">△</option>
-        <option value="2">◯</option>
-        <option value="3">◎</option>
-        <option value="4">☆</option>
+        <option value={ satisfactions.NULL.CHARACTER }>記録しない</option>
+        <option value={ satisfactions.BAD.NUMBER }>{ satisfactions.BAD.CHARACTER }</option>
+        <option value={ satisfactions.SOSO.NUMBER }>{ satisfactions.SOSO.CHARACTER }</option>
+        <option value={ satisfactions.GOOD.NUMBER }>{ satisfactions.GOOD.CHARACTER }</option>
+        <option value={ satisfactions.BETTER.NUMBER }>{ satisfactions.BETTER.CHARACTER }</option>
+        <option value={ satisfactions.BEST.NUMBER }>{ satisfactions.BEST.CHARACTER }</option>
       </select>
     </>
   )
