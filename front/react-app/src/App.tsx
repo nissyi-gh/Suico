@@ -25,7 +25,7 @@ export const App = (): JSX.Element => {
       <div className="w-2/3 mx-auto my-0">
         <Router>
           <Header />
-          <div className="border w-2/3 h-2/3 border-gray-600 bg-sky-100 fixed top-36 flex justify-center">
+          <div className="border w-2/3 h-2/3 border-gray-600 border-t-0 bg-sky-100 fixed top-34 flex justify-center">
             <Routes>
               <>
                 <Route path="/users" element={ <UsersIndex /> } />
