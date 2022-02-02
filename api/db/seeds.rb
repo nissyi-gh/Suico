@@ -20,12 +20,16 @@ end
 t = Time.zone.now
 satisfactions = [nil, 0.0, 1.25, 2.5, 3.75, 5.0]
 40.downto(1) do |i|
-  hour = rand(8..9)
-  min = rand(30)
+  # hour = rand(8..9)
+  # min = rand(30)
+
+  sleep_in_hour = [22, 23, 0, 1]
+  wake_at_hour = rand(-2..2)
   satisfaction = satisfactions[rand(6)]
   SleepLog.create(
     user_id: 1,
-    sleep_at: Time.mktime(t.year, t.month, t.day, hour, min, 0) - (i.day - 14.hours),
-    wake_at: Time.mktime(t.year, t.month, t.day, hour, min, 0) - (i - 1).day, satisfaction: satisfaction
+    sleep_at: Time.mktime(t.year, t.month, t.day, sleep_in_hour[rand(0..3)], rand(0..59), 0) - i.day,
+    wake_at: Time.mktime(t.year, t.month, t.day, 8 + wake_at_hour, rand(0..59), 0) - (i - 1).day,
+    satisfaction: satisfaction
   )
 end

@@ -13,7 +13,7 @@ export const SleepGraph = memo(({ sleepLogs } : { sleepLogs: SleepLogListItem[] 
     return {
       date: log.wakeAt.format("MM/DD"),
       起床時刻: timeConverterForNumber(log.wakeAt.hour(), log.wakeAt.minute()),
-      就寝時刻: timeConverterForNumber(log.sleepAt.hour(), log.sleepAt.minute()),
+      就寝時刻: timeConverterForNumber(log.sleepAt.hour(), log.sleepAt.minute(), true),
       満足度: log.satisfaction
     }
   });
