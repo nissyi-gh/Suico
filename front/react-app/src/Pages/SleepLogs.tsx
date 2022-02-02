@@ -88,7 +88,7 @@ export const SleepLogs = (): JSX.Element => {
                       {log.sleepAt.format("MM/DD(dd)")}
                     </div>
                     <div className="w-1/2 tracking-wider">
-                      {log.sleepAt.format("hh:mm")} ~ {log.wakeAt.format("hh:mm")}
+                      {log.sleepAt.format("HH:mm")} ~ {log.wakeAt.format("HH:mm")}
                     </div>
                     <div className="w-1/4 tracking-wider">
                       { `(${log.sleepTime})` }
