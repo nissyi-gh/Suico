@@ -55,9 +55,9 @@ export const SleepGraph = memo(({ sleepLogs } : { sleepLogs: SleepLogListItem[] 
           <YAxis yAxisId={1} label={{ value: "時刻", angle: -90, dx: -12 }} domain={[2, 26]}/>
           <YAxis yAxisId={2} orientation="right" label={{ value: contents[2], angle: -90, dx: 12 }} domain={[0, 5]} />
           <Tooltip />
-          { showSleepIn ? <Line type="monotone" yAxisId={1} dataKey={ contents[0] } stroke="#fcca9d" activeDot={{ r: 8 }} strokeWidth={3} /> : <></>}
-          { showWakeAt ? <Line type="monotone" yAxisId={1} dataKey={ contents[1] } stroke="#8884d8"  strokeWidth={3} /> : <></>}
           { showSatisfaction ? <Line type="monotone" yAxisId={2} dataKey={ contents[2] } stroke="#82ca9d" strokeWidth={1.5} /> : <></> }
+          { showWakeAt ? <Line type="monotone" yAxisId={1} dataKey={ contents[0] } stroke="#fcca9d" activeDot={{ r: 8 }} strokeWidth={3} /> : <></>}
+          { showSleepIn ? <Line type="monotone" yAxisId={1} dataKey={ contents[1] } stroke="#8884d8"  strokeWidth={3} /> : <></>}
         </LineChart>
       </ResponsiveContainer>
       <GraphLegend contents={ contents } toggleWakeAt={ toggleWakeAt } toggleSleepIn={toggleSleepIn} toggleSatisfaction={toggleSatisfaction} />
