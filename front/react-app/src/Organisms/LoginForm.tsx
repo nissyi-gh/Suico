@@ -6,13 +6,13 @@ import { LoginContext } from "../providers/LoginFlagProvider";
 import { new_session, sleepLogsURL } from "../constants/urls";
 import { REQUEST_STATE } from '../constants/constants';
 import { RequestState } from "../types/types";
+import { ModalClose } from "../Molecules/ModalClose";
 
 type LoginUserData = {
   email: string,
   password: string,
   remember_me: boolean
 }
-
 
 export const LoginForm = (hideModalFunction: () => void): JSX.Element => {
   const [session, setValues] = useState<LoginUserData>({
@@ -129,14 +129,10 @@ export const LoginForm = (hideModalFunction: () => void): JSX.Element => {
   }
 
 
-
   return(
     <>
-      <div className="flex justify-between">
-        <h2 className="text-xl inline-block">ログインフォーム</h2>
-        <button onClick={ hideModalFunction } className="inline-block">閉じる</button>
-      </div>
-      <form className="border-2 border-white bg-amber-100">
+      { ModalClose(hideModalFunction, "ログインフォーム") }
+      <form className="border-2 border-yellow-300 bg-yellow-50 rounded-md p-4">
         { inputWithLabel("Email", "email", "email", "input_email") }
         { inputWithLabel("パスワード", "password", "password", "input_password") }
         { inputCheckBox("ログイン状態を保存する", "remember_me", "input_remember_me")}

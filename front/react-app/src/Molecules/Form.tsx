@@ -80,10 +80,10 @@ export const AlarmSetterWithLabel = (itemName: string, name: string, id: string)
     }
   }, [id])
 
-  const selecterCSS: string = "border bg-inherit";
+  const selecterCSS: string = "border bg-inherit text-gray-100 w-1/6";
   return (
-    <div>
-      <label htmlFor={ id } className="inline-block w-1/5">{ itemName }</label>
+    <div className="text-gray-100 w-full">
+      <label htmlFor={ id } className="inline-block w-1/3">{ itemName }</label>
       <select name={ name } id={ `${ id }_hour` } className={ selecterCSS }></select>
       <select name={ name } id={ `${ id }_min` } className={ selecterCSS }></select>
     </div>
@@ -97,11 +97,11 @@ export const TaskSelecterWithLabel = (itemName:string, name: string, id: string)
   }, [id])
 
   return (
-    <div>
-      <label htmlFor={ id } className="inline-block w-1/5">
+    <div className="w-full">
+      <label htmlFor={ id } className="inline-block w-1/3 text-gray-100">
         { itemName }
       </label>
-      <select name={ name } id={ id } className="border bg-inherit"></select>
+      <select name={ name } id={ id } className="border bg-inherit text-gray-100 w-1/2"></select>
     </div>
   )
 }

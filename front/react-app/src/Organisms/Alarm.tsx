@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { setAlarmDateTime, setHowToStop, setLeftTime } from "../Functions/Alarm";
 import { AlarmSetter } from "../Molecules/AlarmSetter";
 import { AlarmStopper } from "../Molecules/AlarmStopper";
+import { VscChromeClose } from "react-icons/vsc";
 // Day.js
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
@@ -27,8 +28,8 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
 
       if (alarm) {
         setAlarmLeftTime(setLeftTime(now, alarm));
-        if (alarm <= now){
-        }
+        // if (alarm <= now){
+        // }
       }
 
     }, 1000);
@@ -44,17 +45,21 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
     setTask(setHowToStop());
   }
 
-  const titleCSS = 'underline text-lg bg-gray-400';
+  // const titleCSS = 'underline text-lg bg-gray-400';
   return (
     <>
-      <div className="flex justify-between h-20">
-        <p className="inline-block"><img src="title_dark.png" alt="ダークモードのロゴ" className="inline-block h-full" /></p>
-        <button onClick={ hideModalFunction }>X</button>
+      <div className="flex justify-between h-16 mb-16">
+        <div>
+          <img src="title_dark.png" alt="ダークモードのタイトル" className="inline-block h-full" />
+        </div>
+        <div className="flex items-center justify-center text-gray-50">
+          <VscChromeClose onClick={ hideModalFunction } />
+        </div>
       </div>
-      <div className="border border-white mb-2">
+      {/* <div className="border border-white mb-2">
         <h2 className={ titleCSS }>現在 : </h2>
         <p>{ currentDateTime.format('YYYY/MM/DD HH:mm') }</p>
-      </div>
+      </div> */}
       <div>
         { alarm ? <>
           <AlarmStopper alarm={ alarm } task={ task } alarmLeftTime={ alarmLeftTime } sleepAt={ sleepAt }/>

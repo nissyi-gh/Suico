@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import { inputWithLabel, submitButton } from "../Molecules/Form";
 import { NewUserData } from "../types/types";
 import { userCreate } from "../constants/urls";
+import { ModalClose } from "../Molecules/ModalClose";
 
 export const SignUpForm = (hideModalFunction: () => void): JSX.Element => {
   const [user, setValues] = useState<NewUserData>({
@@ -133,10 +134,7 @@ export const SignUpForm = (hideModalFunction: () => void): JSX.Element => {
 
   return(
     <>
-      <div className="flex justify-between">
-        <h2 className="text-xl inline-block">新規登録フォーム</h2>
-        <button onClick={ hideModalFunction } className="inline-block">閉じる</button>
-      </div>
+      { ModalClose(hideModalFunction, "新規登録フォーム")}
       <form className="border-2 border-white bg-amber-100">
         { inputWithLabel("お名前", "text", "name", "input_name") }
         { inputWithLabel("Email", "email", "email", "input_email") }
