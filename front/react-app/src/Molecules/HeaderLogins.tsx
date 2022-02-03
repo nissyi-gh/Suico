@@ -7,6 +7,7 @@ import axios from "axios";
 import { delete_session } from "../constants/urls";
 import { AlarmModal } from "../Pages/AlarmModal";
 import { showAlarmContext } from "../providers/ShowAlarmFlagProvider";
+import { HeaderButtonSmall } from "./HeaderButton";
 
 export const HerderLogins = (): JSX.Element => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
@@ -49,22 +50,22 @@ export const HerderLogins = (): JSX.Element => {
   }
 
   return (
-    <div className="border-2 border-gray-400 p-2">
-      <div className="flex">
-        { showLoginModal ? <LoginModal onClick={ hideLoginModal } /> : <></> }
-        { showSignUpModal ? <SignUpModal onClick={ hiddenSignUpModal } /> : <></> }
-        { showAlarmFlag ? <AlarmModal onClick={ hiddenAlarmModal } /> : <></> }
-        { loginFlag ? <>
-          { buttonAtom("アラーム", "", openAlarmModal) }
-          <div>
-            { buttonAtom("ログアウト", "", clickLogout) }
-            { linkAtom("#", "通知", "block") }
-          </div>
-        </> : <>
-          { buttonAtom("新規登録", "", openSignUpModal) }
-          { buttonAtom("ログイン", "", openLoginModal) }
-        </>}
-      </div>
+    <div className="border-2 border-gray-400 bg-sky-100 p-2 h-full w-48 flex items-center justify-around">
+      { showLoginModal ? <LoginModal onClick={ hideLoginModal } /> : <></> }
+      { showSignUpModal ? <SignUpModal onClick={ hiddenSignUpModal } /> : <></> }
+      { showAlarmFlag ? <AlarmModal onClick={ hiddenAlarmModal } /> : <></> }
+      { loginFlag ? <>
+        { buttonAtom("アラーム", "", openAlarmModal) }
+        <div>
+          { buttonAtom("ログアウト", "", clickLogout) }
+          { linkAtom("#", "通知", "block") }
+        </div>
+      </> : <>
+        { HeaderButtonSmall("新規登録", "", openSignUpModal) }
+        { HeaderButtonSmall("ログイン", "", openLoginModal) }
+        {/* { buttonAtom("新規登録", "", openSignUpModal) }
+        { buttonAtom("ログイン", "", openLoginModal) } */}
+      </>}
     </div>
   )
 }

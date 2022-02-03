@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import { inputWithLabel, submitButton } from "../Molecules/Form";
 import { NewUserData } from "../types/types";
 import { userCreate } from "../constants/urls";
+import { ModalClose } from "../Molecules/ModalClose";
 
 export const SignUpForm = (hideModalFunction: () => void): JSX.Element => {
   const [user, setValues] = useState<NewUserData>({
@@ -133,16 +134,15 @@ export const SignUpForm = (hideModalFunction: () => void): JSX.Element => {
 
   return(
     <>
-      <div className="flex justify-between">
-        <h2 className="text-xl inline-block">新規登録フォーム</h2>
-        <button onClick={ hideModalFunction } className="inline-block">閉じる</button>
-      </div>
-      <form className="border-2 border-white bg-amber-100">
-        { inputWithLabel("お名前", "text", "name", "input_name") }
-        { inputWithLabel("Email", "email", "email", "input_email") }
-        { inputWithLabel("パスワード", "password", "password", "input_password") }
-        { inputWithLabel("パスワード再確認", "password", "password_confirmation", "input_password_confirm") }
-        { submitButton("登録する", submitClick) }
+      { ModalClose(hideModalFunction, "新規登録フォーム")}
+      <form className="border-2 border-white bg-amber-100 p-4 flex justify-center">
+        <div className="w-5/6">
+          { inputWithLabel("お名前", "text", "name", "input_name") }
+          { inputWithLabel("Email", "email", "email", "input_email") }
+          { inputWithLabel("パスワード", "password", "password", "input_password") }
+          { inputWithLabel("パスワード(確認)", "password", "password_confirmation", "input_password_confirm") }
+          { submitButton("登録する", submitClick) }
+        </div>
       </form>
       <ul id="form_error"></ul>
     </>

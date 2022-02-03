@@ -5,8 +5,8 @@ import { taskOptionCreate } from "../Functions/Alarm";
 import { formatNumberDigit } from "../Functions/Functions";
 
 export const inputWithLabel = (itemName: string, type: string, name: string, id: string, defaultValue?: string): JSX.Element => {
-  const inputCss: string = "border border-gray-600";
-  const labelCss: string = "w-36 inline-block";
+  const inputCss: string = "border border-gray-600 w-3/5";
+  const labelCss: string = "w-2/5 inline-block text-center";
 
   return (
     <>
@@ -19,7 +19,7 @@ export const inputWithLabel = (itemName: string, type: string, name: string, id:
 }
 
 export const submitButton = (text: string, clickFunction?: (e: React.FormEvent<HTMLInputElement>) => void) =>  {
-  const css: string = "inline-block border border-black cursor-pointer bg-gray-200 p-2";
+  const css: string = "inline-block border border-black cursor-pointer bg-gray-200 p-2 m-4";
 
   return (
     <div className="text-center">
@@ -80,10 +80,10 @@ export const AlarmSetterWithLabel = (itemName: string, name: string, id: string)
     }
   }, [id])
 
-  const selecterCSS: string = "border bg-inherit";
+  const selecterCSS: string = "border bg-inherit text-gray-100 w-1/6";
   return (
-    <div>
-      <label htmlFor={ id } className="inline-block w-1/5">{ itemName }</label>
+    <div className="text-gray-100 w-full">
+      <label htmlFor={ id } className="inline-block w-1/3">{ itemName }</label>
       <select name={ name } id={ `${ id }_hour` } className={ selecterCSS }></select>
       <select name={ name } id={ `${ id }_min` } className={ selecterCSS }></select>
     </div>
@@ -97,11 +97,11 @@ export const TaskSelecterWithLabel = (itemName:string, name: string, id: string)
   }, [id])
 
   return (
-    <div>
-      <label htmlFor={ id } className="inline-block w-1/5">
+    <div className="w-full">
+      <label htmlFor={ id } className="inline-block w-1/3 text-gray-100">
         { itemName }
       </label>
-      <select name={ name } id={ id } className="border bg-inherit"></select>
+      <select name={ name } id={ id } className="border bg-inherit text-gray-100 w-1/2"></select>
     </div>
   )
 }

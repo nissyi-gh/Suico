@@ -1,9 +1,9 @@
-import { linkAtom } from "../Atoms/form";
+import { sleepLogsURL } from "../constants/urls";
 
 export const HeaderLogo = (): JSX.Element => {
   return (
-    <>
-      { linkAtom("#", "ロゴ", "") }
-    </>
+    <a href={sleepLogsURL} className="inline-block h-full">
+      <img src="color_logo.png" alt="Suicoのロゴ画像" className="h-full"/>
+    </a>
   )
 }

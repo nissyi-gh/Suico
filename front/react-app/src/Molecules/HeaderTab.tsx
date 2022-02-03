@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { linkAtom } from "../Atoms/form";
 import {
   sleepLogsURL,
@@ -13,6 +14,7 @@ type HeaderLink = {
 }
 
 export const HeaderTab = (): JSX.Element => {
+  const location = useLocation();
   const headerLinks: HeaderLink[] = [
     { url: sleepLogsURL, text: "睡眠データ" },
     { url: alarmSettingsURL, text: "アラーム設定" },
@@ -21,11 +23,19 @@ export const HeaderTab = (): JSX.Element => {
     { url: contactURL, text: "お問い合わせ" },
   ]
 
-  const css: string = "inline-block font-bold w-1/5 h-fit text-center p-2 border border-gray-600 bg-sky-300 rounded-t-md";
-
+  const commonCSS: string = "inline-block font-bold w-1/5 h-fit text-center p-2 border rounded-t-md border-gray-600";
+  const selectTabCSS: string = "border-b-sky-100 bg-sky-100";
+  const otherTabCSS: string = "text-gray-600 bg-sky-300";
   return (
-    <>
-      { headerLinks.map(link => linkAtom(link.url, link.text, css)) }
-    </>
+    <div>
+      { headerLinks.map(link => {
+        if (location.pathname === link.url) {
+          return linkAtom(link.url, link.text, `${commonCSS} ${selectTabCSS}`);
+        } else { 
+          return linkAtom(link.url, link.text, `${commonCSS} ${otherTabCSS}`);  
+        }
+      })
+      }
+    </div>
   )
 }
