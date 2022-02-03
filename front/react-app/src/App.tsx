@@ -21,7 +21,7 @@ import {
 
 export const App = (): JSX.Element => {
   return (
-    <div className="bg-sky-100 h-max">
+    <div className="fixed top-0 left-0 w-full h-full bg-[url('../../public/yoake.jpg')] bg-cover">
       <div className="w-2/3 mx-auto my-0">
         <Router>
           <Header />
