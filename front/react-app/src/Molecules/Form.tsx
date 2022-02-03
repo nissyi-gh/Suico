@@ -5,8 +5,8 @@ import { taskOptionCreate } from "../Functions/Alarm";
 import { formatNumberDigit } from "../Functions/Functions";
 
 export const inputWithLabel = (itemName: string, type: string, name: string, id: string, defaultValue?: string): JSX.Element => {
-  const inputCss: string = "border border-gray-600";
-  const labelCss: string = "w-36 inline-block";
+  const inputCss: string = "border border-gray-600 w-3/5";
+  const labelCss: string = "w-2/5 inline-block text-center";
 
   return (
     <>
@@ -19,7 +19,7 @@ export const inputWithLabel = (itemName: string, type: string, name: string, id:
 }
 
 export const submitButton = (text: string, clickFunction?: (e: React.FormEvent<HTMLInputElement>) => void) =>  {
-  const css: string = "inline-block border border-black cursor-pointer bg-gray-200 p-2";
+  const css: string = "inline-block border border-black cursor-pointer bg-gray-200 p-2 m-4";
 
   return (
     <div className="text-center">

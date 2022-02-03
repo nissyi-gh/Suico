@@ -132,11 +132,13 @@ export const LoginForm = (hideModalFunction: () => void): JSX.Element => {
   return(
     <>
       { ModalClose(hideModalFunction, "ログインフォーム") }
-      <form className="border-2 border-yellow-300 bg-yellow-50 rounded-md p-4">
-        { inputWithLabel("Email", "email", "email", "input_email") }
-        { inputWithLabel("パスワード", "password", "password", "input_password") }
-        { inputCheckBox("ログイン状態を保存する", "remember_me", "input_remember_me")}
-        { submitButton("ログイン", loginButtonClick) }
+      <form className="border-2 border-yellow-300 bg-yellow-50 rounded-md p-4 flex justify-center">
+        <div className="w-5/6">
+          { inputWithLabel("Email", "email", "email", "input_email") }
+          { inputWithLabel("パスワード", "password", "password", "input_password") }
+          { inputCheckBox("ログイン状態を保存する", "remember_me", "input_remember_me")}
+          { submitButton("ログイン", loginButtonClick) }
+        </div>
       </form>
       <ul id="form_error"></ul>
     </>

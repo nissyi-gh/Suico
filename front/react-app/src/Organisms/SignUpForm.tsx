@@ -135,12 +135,14 @@ export const SignUpForm = (hideModalFunction: () => void): JSX.Element => {
   return(
     <>
       { ModalClose(hideModalFunction, "新規登録フォーム")}
-      <form className="border-2 border-white bg-amber-100">
-        { inputWithLabel("お名前", "text", "name", "input_name") }
-        { inputWithLabel("Email", "email", "email", "input_email") }
-        { inputWithLabel("パスワード", "password", "password", "input_password") }
-        { inputWithLabel("パスワード再確認", "password", "password_confirmation", "input_password_confirm") }
-        { submitButton("登録する", submitClick) }
+      <form className="border-2 border-white bg-amber-100 p-4 flex justify-center">
+        <div className="w-5/6">
+          { inputWithLabel("お名前", "text", "name", "input_name") }
+          { inputWithLabel("Email", "email", "email", "input_email") }
+          { inputWithLabel("パスワード", "password", "password", "input_password") }
+          { inputWithLabel("パスワード(確認)", "password", "password_confirmation", "input_password_confirm") }
+          { submitButton("登録する", submitClick) }
+        </div>
       </form>
       <ul id="form_error"></ul>
     </>

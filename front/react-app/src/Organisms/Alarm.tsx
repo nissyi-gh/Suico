@@ -10,7 +10,7 @@ dayjs.locale('ja');
 
 export const Alarm = (hideModalFunction: () => void): JSX.Element => {
   // 現在時刻を表示
-  const [currentDateTime, setCurrentDateTime] = useState<dayjs.Dayjs>(dayjs());
+  // const [currentDateTime, setCurrentDateTime] = useState<dayjs.Dayjs>(dayjs());
   // 睡眠を始めた日時を記録
   const [sleepAt, setSleepAt] = useState<dayjs.Dayjs>(dayjs());
   // アラームが動作する日時
@@ -24,7 +24,7 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
   useEffect(() => {
     const timer = setInterval(() => {
       const now: dayjs.Dayjs = dayjs();
-      setCurrentDateTime(now);
+      // setCurrentDateTime(now);
 
       if (alarm) {
         setAlarmLeftTime(setLeftTime(now, alarm));
