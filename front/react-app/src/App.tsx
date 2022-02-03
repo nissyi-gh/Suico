@@ -21,7 +21,7 @@ import {
 
 export const App = (): JSX.Element => {
   return (
-    <div>
+    <div className="bg-sky-100 h-max">
       <div className="w-2/3 mx-auto my-0">
         <Router>
           <Header />

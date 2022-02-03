@@ -47,9 +47,9 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
   const titleCSS = 'underline text-lg bg-gray-400';
   return (
     <>
-      <div className="flex justify-between">
-        <p className="inline-block">アラーム画面</p>
-        <button onClick={ hideModalFunction }>閉じる</button>
+      <div className="flex justify-between h-20">
+        <p className="inline-block"><img src="title_dark.png" alt="ダークモードのロゴ" className="inline-block h-full" /></p>
+        <button onClick={ hideModalFunction }>X</button>
       </div>
       <div className="border border-white mb-2">
         <h2 className={ titleCSS }>現在 : </h2>

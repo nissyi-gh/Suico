@@ -53,7 +53,7 @@ export const HerderLogins = (): JSX.Element => {
       <div className="flex">
         { showLoginModal ? <LoginModal onClick={ hideLoginModal } /> : <></> }
         { showSignUpModal ? <SignUpModal onClick={ hiddenSignUpModal } /> : <></> }
-        { showAlarmFlag ? <AlarmModal onClick={ hiddenAlarmModal } /> : <></> }
+        { !showAlarmFlag ? <AlarmModal onClick={ hiddenAlarmModal } /> : <></> }
         { loginFlag ? <>
           { buttonAtom("アラーム", "", openAlarmModal) }
           <div>

@@ -3,6 +3,7 @@
     "@types/recharts": "^1.8.23",
     "axios": "^0.25.0",
     "dayjs": "^1.10.7",
+    "react-icons": "^4.3.1",
     "react-router-dom": "^6.2.1",
     "recharts": "^2.1.8"
   },
