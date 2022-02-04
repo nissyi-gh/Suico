@@ -32,6 +32,15 @@ module Api
         end
       end
 
+      def destroy
+        log = SleepLog.find_by(id: params[:id])
+        # ユーザーがもっているlogでなければ早期リターン
+        return if current_user.sleep_logs.exclude?(log)
+
+        log.delete
+        render json: {}, status: :ok
+      end
+
       private
 
       def sleep_log_params

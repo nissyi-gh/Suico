@@ -19,7 +19,7 @@ export const SleepLogList = ({ sleepLogs }: {sleepLogs: SleepLogListItem[]}): JS
                 { `(${log.sleepTime})` }
               </div>
               <div className="flex w-1/12 items-center justify-center relative">
-                < SleepLogManipulate />
+                < SleepLogManipulate id={ parseInt(log.sleepLogId, 10) } />
               </div>
             </div>
             <div className="flex h-12">

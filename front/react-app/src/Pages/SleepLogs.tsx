@@ -58,6 +58,8 @@ export const SleepLogs = (): JSX.Element => {
       .catch(e => console.log(e));
   }, [])
 
+  console.log(sleepLogs.pop())
+
   return (
     <>
       <div className="flex h-full w-full justify-around">
