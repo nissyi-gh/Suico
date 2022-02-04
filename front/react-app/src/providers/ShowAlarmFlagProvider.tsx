@@ -6,8 +6,7 @@ export const showAlarmContext =  createContext({} as {
 });
 
 
-export const ShowAlarmFlagProvider: React.FC = (props): ReactElement => {
-  const { children } = props;
+export const ShowAlarmFlagProvider: React.FC = ({ children }): ReactElement => {
   const [showAlarmFlag, setShowAlarmFlag] = useState<boolean>(false);
 
   return (

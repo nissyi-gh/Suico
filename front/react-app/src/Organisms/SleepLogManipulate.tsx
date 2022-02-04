@@ -7,9 +7,11 @@ export const SleepLogManipulate = ({ id } : { id : number }): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
 
   const deleteRequest = () => {
-    axios.delete(`${sleepLogsAPI}/${id}`, { withCredentials: true})
-    .then(res => console.log(res))
-    .catch(e => console.log(e));
+    if (window.confirm("本当に削除しますか?")){
+      axios.delete(`${ sleepLogsAPI }/${ id }`, { withCredentials: true })
+      .then(res => console.log(res))
+      .catch(e => console.log(e));
+    }
   }
 
   return (
