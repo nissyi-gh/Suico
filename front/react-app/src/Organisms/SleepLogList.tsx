@@ -2,7 +2,12 @@ import { satisfactionConverter } from "../Functions/Functions";
 import { SleepLogListItem } from "../types/types";
 import { SleepLogManipulate } from "./SleepLogManipulate";
 
-export const SleepLogList = ({ sleepLogs }: {sleepLogs: SleepLogListItem[]}): JSX.Element => {
+type SleepLogListType = {
+  sleepLogs: SleepLogListItem[],
+  fetchSleepLogs: () => void,
+}
+
+export const SleepLogList = ({ sleepLogs, fetchSleepLogs }: SleepLogListType): JSX.Element => {
   return (
     <ul id="sleep_log_list" className="h-full border-2 border-gray-400 rounded-md overflow-scroll shadow-inner z-10">
       { sleepLogs?.length !== 0 ?
@@ -19,7 +24,7 @@ export const SleepLogList = ({ sleepLogs }: {sleepLogs: SleepLogListItem[]}): JS
                 { `(${log.sleepTime})` }
               </div>
               <div className="flex w-1/12 items-center justify-center relative">
-                < SleepLogManipulate id={ parseInt(log.sleepLogId, 10) } />
+                < SleepLogManipulate id={ parseInt(log.sleepLogId, 10) } fetchSleepLogs={ fetchSleepLogs } />
               </div>
             </div>
             <div className="flex h-12 pt-1">

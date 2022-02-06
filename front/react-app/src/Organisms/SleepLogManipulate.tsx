@@ -3,7 +3,12 @@ import { useCallback, useRef, useState } from 'react';
 import { VscChromeClose, VscEllipsis, VscEdit, VscTrash } from 'react-icons/vsc';
 import { sleepLogsAPI } from '../constants/urls';
 
-export const SleepLogManipulate = ({ id } : { id : number }): JSX.Element => {
+type SleepLogManipulateType = {
+  id: number,
+  fetchSleepLogs: () => void
+}
+
+export const SleepLogManipulate = ({ id, fetchSleepLogs } : SleepLogManipulateType): JSX.Element => {
   // JSXの表示・非表示を変更する
   const [show, setShow] = useState<boolean>(false);
   const manipulateElement = useRef(null);
@@ -13,7 +18,10 @@ export const SleepLogManipulate = ({ id } : { id : number }): JSX.Element => {
   const deleteRequest = () => {
     if (window.confirm("本当に削除しますか?")){
       axios.delete(`${ sleepLogsAPI }/${ id }`, { withCredentials: true })
-      .then(res => console.log(res))
+      .then(res => {
+        fetchSleepLogs();
+        console.log(res);
+      })
       .catch(e => console.log(e));
     }
   }

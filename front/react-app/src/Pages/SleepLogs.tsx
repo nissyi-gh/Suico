@@ -1,4 +1,4 @@
-import { useState, useEffect, memo} from "react";
+import { useState, useEffect, memo, useCallback} from "react";
 import axios from "axios";
 import { SleepLog, SleepLogListItem, sleepLogsData } from "../types/types";
 import { sleepLogsAPI } from "../constants/urls";
@@ -32,7 +32,7 @@ export const SleepLogs = memo((): JSX.Element => {
     })
   }
 
-  useEffect(() => {
+  const fetchSleepLogs = useCallback((): void => {
     axios.get(sleepLogsAPI, { withCredentials: true })
     .then(res => {
         setSleepLogsData({
@@ -49,6 +49,9 @@ export const SleepLogs = memo((): JSX.Element => {
       .catch(e => console.log(e));
   }, [])
 
+  useEffect(() => {
+    fetchSleepLogs();
+  }, [fetchSleepLogs])
 
   return (
     <>
@@ -71,7 +74,7 @@ export const SleepLogs = memo((): JSX.Element => {
           </div>
         </div>
         <div className="w-2/5 m-2">
-          <SleepLogList sleepLogs={ sleepLogs } />
+          <SleepLogList sleepLogs={ sleepLogs } fetchSleepLogs={ fetchSleepLogs }/>
         </div>
       </div>
     </>
