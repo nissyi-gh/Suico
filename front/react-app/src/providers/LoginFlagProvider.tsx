@@ -8,8 +8,7 @@ export const LoginContext =  createContext({} as {
 });
 
 
-export const LoginFlagProvider: React.FC = (props): ReactElement => {
-  const { children } = props; // <App />を受け取る
+export const LoginFlagProvider: React.FC = ({ children }): ReactElement => {
   const [loginFlag, setLoginFlag] = useState<boolean>(false);
 
   // リロード時に読み込ませる

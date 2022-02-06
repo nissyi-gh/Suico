@@ -1,62 +1,19 @@
-import { useState, useEffect} from "react";
-import axios from "axios";
-import { SleepLog, SleepLogListItem } from "../types/types";
-import { sleepLogsAPI } from "../constants/urls";
+import { useEffect, memo, useContext} from "react";
+import { SleepGraph } from "../Organisms/SleepGraph";
+import { SleepLogList } from "../Organisms/SleepLogList";
+import { sleepLogsProviderContext } from "../providers/SleepLogsProvider";
+import { fetchSleepLogs } from "../Functions/Functions";
 // Day.js
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
-import { satisfactionConverter } from "../Functions/Functions";
-import { SleepGraph } from "../Organisms/SleepGraph";
 dayjs.locale('ja');
 
-type sleepLogsData = {
-  satisfaction: number,
-  wakeAtAverage: string,
-  sleepInAverage: string,
-  sleepAverage: string,
-  sleepMax: string,
-  sleepMin: string
-}
-
-export const SleepLogs = (): JSX.Element => {
-  const [sleepLogs, setSleepLogs] = useState<SleepLogListItem[]>([]);
-  const [sleepLogsData, setSleepLogsData] = useState<sleepLogsData>({
-    satisfaction: 0,
-    wakeAtAverage: "00:00",
-    sleepInAverage: "00:00",
-    sleepAverage: "00:00",
-    sleepMax: "00:00",
-    sleepMin: "00:00"
-  });
-
-  const returnLogsArray = (logs: SleepLog[]) => {
-  return logs.map((element: SleepLog) => {
-      return {
-        sleepLogId: element.id.toString(),
-        wakeAt: dayjs(element.wake_at),
-        sleepAt: dayjs(element.sleep_at),
-        sleepTime: element.sleep_time,
-        satisfaction: element.satisfaction
-      };
-    })
-  }
+export const SleepLogs = memo((): JSX.Element => {
+  const { sleepLogs, setSleepLogs, sleepLogsData, setSleepLogsData } = useContext(sleepLogsProviderContext);
 
   useEffect(() => {
-    axios.get(sleepLogsAPI, { withCredentials: true })
-    .then(res => {
-        setSleepLogsData({
-          satisfaction: res.data.average.satisfaction,
-          wakeAtAverage: res.data.average.wake_at,
-          sleepInAverage: res.data.average.sleep_at,
-          sleepAverage: res.data.average.sleep_time,
-          sleepMax: res.data.max,
-          sleepMin: res.data.min
-        })
-        
-        setSleepLogs(returnLogsArray(res.data.sleep_logs));
-      })
-      .catch(e => console.log(e));
-  }, [])
+    fetchSleepLogs(setSleepLogs, setSleepLogsData);
+  }, [setSleepLogs, setSleepLogsData])
 
   return (
     <>
@@ -79,40 +36,9 @@ export const SleepLogs = (): JSX.Element => {
           </div>
         </div>
         <div className="w-2/5 m-2">
-          <ul id="sleep_log_list" className="h-full border-2 border-gray-300 rounded-md overflow-scroll shadow-inner">
-            { sleepLogs?.length !== 0 ?
-              sleepLogs?.map((log, index) => (
-                <li key={ index } id={ `sleep_log_${log.sleepLogId}` } className="border border-gray-400 p-2 bg-amber-50">
-                  <div className="flex mb-1">
-                    <div className="w-1/4 tracking-wider text-center">
-                      {log.sleepAt.format("MM/DD(dd)")}
-                    </div>
-                    <div className="w-1/2 tracking-wider">
-                      {log.sleepAt.format("HH:mm")} ~ {log.wakeAt.format("HH:mm")}
-                    </div>
-                    <div className="w-1/4 tracking-wider">
-                      { `(${log.sleepTime})` }
-                    </div>
-                  </div>
-                  <div className="flex h-12">
-                    <div className="w-1/4 flex justify-center items-center">
-                      { satisfactionConverter(log.satisfaction) }
-                    </div>
-                    <div className="w-2/3 overflow-hidden">
-                      コメントコメントコメントコメントコメントコメントコメントコメントコメントコメントコメントコメント
-                    </div>
-                    <div className="text-center cursor-pointer w-1/12">
-                      …
-                    </div>
-                  </div>
-                </li>
-              ))
-              :
-              <li>データがありません。</li>
-            }
-          </ul>
+          <SleepLogList sleepLogs={ sleepLogs } />
         </div>
       </div>
     </>
     )
-}
+})

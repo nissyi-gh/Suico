@@ -47,3 +47,12 @@ export type SleepLogListItem = {
   sleepTime: string,
   satisfaction: number
 }
+
+export type sleepLogsData = {
+  satisfaction: number,
+  wakeAtAverage: string,
+  sleepInAverage: string,
+  sleepAverage: string,
+  sleepMax: string,
+  sleepMin: string
+}

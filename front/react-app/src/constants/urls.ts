@@ -21,6 +21,6 @@ export const delete_session: string = `${DEFAULT_API_LOCALHOST}/logout`; // DELE
 export const loggedIn: string = `${DEFAULT_API_LOCALHOST}/logged_in`; // GET
 
 // sleep_logs
-export const sleepLogsAPI: string = `${DEFAULT_API_LOCALHOST}/sleep_logs`// GET, POST
-export const sleepLogAPI: string = `${DEFAULT_API_LOCALHOST}/sleep_log`// GET, PATCH, PUT, DELETE
+export const sleepLogsAPI: string = `${DEFAULT_API_LOCALHOST}/sleep_logs`// GET, POST, (add ID) GET, PATCH, PUT, DELETE
+// export const sleepLogAPI: string = `${DEFAULT_API_LOCALHOST}/sleep_log`// GET, PATCH, PUT, DELETE
 export const sleepLogURL: string = `/sleep_log`

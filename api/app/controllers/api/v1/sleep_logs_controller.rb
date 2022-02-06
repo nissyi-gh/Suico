@@ -6,8 +6,8 @@ module Api
         # 文字列で出力する場合には、JSTに変換したうえでフロントに渡す
 
         # テスト用にuser_id: 1のデータのみ表示
-        sleep_logs = SleepLog.select(:id, :sleep_at, :wake_at, :satisfaction).where(user_id: 1)
-        # sleep_logs = SleepLog.select(:id, :sleep_at, :wake_at, :satisfaction).where(user_id: current_user.id)
+        # sleep_logs = SleepLog.select(:id, :sleep_at, :wake_at, :satisfaction).where(user_id: 1)
+        sleep_logs = SleepLog.select(:id, :sleep_at, :wake_at, :satisfaction).where(user_id: current_user.id)
         sleep_data = sleep_logs.sleep_log_index(sleep_logs)
 
         render json: {
@@ -30,6 +30,15 @@ module Api
         else
           render json: {}, status: :bad_request
         end
+      end
+
+      def destroy
+        log = SleepLog.find_by(id: params[:id])
+        # ユーザーがもっているlogでなければ早期リターン
+        return if current_user.sleep_logs.exclude?(log)
+
+        log.delete
+        render json: {}, status: :ok
       end
 
       private
