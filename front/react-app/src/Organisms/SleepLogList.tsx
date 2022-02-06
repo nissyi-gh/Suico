@@ -4,10 +4,9 @@ import { SleepLogManipulate } from "./SleepLogManipulate";
 
 type SleepLogListType = {
   sleepLogs: SleepLogListItem[],
-  fetchSleepLogs: () => void,
 }
 
-export const SleepLogList = ({ sleepLogs, fetchSleepLogs }: SleepLogListType): JSX.Element => {
+export const SleepLogList = ({ sleepLogs }: SleepLogListType): JSX.Element => {
   return (
     <ul id="sleep_log_list" className="h-full border-2 border-gray-400 rounded-md overflow-scroll shadow-inner z-10">
       { sleepLogs?.length !== 0 ?
@@ -24,7 +23,7 @@ export const SleepLogList = ({ sleepLogs, fetchSleepLogs }: SleepLogListType): J
                 { `(${log.sleepTime})` }
               </div>
               <div className="flex w-1/12 items-center justify-center relative">
-                < SleepLogManipulate id={ parseInt(log.sleepLogId, 10) } fetchSleepLogs={ fetchSleepLogs } />
+                < SleepLogManipulate id={ parseInt(log.sleepLogId, 10) } />
               </div>
             </div>
             <div className="flex h-12 pt-1">

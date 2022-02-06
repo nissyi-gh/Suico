@@ -1,57 +1,19 @@
-import { useState, useEffect, memo, useCallback} from "react";
-import axios from "axios";
-import { SleepLog, SleepLogListItem, sleepLogsData } from "../types/types";
-import { sleepLogsAPI } from "../constants/urls";
+import { useEffect, memo, useContext} from "react";
+import { SleepGraph } from "../Organisms/SleepGraph";
+import { SleepLogList } from "../Organisms/SleepLogList";
+import { sleepLogsProviderContext } from "../providers/SleepLogsProvider";
+import { fetchSleepLogs } from "../Functions/Functions";
 // Day.js
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
-import { SleepGraph } from "../Organisms/SleepGraph";
-import { SleepLogList } from "../Organisms/SleepLogList";
 dayjs.locale('ja');
 
 export const SleepLogs = memo((): JSX.Element => {
-  const [sleepLogs, setSleepLogs] = useState<SleepLogListItem[]>([]);
-  const [sleepLogsData, setSleepLogsData] = useState<sleepLogsData>({
-    satisfaction: 0,
-    wakeAtAverage: "00:00",
-    sleepInAverage: "00:00",
-    sleepAverage: "00:00",
-    sleepMax: "00:00",
-    sleepMin: "00:00"
-  });
-
-  const returnLogsArray = (logs: SleepLog[]) => {
-  return logs.map((element: SleepLog) => {
-      return {
-        sleepLogId: element.id.toString(),
-        wakeAt: dayjs(element.wake_at),
-        sleepAt: dayjs(element.sleep_at),
-        sleepTime: element.sleep_time,
-        satisfaction: element.satisfaction
-      };
-    })
-  }
-
-  const fetchSleepLogs = useCallback((): void => {
-    axios.get(sleepLogsAPI, { withCredentials: true })
-    .then(res => {
-        setSleepLogsData({
-          satisfaction: res.data.average.satisfaction,
-          wakeAtAverage: res.data.average.wake_at,
-          sleepInAverage: res.data.average.sleep_at,
-          sleepAverage: res.data.average.sleep_time,
-          sleepMax: res.data.max,
-          sleepMin: res.data.min
-        })
-        
-        setSleepLogs(returnLogsArray(res.data.sleep_logs));
-      })
-      .catch(e => console.log(e));
-  }, [])
+  const { sleepLogs, setSleepLogs, sleepLogsData, setSleepLogsData } = useContext(sleepLogsProviderContext);
 
   useEffect(() => {
-    fetchSleepLogs();
-  }, [fetchSleepLogs])
+    fetchSleepLogs(setSleepLogs, setSleepLogsData);
+  }, [setSleepLogs, setSleepLogsData])
 
   return (
     <>
@@ -74,7 +36,7 @@ export const SleepLogs = memo((): JSX.Element => {
           </div>
         </div>
         <div className="w-2/5 m-2">
-          <SleepLogList sleepLogs={ sleepLogs } fetchSleepLogs={ fetchSleepLogs }/>
+          <SleepLogList sleepLogs={ sleepLogs } />
         </div>
       </div>
     </>

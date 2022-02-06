@@ -1,4 +1,10 @@
+import axios from "axios";
 import { satisfactions } from "../constants/constants";
+import { sleepLogsAPI } from "../constants/urls";
+import { SleepLog, SleepLogListItem } from "../types/types";
+import dayjs from "dayjs";
+import "dayjs/locale/ja";
+dayjs.locale('ja');
 
 export const formatNumberDigit = (num: number): string => {
   const DEFAULT_DIGIT = 2;
@@ -36,4 +42,33 @@ export const timeConverterForNumber = (hour: number, min: number, sleepIn?: bool
 
   if (sleepIn && hour < 2) { hour = hour + 24 }
   return (hour + (min * minBase / 100)).toFixed(1);
+}
+
+const returnLogsArray = (logs: SleepLog[]) => {
+return logs.map((element: SleepLog) => {
+    return {
+      sleepLogId: element.id.toString(),
+      wakeAt: dayjs(element.wake_at),
+      sleepAt: dayjs(element.sleep_at),
+      sleepTime: element.sleep_time,
+      satisfaction: element.satisfaction
+    };
+  })
+}
+
+export const fetchSleepLogs = (setSleepLogs: React.Dispatch<React.SetStateAction<SleepLogListItem[]>>, setSleepLogsData: any ): void => {
+  axios.get(sleepLogsAPI, { withCredentials: true })
+  .then(res => {
+    setSleepLogsData({
+      satisfaction: res.data.average.satisfaction,
+      wakeAtAverage: res.data.average.wake_at,
+      sleepInAverage: res.data.average.sleep_at,
+      sleepAverage: res.data.average.sleep_time,
+      sleepMax: res.data.max,
+      sleepMin: res.data.min
+    })
+    
+    setSleepLogs(returnLogsArray(res.data.sleep_logs));
+  })
+  .catch(e => console.log(e));
 }

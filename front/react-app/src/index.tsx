@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom';
 import { App } from './App';
 import reportWebVitals from './reportWebVitals';
 import { LoginFlagProvider } from './providers/LoginFlagProvider';
+import { SleepLogsProvider } from './providers/SleepLogsProvider';
 import './css/output.css'
 
 ReactDOM.render(
   <React.StrictMode>
     <LoginFlagProvider>
-      <App />
+      <SleepLogsProvider>
+        <App />
+      </SleepLogsProvider>
     </LoginFlagProvider>
   </React.StrictMode>,
   document.getElementById('root')
