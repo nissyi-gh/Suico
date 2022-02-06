@@ -1,10 +1,14 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { VscChromeClose, VscEllipsis, VscEdit, VscTrash } from 'react-icons/vsc';
 import { sleepLogsAPI } from '../constants/urls';
 
 export const SleepLogManipulate = ({ id } : { id : number }): JSX.Element => {
+  // JSXの表示・非表示を変更する
   const [show, setShow] = useState<boolean>(false);
+  const manipulateElement = useRef(null);
+  // useCallbackがshowに依存しないよう、Refで新たなStateを持たせる。
+  const isShow = useRef(false);
 
   const deleteRequest = () => {
     if (window.confirm("本当に削除しますか?")){
@@ -14,11 +18,32 @@ export const SleepLogManipulate = ({ id } : { id : number }): JSX.Element => {
     }
   }
 
+  const isShowToggle = useCallback((e: Event) => {
+    if  (isShow.current && (e.target !== manipulateElement.current)) {
+      setShow(false);
+      isShow.current = false;
+      document.removeEventListener('click', isShowToggle);
+    } else {
+      setShow(true);
+      isShow.current = true;
+    } 
+  }, [])
+  
+  const showManipulate = () => {
+    document.addEventListener('click', isShowToggle);
+  }
+  
+  const closeManipulate = () => {
+    setShow(false);
+    isShow.current = false;
+    document.removeEventListener('click', isShowToggle);
+  }
+
   return (
     <>
-      <VscEllipsis onClick={ () => setShow(true) } className="cursor-pointer" />
+      <VscEllipsis onClick={ showManipulate } className="cursor-pointer" />
       { show ? <>
-        <div className="sleep_log_manipulate flex justify-around border w-32 p-2 border-black absolute top-0 bg-gray-200 -left-24 z-20 rounded-md shadow-md shadow-gray-700/75">
+        <div ref={ manipulateElement } className="sleep_log_manipulate flex justify-around border w-32 p-2 border-black absolute top-0 bg-gray-200 -left-24 z-20 rounded-md shadow-md shadow-gray-700/75">
           <div className='flex flex-col justify-between items-center w-20'>
             <div className='flex items-center justify-around w-full cursor-pointer hover:bg-gray-500/25 mb-2'>
               <VscEdit />編集
@@ -27,7 +52,7 @@ export const SleepLogManipulate = ({ id } : { id : number }): JSX.Element => {
               <VscTrash />削除
             </div>
           </div>
-          <VscChromeClose onClick={ () => setShow(false) } className="cursor-pointer hover:bg-gray-500/25"/>
+          <VscChromeClose onClick={ closeManipulate } className="cursor-pointer hover:bg-gray-500/25"/>
         </div>
       </> : <>
       </>

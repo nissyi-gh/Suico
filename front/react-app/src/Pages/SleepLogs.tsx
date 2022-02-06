@@ -1,6 +1,6 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect, memo} from "react";
 import axios from "axios";
-import { SleepLog, SleepLogListItem } from "../types/types";
+import { SleepLog, SleepLogListItem, sleepLogsData } from "../types/types";
 import { sleepLogsAPI } from "../constants/urls";
 // Day.js
 import dayjs from "dayjs";
@@ -9,16 +9,7 @@ import { SleepGraph } from "../Organisms/SleepGraph";
 import { SleepLogList } from "../Organisms/SleepLogList";
 dayjs.locale('ja');
 
-type sleepLogsData = {
-  satisfaction: number,
-  wakeAtAverage: string,
-  sleepInAverage: string,
-  sleepAverage: string,
-  sleepMax: string,
-  sleepMin: string
-}
-
-export const SleepLogs = (): JSX.Element => {
+export const SleepLogs = memo((): JSX.Element => {
   const [sleepLogs, setSleepLogs] = useState<SleepLogListItem[]>([]);
   const [sleepLogsData, setSleepLogsData] = useState<sleepLogsData>({
     satisfaction: 0,
@@ -85,4 +76,4 @@ export const SleepLogs = (): JSX.Element => {
       </div>
     </>
     )
-}
+})
