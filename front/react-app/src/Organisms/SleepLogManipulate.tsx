@@ -4,6 +4,7 @@ import { VscChromeClose, VscEllipsis, VscEdit, VscTrash } from 'react-icons/vsc'
 import { sleepLogsAPI } from '../constants/urls';
 import { fetchSleepLogs } from '../Functions/Functions';
 import { sleepLogsProviderContext } from '../providers/SleepLogsProvider';
+import { SleepLogEditerModal } from './SleepLogEditerModal';
 
 type SleepLogManipulateType = {
   id: number,
@@ -16,6 +17,7 @@ export const SleepLogManipulate = ({ id } : SleepLogManipulateType): JSX.Element
   const manipulateElement = useRef(null);
   // useCallbackがshowに依存しないよう、Refで新たなStateを持たせる。
   const isShow = useRef(false);
+  const [editerShow, setEditerShow] = useState<boolean>(false);
 
   // 確認したら該当のログを削除して、再度ログを取得する。
   const deleteRequest = () => {
@@ -56,7 +58,7 @@ export const SleepLogManipulate = ({ id } : SleepLogManipulateType): JSX.Element
       { show ? <>
         <div ref={ manipulateElement } className="sleep_log_manipulate flex justify-around border w-32 p-2 border-black absolute top-0 bg-gray-200 -left-24 z-20 rounded-md shadow-md shadow-gray-700/75">
           <div className='flex flex-col justify-between items-center w-20'>
-            <div className='flex items-center justify-around w-full cursor-pointer hover:bg-gray-500/25 mb-2'>
+            <div className='flex items-center justify-around w-full cursor-pointer hover:bg-gray-500/25 mb-2' onClick={ () => setEditerShow(true) }>
               <VscEdit />編集
             </div>
             <div className='flex items-center justify-around w-full cursor-pointer hover:bg-gray-500/25' onClick={ deleteRequest }>
@@ -65,9 +67,8 @@ export const SleepLogManipulate = ({ id } : SleepLogManipulateType): JSX.Element
           </div>
           <VscChromeClose onClick={ closeManipulate } className="cursor-pointer hover:bg-gray-500/25"/>
         </div>
-      </> : <>
-      </>
-      }
+      </> : null}
+      { editerShow ? <SleepLogEditerModal onClick={ () => setEditerShow(false) } /> : null }
     </>
   )
 
