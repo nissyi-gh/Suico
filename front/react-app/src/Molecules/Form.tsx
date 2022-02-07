@@ -3,6 +3,9 @@ import { inputAtom } from "../Atoms/form";
 import { satisfactions } from "../constants/constants";
 import { taskOptionCreate } from "../Functions/Alarm";
 import { formatNumberDigit } from "../Functions/Functions";
+import dayjs from "dayjs";
+import "dayjs/locale/ja";
+dayjs.locale('ja');
 
 export const inputWithLabel = (itemName: string, type: string, name: string, id: string, defaultValue?: string): JSX.Element => {
   const inputCss: string = "border border-gray-600 w-3/5";
@@ -69,7 +72,7 @@ const timerOptionCleate = (setter: HTMLSelectElement, limit: number) => {
   }
 }
 
-export const AlarmSetterWithLabel = (itemName: string, name: string, id: string): JSX.Element => {
+export const AlarmSetterWithLabel = (itemName: string, name: string, id: string, defaultTime?: dayjs.Dayjs): JSX.Element => {
   useEffect(() => {
     const hourSetter = document.getElementById(`${ id }_hour`) as HTMLSelectElement;
     const minSetter = document.getElementById(`${ id }_min`) as HTMLSelectElement;
@@ -80,12 +83,12 @@ export const AlarmSetterWithLabel = (itemName: string, name: string, id: string)
     }
   }, [id])
 
-  const selecterCSS: string = "border bg-inherit text-gray-100 w-1/6";
+  const selecterCSS: string = "border bg-black text-gray-100 w-1/6";
   return (
     <div className="text-gray-100 w-full">
-      <label htmlFor={ id } className="inline-block w-1/3">{ itemName }</label>
-      <select name={ name } id={ `${ id }_hour` } className={ selecterCSS }></select>
-      <select name={ name } id={ `${ id }_min` } className={ selecterCSS }></select>
+      <label htmlFor={ id } className=" bg-black inline-block w-1/3">{ itemName }</label>
+      <select name={ name } id={ `${ id }_hour` } className={ selecterCSS } defaultValue={ defaultTime?.hour() }></select>
+      <select name={ name } id={ `${ id }_min` } className={ selecterCSS } defaultValue={ defaultTime?.minute() }></select>
     </div>
   )
 }
