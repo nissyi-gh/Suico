@@ -106,16 +106,24 @@ export const TaskSelecterWithLabel = (itemName:string, name: string, id: string)
   )
 }
 
-export const Satisfactionselector = (): JSX.Element => {
+export const Satisfactionselector = (defaultValue?: number): JSX.Element => {
+  const satisfactionsArray: (string | number)[][] = [
+    [satisfactions.NULL.CHARACTER, "記録しない"],
+    [satisfactions.BAD.NUMBER, satisfactions.BAD.CHARACTER],
+    [satisfactions.SOSO.NUMBER, satisfactions.SOSO.CHARACTER],
+    [satisfactions.GOOD.NUMBER, satisfactions.GOOD.CHARACTER],
+    [satisfactions.BETTER.NUMBER, satisfactions.BETTER.CHARACTER],
+    [satisfactions.BEST.NUMBER, satisfactions.BEST.CHARACTER]
+  ]
+
   return (
     <>
-      <select name="satisfaction" id="satisfaction" className="border m-2">
-        <option value={ satisfactions.NULL.CHARACTER }>記録しない</option>
-        <option value={ satisfactions.BAD.NUMBER }>{ satisfactions.BAD.CHARACTER }</option>
-        <option value={ satisfactions.SOSO.NUMBER }>{ satisfactions.SOSO.CHARACTER }</option>
-        <option value={ satisfactions.GOOD.NUMBER }>{ satisfactions.GOOD.CHARACTER }</option>
-        <option value={ satisfactions.BETTER.NUMBER }>{ satisfactions.BETTER.CHARACTER }</option>
-        <option value={ satisfactions.BEST.NUMBER }>{ satisfactions.BEST.CHARACTER }</option>
+      <select name="satisfaction" id="satisfaction" className="border zzzzm-2" defaultValue={ defaultValue }>
+        { 
+          satisfactionsArray.map( item => {
+            return <option value={ item[0] } key={item[0] }> {item[1]} </option>
+          })
+        }
       </select>
     </>
   )
