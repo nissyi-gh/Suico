@@ -1,10 +1,10 @@
-import { SignUpForm } from "./SignUpForm";
+import { SleepLogEditForm } from "./SleepLogEditForm";
 import { Modal } from "../Templates/Modal";
 
-export const SleepLogEditerModal = (props: { onClick: () => void }): JSX.Element => {
+export const SleepLogEditerModal = ({ hideModalFunction, id } : { hideModalFunction: () => void, id: number }): JSX.Element => {
   return (
     <>
-      { Modal(SignUpForm(props.onClick), 'gray') }
+      { Modal(SleepLogEditForm({ hideModalFunction, id }), 'gray') }
     </>
   )
 }

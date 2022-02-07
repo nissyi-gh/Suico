@@ -52,6 +52,10 @@ export const SleepLogManipulate = ({ id } : SleepLogManipulateType): JSX.Element
     document.removeEventListener('click', isShowToggle);
   }
 
+  const closeEditer = () => {
+    setEditerShow(false);
+  }
+
   return (
     <>
       <VscEllipsis onClick={ showManipulate } className="cursor-pointer" />
@@ -68,7 +72,7 @@ export const SleepLogManipulate = ({ id } : SleepLogManipulateType): JSX.Element
           <VscChromeClose onClick={ closeManipulate } className="cursor-pointer hover:bg-gray-500/25"/>
         </div>
       </> : null}
-      { editerShow ? <SleepLogEditerModal onClick={ () => setEditerShow(false) } /> : null }
+      { editerShow ? <SleepLogEditerModal hideModalFunction={ closeEditer } id={ id } /> : null }
     </>
   )
 
