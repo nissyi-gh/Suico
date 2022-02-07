@@ -4,13 +4,10 @@ import { VscChromeClose, VscEllipsis, VscEdit, VscTrash } from 'react-icons/vsc'
 import { sleepLogsAPI } from '../constants/urls';
 import { fetchSleepLogs } from '../Functions/Functions';
 import { sleepLogsProviderContext } from '../providers/SleepLogsProvider';
+import { SleepLogListItem } from '../types/types';
 import { SleepLogEditerModal } from './SleepLogEditerModal';
 
-type SleepLogManipulateType = {
-  id: number,
-}
-
-export const SleepLogManipulate = ({ id } : SleepLogManipulateType): JSX.Element => {
+export const SleepLogManipulate = ({ log } : { log: SleepLogListItem }): JSX.Element => {
   const { setSleepLogs, setSleepLogsData } = useContext(sleepLogsProviderContext);
   // JSXの表示・非表示を変更する
   const [show, setShow] = useState<boolean>(false);
@@ -22,7 +19,7 @@ export const SleepLogManipulate = ({ id } : SleepLogManipulateType): JSX.Element
   // 確認したら該当のログを削除して、再度ログを取得する。
   const deleteRequest = () => {
     if (window.confirm("本当に削除しますか?")){
-      axios.delete(`${ sleepLogsAPI }/${ id }`, { withCredentials: true })
+      axios.delete(`${ sleepLogsAPI }/${ log.sleepLogId }`, { withCredentials: true })
       .then(res => {
         fetchSleepLogs(setSleepLogs, setSleepLogsData);
         console.log(res);
@@ -72,7 +69,7 @@ export const SleepLogManipulate = ({ id } : SleepLogManipulateType): JSX.Element
           <VscChromeClose onClick={ closeManipulate } className="cursor-pointer hover:bg-gray-500/25"/>
         </div>
       </> : null}
-      { editerShow ? <SleepLogEditerModal hideModalFunction={ closeEditer } id={ id } /> : null }
+      { editerShow ? <SleepLogEditerModal hideModalFunction={ closeEditer } log={ log } /> : null }
     </>
   )
 
