@@ -46,49 +46,35 @@ export const inputCheckBox = (spanText: string, name: string, id: string): JSX.E
   )
 }
 
-const timerOptionCleate = (setter: HTMLSelectElement, limit: number) => {
-  const now = new Date();
+const timerOptionCleate = (limit: number) => {
+  // const now = dayjs();
+  const times = [];
 
-  for(let i: number = 0; i < limit; i++) {
-    const element = document.createElement('option');
-    
-    element.value = i.toString();
-    element.textContent = formatNumberDigit(i);
-
-    // 現在時刻をselected
-    switch (limit) {
-      case 24:
-        if (i === now.getHours()) {
-          element.selected = true;
-        }
-        break;
-      case 60:
-        if (i === now.getMinutes()) {
-          element.selected = true;
-        }
-        break;
-    }
-    setter.append(element);
+  for (let i: number = 0; i < limit; i++ ) {
+    times.push(i);
   }
+
+  return (
+    <>
+      { times.map(item => {
+        return <option key={ item }>{ formatNumberDigit(item) }</option>
+      })}
+    </>
+  )
 }
 
 export const AlarmSetterWithLabel = (itemName: string, name: string, id: string, defaultTime?: dayjs.Dayjs): JSX.Element => {
-  useEffect(() => {
-    const hourSetter = document.getElementById(`${ id }_hour`) as HTMLSelectElement;
-    const minSetter = document.getElementById(`${ id }_min`) as HTMLSelectElement;
-    
-    if(hourSetter && minSetter) {
-      timerOptionCleate(hourSetter, 24);
-      timerOptionCleate(minSetter, 60);
-    }
-  }, [id])
-
   const selecterCSS: string = "border bg-black text-gray-100 w-1/6";
+  
   return (
     <div className="text-gray-100 w-full">
       <label htmlFor={ id } className=" bg-black inline-block w-1/3">{ itemName }</label>
-      <select name={ name } id={ `${ id }_hour` } className={ selecterCSS } defaultValue={ defaultTime?.hour() }></select>
-      <select name={ name } id={ `${ id }_min` } className={ selecterCSS } defaultValue={ defaultTime?.minute() }></select>
+      <select name={ name } id={ `${ id }_hour` } className={ selecterCSS } defaultValue={ defaultTime?.hour() }>
+        { timerOptionCleate(24) }
+      </select>
+      <select name={ name } id={ `${ id }_min` } className={ selecterCSS } defaultValue={ defaultTime?.minute() }>
+        { timerOptionCleate(60) }
+      </select>
     </div>
   )
 }
@@ -129,5 +115,16 @@ export const Satisfactionselector = (defaultValue?: number): JSX.Element => {
         }
       </select>
     </>
+  )
+}
+
+export const SatisfactionSelectorWithLabel = (defaultValue?: number): JSX.Element => {
+  return (
+    <div className="w-full">
+      <label htmlFor="satisfaction" className="inline-block w-1/3">
+        睡眠の満足度
+      </label>
+      { Satisfactionselector(defaultValue) }
+    </div>
   )
 }
