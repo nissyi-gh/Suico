@@ -28,7 +28,7 @@ export const AlarmSetter = ({ onClickSleepIn } : propsFunctions ): JSX.Element =
       <div className="border py-6 h-72 mb-4 flex justify-center roun">
         <div className="w-80 flex flex-col items-center justify-around">
           <div className="text-white w-full">プリセット</div>
-          { AlarmSetterWithLabel("起床時刻", "timer", "wake_at") }
+          { AlarmSetterWithLabel("起床時刻", "timer", "wake_at", dayjs()) }
           { TaskSelecterWithLabel("停止方法", "stop_method", "task_selector") }
           {/* { submitButton('1分後に設定する', setAfterMinute) } */}
         </div>
