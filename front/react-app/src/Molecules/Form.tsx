@@ -47,7 +47,6 @@ export const inputCheckBox = (spanText: string, name: string, id: string): JSX.E
 }
 
 const timerOptionCleate = (limit: number) => {
-  // const now = dayjs();
   const times = [];
 
   for (let i: number = 0; i < limit; i++ ) {
