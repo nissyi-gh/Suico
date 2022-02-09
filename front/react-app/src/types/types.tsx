@@ -44,8 +44,8 @@ export type SleepLogListItem = {
   sleepLogId: string, 
   wakeAt: dayjs.Dayjs,
   sleepAt: dayjs.Dayjs,
-  sleepTime: string,
-  satisfaction: number
+  satisfaction: number,
+  sleepTime?: string,
 }
 
 export type sleepLogsData = {

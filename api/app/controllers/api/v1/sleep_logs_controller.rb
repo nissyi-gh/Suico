@@ -41,6 +41,13 @@ module Api
         render json: {}, status: :ok
       end
 
+      def update
+        log = SleepLog.find_by(id: params[:id])
+        return if current_user.sleep_logs.exclude?(log)
+
+        log.update(sleep_log_params)
+      end
+
       private
 
       def sleep_log_params

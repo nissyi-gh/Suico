@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { inputAtom } from "../Atoms/form";
 import { satisfactions } from "../constants/constants";
 import { taskOptionCreate } from "../Functions/Alarm";
@@ -64,14 +64,16 @@ const timerOptionCleate = (limit: number) => {
 
 export const AlarmSetterWithLabel = (itemName: string, name: string, id: string, defaultTime?: dayjs.Dayjs): JSX.Element => {
   const selecterCSS: string = "border bg-black text-gray-100 w-1/6";
+  const defaultHour: string = defaultTime ? formatNumberDigit(defaultTime?.hour()) : '' ;
+  const defaultMin: string = defaultTime ? formatNumberDigit(defaultTime?.minute()) : '';
   
   return (
     <div className="text-gray-100 w-full">
       <label htmlFor={ id } className=" bg-black inline-block w-1/3">{ itemName }</label>
-      <select name={ name } id={ `${ id }_hour` } className={ selecterCSS } defaultValue={ defaultTime?.hour() }>
+      <select name={ name } id={ `${ id }_hour` } className={ selecterCSS } defaultValue={ defaultHour } >
         { timerOptionCleate(24) }
       </select>
-      <select name={ name } id={ `${ id }_min` } className={ selecterCSS } defaultValue={ defaultTime?.minute() }>
+      <select name={ name } id={ `${ id }_min` } className={ selecterCSS } defaultValue={ defaultMin } >
         { timerOptionCleate(60) }
       </select>
     </div>
