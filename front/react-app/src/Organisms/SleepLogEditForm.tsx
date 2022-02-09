@@ -20,7 +20,6 @@ export const SleepLogEditForm = ({ hideModalFunction, log } : { hideModalFunctio
   const { setSleepLogs, setSleepLogsData } = useContext(sleepLogsProviderContext);
 
   useEffect(() => {
-    console.log(changeLog);
     if (changeLog) {
       axios.patch(`${sleepLogsAPI}/${log.sleepLogId}`,
         {
@@ -29,8 +28,7 @@ export const SleepLogEditForm = ({ hideModalFunction, log } : { hideModalFunctio
           satisfaction: changeLog.satisfaction
         }, 
         { withCredentials: true })
-      .then(res => {
-        console.log(res)
+      .then(() => {
         fetchSleepLogs(setSleepLogs, setSleepLogsData);
         hideModalFunction();
       })
