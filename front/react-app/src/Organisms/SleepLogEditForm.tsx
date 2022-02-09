@@ -66,7 +66,7 @@ export const SleepLogEditForm = ({ hideModalFunction, log } : { hideModalFunctio
 
   return(
     <>
-      { ModalClose(hideModalFunction, `睡眠ログ編集フォーム （ID: ${ log.sleepLogId }）`)}
+      { ModalClose(hideModalFunction, '睡眠ログ編集フォーム')}
       <form className="border-2 border-white bg-amber-100 p-4 flex justify-center">
         <div className="w-5/6">
           <p>{ log.sleepAt.format('MM/DD(dd)')}</p>
