@@ -23,7 +23,7 @@ export const SleepLogList = ({ sleepLogs }: SleepLogListType): JSX.Element => {
                 { `(${log.sleepTime})` }
               </div>
               <div className="flex w-1/12 items-center justify-center relative">
-                < SleepLogManipulate id={ parseInt(log.sleepLogId, 10) } />
+                < SleepLogManipulate log={ log } />
               </div>
             </div>
             <div className="flex h-12 pt-1">

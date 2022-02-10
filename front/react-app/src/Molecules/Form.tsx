@@ -1,8 +1,11 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { inputAtom } from "../Atoms/form";
 import { satisfactions } from "../constants/constants";
 import { taskOptionCreate } from "../Functions/Alarm";
 import { formatNumberDigit } from "../Functions/Functions";
+import dayjs from "dayjs";
+import "dayjs/locale/ja";
+dayjs.locale('ja');
 
 export const inputWithLabel = (itemName: string, type: string, name: string, id: string, defaultValue?: string): JSX.Element => {
   const inputCss: string = "border border-gray-600 w-3/5";
@@ -43,49 +46,36 @@ export const inputCheckBox = (spanText: string, name: string, id: string): JSX.E
   )
 }
 
-const timerOptionCleate = (setter: HTMLSelectElement, limit: number) => {
-  const now = new Date();
+const timerOptionCleate = (limit: number) => {
+  const times = [];
 
-  for(let i: number = 0; i < limit; i++) {
-    const element = document.createElement('option');
-    
-    element.value = i.toString();
-    element.textContent = formatNumberDigit(i);
-
-    // 現在時刻をselected
-    switch (limit) {
-      case 24:
-        if (i === now.getHours()) {
-          element.selected = true;
-        }
-        break;
-      case 60:
-        if (i === now.getMinutes()) {
-          element.selected = true;
-        }
-        break;
-    }
-    setter.append(element);
+  for (let i: number = 0; i < limit; i++ ) {
+    times.push(i);
   }
+
+  return (
+    <>
+      { times.map(item => {
+        return <option key={ item }>{ formatNumberDigit(item) }</option>
+      })}
+    </>
+  )
 }
 
-export const AlarmSetterWithLabel = (itemName: string, name: string, id: string): JSX.Element => {
-  useEffect(() => {
-    const hourSetter = document.getElementById(`${ id }_hour`) as HTMLSelectElement;
-    const minSetter = document.getElementById(`${ id }_min`) as HTMLSelectElement;
-    
-    if(hourSetter && minSetter) {
-      timerOptionCleate(hourSetter, 24);
-      timerOptionCleate(minSetter, 60);
-    }
-  }, [id])
-
-  const selecterCSS: string = "border bg-inherit text-gray-100 w-1/6";
+export const AlarmSetterWithLabel = (itemName: string, name: string, id: string, defaultTime?: dayjs.Dayjs): JSX.Element => {
+  const selecterCSS: string = "border bg-black text-gray-100 w-1/6";
+  const defaultHour: string = defaultTime ? formatNumberDigit(defaultTime?.hour()) : '' ;
+  const defaultMin: string = defaultTime ? formatNumberDigit(defaultTime?.minute()) : '';
+  
   return (
     <div className="text-gray-100 w-full">
-      <label htmlFor={ id } className="inline-block w-1/3">{ itemName }</label>
-      <select name={ name } id={ `${ id }_hour` } className={ selecterCSS }></select>
-      <select name={ name } id={ `${ id }_min` } className={ selecterCSS }></select>
+      <label htmlFor={ id } className=" bg-black inline-block w-1/3">{ itemName }</label>
+      <select name={ name } id={ `${ id }_hour` } className={ selecterCSS } defaultValue={ defaultHour } >
+        { timerOptionCleate(24) }
+      </select>
+      <select name={ name } id={ `${ id }_min` } className={ selecterCSS } defaultValue={ defaultMin } >
+        { timerOptionCleate(60) }
+      </select>
     </div>
   )
 }
@@ -106,17 +96,36 @@ export const TaskSelecterWithLabel = (itemName:string, name: string, id: string)
   )
 }
 
-export const Satisfactionselector = (): JSX.Element => {
+export const Satisfactionselector = (defaultValue?: number): JSX.Element => {
+  const satisfactionsArray: (string | number)[][] = [
+    [satisfactions.NULL.CHARACTER, "記録しない"],
+    [satisfactions.BAD.NUMBER, satisfactions.BAD.CHARACTER],
+    [satisfactions.SOSO.NUMBER, satisfactions.SOSO.CHARACTER],
+    [satisfactions.GOOD.NUMBER, satisfactions.GOOD.CHARACTER],
+    [satisfactions.BETTER.NUMBER, satisfactions.BETTER.CHARACTER],
+    [satisfactions.BEST.NUMBER, satisfactions.BEST.CHARACTER]
+  ]
+
   return (
     <>
-      <select name="satisfaction" id="satisfaction" className="border m-2">
-        <option value={ satisfactions.NULL.CHARACTER }>記録しない</option>
-        <option value={ satisfactions.BAD.NUMBER }>{ satisfactions.BAD.CHARACTER }</option>
-        <option value={ satisfactions.SOSO.NUMBER }>{ satisfactions.SOSO.CHARACTER }</option>
-        <option value={ satisfactions.GOOD.NUMBER }>{ satisfactions.GOOD.CHARACTER }</option>
-        <option value={ satisfactions.BETTER.NUMBER }>{ satisfactions.BETTER.CHARACTER }</option>
-        <option value={ satisfactions.BEST.NUMBER }>{ satisfactions.BEST.CHARACTER }</option>
+      <select name="satisfaction" id="satisfaction" className="border zzzzm-2" defaultValue={ defaultValue }>
+        { 
+          satisfactionsArray.map( item => {
+            return <option value={ item[0] } key={item[0] }> {item[1]} </option>
+          })
+        }
       </select>
     </>
+  )
+}
+
+export const SatisfactionSelectorWithLabel = (defaultValue?: number): JSX.Element => {
+  return (
+    <div className="w-full">
+      <label htmlFor="satisfaction" className="inline-block w-1/3">
+        睡眠の満足度
+      </label>
+      { Satisfactionselector(defaultValue) }
+    </div>
   )
 }
