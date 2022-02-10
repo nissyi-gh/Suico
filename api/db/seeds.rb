@@ -6,6 +6,13 @@ User.create!(
   password_confirmation: "adminuser"
 )
 
+User.create!(
+  name: "ゲストユーザー",
+  email: "guest.user@guest.com",
+  password: "guestuser",
+  password_confirmation: "guestuser"
+)
+
 # 一般テストユーザーを登録
 1.upto(10) do |n|
   User.create!(
