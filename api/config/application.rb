@@ -42,6 +42,9 @@ module Myapp
     config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.use ActionDispatch::ContentSecurityPolicy::Middleware
 
+    # RSpecからのアクセスを許可する
+    config.hosts << '.example.com'
+
     config.generators do |g|
       g.test_framework :rspec
     end

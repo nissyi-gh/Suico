@@ -7,6 +7,11 @@ export const REQUEST_STATE: RequestState = {
   FAILED: 'FAILED'
 }
 
+export const GUEST_USER_DATA = {
+  EMAIL: 'guest.user@guest.com',
+  PASSWORD: 'guestuser'
+}
+
 export const ALARM_STATE = {
   READY: 'READY',
   SLEEP: 'SLEEP',
