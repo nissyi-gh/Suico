@@ -50,22 +50,25 @@ export const HerderLogins = (): JSX.Element => {
   }
 
   return (
-    <div className="border-2 border-gray-400 bg-sky-100 p-2 h-full w-48 flex items-center justify-around">
+    <>
       { showLoginModal ? <LoginModal onClick={ hideLoginModal } /> : <></> }
       { showSignUpModal ? <SignUpModal onClick={ hiddenSignUpModal } /> : <></> }
       { showAlarmFlag ? <AlarmModal onClick={ hiddenAlarmModal } /> : <></> }
       { loginFlag ? <>
-        { buttonAtom("アラーム", "", openAlarmModal) }
-        <div>
-          { buttonAtom("ログアウト", "", clickLogout) }
-          { linkAtom("#", "通知", "block") }
-        </div>
-      </> : <>
-        { HeaderButtonSmall("新規登録", "", openSignUpModal) }
-        { HeaderButtonSmall("ログイン", "", openLoginModal) }
-        {/* { buttonAtom("新規登録", "", openSignUpModal) }
-        { buttonAtom("ログイン", "", openLoginModal) } */}
-      </>}
-    </div>
+          <div className="border-2 border-gray-400 bg-sky-100 p-2 h-full w-64 flex items-center justify-around">
+            { buttonAtom("アラーム", "", openAlarmModal) }
+            <div>
+              { buttonAtom("ログアウト", "", clickLogout) }
+              { linkAtom("#", "通知", "block") }
+            </div>
+          </div>
+        </> : <>
+          <div className="border-2 border-gray-400 bg-sky-100 p-2 h-full w-96 flex items-center justify-around">
+            { HeaderButtonSmall("ゲストログイン", "", openSignUpModal) }
+            { HeaderButtonSmall("新規登録", "", openSignUpModal) }
+            { HeaderButtonSmall("ログイン", "", openLoginModal) }
+          </div>
+        </>}
+    </>
   )
 }
