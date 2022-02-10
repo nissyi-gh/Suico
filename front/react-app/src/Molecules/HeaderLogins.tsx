@@ -4,7 +4,8 @@ import { linkAtom, buttonAtom } from "../Atoms/form";
 import { LoginModal } from "../Organisms/LoginModal";
 import { SignUpModal } from "../Organisms/SignUpModal";
 import axios from "axios";
-import { delete_session } from "../constants/urls";
+import { delete_session, new_session } from "../constants/urls";
+import { GUEST_USER_DATA } from "../constants/constants";
 import { AlarmModal } from "../Pages/AlarmModal";
 import { showAlarmContext } from "../providers/ShowAlarmFlagProvider";
 import { HeaderButtonSmall } from "./HeaderButton";
@@ -49,6 +50,18 @@ export const HerderLogins = (): JSX.Element => {
       .catch(error => console.log(error))
   }
 
+  const guestLogin = () => {
+    axios.post(new_session, {
+      email: GUEST_USER_DATA.EMAIL,
+      password: GUEST_USER_DATA.PASSWORD
+    }, { withCredentials: true })
+    .then(res => {
+      console.log(res);
+      setLoginFlag(true);
+    })
+    .catch(e => console.log(e));
+  }
+
   return (
     <>
       { showLoginModal ? <LoginModal onClick={ hideLoginModal } /> : <></> }
@@ -64,7 +77,7 @@ export const HerderLogins = (): JSX.Element => {
           </div>
         </> : <>
           <div className="border-2 border-gray-400 bg-sky-100 p-2 h-full w-96 flex items-center justify-around">
-            { HeaderButtonSmall("ゲストログイン", "", openSignUpModal) }
+            { HeaderButtonSmall("ゲストログイン", "", guestLogin) }
             { HeaderButtonSmall("新規登録", "", openSignUpModal) }
             { HeaderButtonSmall("ログイン", "", openLoginModal) }
           </div>
