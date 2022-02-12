@@ -159,7 +159,7 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: props
       <div className="text-right flex flex-end items-end">
         <div className="w-2/3"></div>
         <div className="w-1/3">
-          <img src="alarm_sheep.png" alt="Sheep" className="block w-full" />
+          <img src="sheep_dark.png" alt="Sheep" className="block w-full" />
         </div>
       </div>
     </>
