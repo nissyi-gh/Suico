@@ -4,11 +4,12 @@ import { linkAtom, buttonAtom } from "../Atoms/form";
 import { LoginModal } from "../Organisms/LoginModal";
 import { SignUpModal } from "../Organisms/SignUpModal";
 import axios from "axios";
-import { delete_session, new_session } from "../constants/urls";
+import { delete_session, new_session, sleepLogsURL } from "../constants/urls";
 import { GUEST_USER_DATA } from "../constants/constants";
 import { AlarmModal } from "../Pages/AlarmModal";
 import { showAlarmContext } from "../providers/ShowAlarmFlagProvider";
 import { HeaderButtonSmall } from "./HeaderButton";
+import { useNavigate } from "react-router-dom";
 
 export const HerderLogins = (): JSX.Element => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
@@ -16,6 +17,7 @@ export const HerderLogins = (): JSX.Element => {
   // const [showAlarmModal, setShowAlarmModal] = useState<boolean>(false);
   const { loginFlag, setLoginFlag } = useContext(LoginContext);
   const { showAlarmFlag, setShowAlarmFlag } = useContext(showAlarmContext);
+  const navigate = useNavigate();
 
   const openLoginModal = (): void => {
     setShowLoginModal(true);
@@ -45,6 +47,7 @@ export const HerderLogins = (): JSX.Element => {
     axios.delete(delete_session , { withCredentials: true })
       .then(response => {
         setLoginFlag(false);
+        navigate('/');
         console.log(response)
       })
       .catch(error => console.log(error))
@@ -58,6 +61,7 @@ export const HerderLogins = (): JSX.Element => {
     .then(res => {
       console.log(res);
       setLoginFlag(true);
+      navigate(sleepLogsURL);
     })
     .catch(e => console.log(e));
   }
