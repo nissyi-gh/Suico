@@ -28,5 +28,5 @@ const AboutContent = (): JSX.Element => {
 export const About = (): JSX.Element => {
   return (
     <MainContentInner content={ AboutContent() } />
-    )
-  }
+  )
+}
