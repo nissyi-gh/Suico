@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { linkAtom } from "../Atoms/form";
 import {
@@ -7,6 +8,7 @@ import {
   aboutURL, 
   contactURL
 } from "../constants/urls";
+import { LoginContext } from "../providers/LoginFlagProvider";
 
 type HeaderLink = {
   url: string,
@@ -15,6 +17,7 @@ type HeaderLink = {
 
 export const HeaderTab = (): JSX.Element => {
   const location = useLocation();
+  const { loginFlag } = useContext(LoginContext);
   const headerLinks: HeaderLink[] = [
     { url: sleepLogsURL, text: "睡眠データ" },
     { url: alarmSettingsURL, text: "アラーム設定" },
@@ -23,6 +26,7 @@ export const HeaderTab = (): JSX.Element => {
     { url: contactURL, text: "お問い合わせ" },
   ]
 
+  const loginCSS: string = loginFlag ? "" : "pointer-events-none";
   const commonCSS: string = "inline-block font-bold w-1/5 h-fit text-center p-2 border rounded-t-md border-gray-600";
   const selectTabCSS: string = "border-b-sky-100 bg-sky-100";
   const otherTabCSS: string = "text-gray-600 bg-sky-300";
@@ -30,9 +34,9 @@ export const HeaderTab = (): JSX.Element => {
     <div>
       { headerLinks.map(link => {
         if (location.pathname === link.url) {
-          return linkAtom(link.url, link.text, `${commonCSS} ${selectTabCSS}`);
+          return linkAtom(link.url, link.text, `${commonCSS} ${selectTabCSS} ${loginCSS}`);
         } else { 
-          return linkAtom(link.url, link.text, `${commonCSS} ${otherTabCSS}`);  
+          return linkAtom(link.url, link.text, `${commonCSS} ${otherTabCSS} ${loginCSS}`);  
         }
       })
       }

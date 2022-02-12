@@ -2,7 +2,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useNavigate,
 } from "react-router-dom";
 import { UsersIndex } from "./Pages/UsersIndex";
 import { SleepLogs } from "./Pages/SleepLogs";
@@ -20,7 +19,7 @@ import {
   contactURL
 } from "./constants/urls";
 import { Home } from "./Pages/Home";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { LoginContext } from "./providers/LoginFlagProvider";
 
 export const App = (): JSX.Element => {
@@ -44,8 +43,8 @@ export const App = (): JSX.Element => {
               <Route path="/users" element={ <UsersIndex /> } />
               <Route path={ sleepLogsURL } element={ LoginCheck({component: <SleepLogs /> }) } />
               <Route path={ alarmSettingsURL } element={ LoginCheck({component: <AlarmSettings /> }) } />
-              <Route path={ accountSettingsURL } element={  LoginCheck({component: <Contact /> }) } />
-              <Route path={ aboutURL } element={  LoginCheck({component: <About /> }) } />
+              <Route path={ accountSettingsURL } element={  LoginCheck({component: <AccountSettings/> }) } />
+              <Route path={ aboutURL } element={ LoginCheck({component: <About /> }) } />
               <Route path={ contactURL } element={ LoginCheck({component: <Contact /> }) } />
               <Route path="/" element={ LoginCheck({component: <Home/> })  } />
               <Route path="*" element={ <NotFound /> } />
