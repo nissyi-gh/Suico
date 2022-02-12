@@ -10,7 +10,12 @@ export const loginForm: string = `/login`;
 export const logout: string = `/logout`;
 export const sleepLogsURL: string = '/sleep_logs';
 export const notifications: string = `/notifications`;
-export const alarmSettingsURL: string = '/alarm_settings';
+
+// alarm_settings
+export const alarmPresetsIndexURL: string = '/alarm_settings/presets';
+export const alarmPresetsNewURL: string = '/alarm_settings/presets/new';
+
+
 export const accountSettingsURL: string = `/account_settings`;
 export const aboutURL: string = `/about`;
 export const contactURL: string = `/contact`;

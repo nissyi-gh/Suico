@@ -13,7 +13,7 @@ import { NotFound } from "./Pages/NotFound";
 import { Header } from "./Organisms/Header";
 import {
   sleepLogsURL,
-  alarmSettingsURL,
+  alarmPresetsIndexURL,
   accountSettingsURL, 
   aboutURL, 
   contactURL
@@ -42,7 +42,7 @@ export const App = (): JSX.Element => {
             <Routes>
               <Route path="/users" element={ <UsersIndex /> } />
               <Route path={ sleepLogsURL } element={ LoginCheck({component: <SleepLogs /> }) } />
-              <Route path={ alarmSettingsURL } element={ LoginCheck({component: <AlarmSettings /> }) } />
+              <Route path={ alarmPresetsIndexURL } element={ LoginCheck({component: <AlarmSettings /> }) } />
               <Route path={ accountSettingsURL } element={  LoginCheck({component: <AccountSettings/> }) } />
               <Route path={ aboutURL } element={ LoginCheck({component: <About /> }) } />
               <Route path={ contactURL } element={ LoginCheck({component: <Contact /> }) } />

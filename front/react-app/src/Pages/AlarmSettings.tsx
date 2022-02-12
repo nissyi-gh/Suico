@@ -1,8 +1,15 @@
+// import { Link } from "react-router-dom"
 import { MainContentInner } from "../Templates/MainContentInner"
 
 const AlarmSettingsContent = (): JSX.Element => {
   return (
-    <p>アラーム設定</p>
+    <div className="flex">
+      <div>
+        <p>プリセット一覧</p>
+        <p>新規プリセット</p>
+      </div>
+      <div></div>
+    </div>
   )
 }
 

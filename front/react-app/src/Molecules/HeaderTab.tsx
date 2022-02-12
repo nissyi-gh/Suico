@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { linkAtom } from "../Atoms/form";
 import {
   sleepLogsURL,
-  alarmSettingsURL,
+  alarmPresetsIndexURL,
   accountSettingsURL, 
   aboutURL, 
   contactURL
@@ -20,7 +20,7 @@ export const HeaderTab = (): JSX.Element => {
   const { loginFlag } = useContext(LoginContext);
   const headerLinks: HeaderLink[] = [
     { url: sleepLogsURL, text: "睡眠データ" },
-    { url: alarmSettingsURL, text: "アラーム設定" },
+    { url: alarmPresetsIndexURL, text: "アラーム設定" },
     { url: accountSettingsURL, text: "アカウント設定" },
     { url: aboutURL, text: "サイトについて" },
     { url: contactURL, text: "お問い合わせ" },
