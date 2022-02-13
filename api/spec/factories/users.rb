@@ -2,7 +2,6 @@ FactoryBot.define do
   factory :user do
     name { "example user" }
     email { "foo@bar.com" }
-    birthday_at { Time.zone.today }
     password { "foobar123" }
     password_confirmation { "foobar123" }
 

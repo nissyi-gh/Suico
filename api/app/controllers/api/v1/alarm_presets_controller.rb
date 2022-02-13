@@ -12,10 +12,6 @@ module Api
 
       def update
         alarm_preset = AlarmPreset.find(params[:id])
-        # user_idが空白、変更などされていたら早期リターン
-        if alarm_preset_params[:user_id] && alarm_preset[:user_id] != alarm_preset_params[:user_id]
-          return render json: {}, status: :bad_request
-        end
 
         if alarm_preset.update(alarm_preset_params)
           render json: {}, status: :ok

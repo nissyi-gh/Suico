@@ -4,6 +4,7 @@ RSpec.describe "AlarmPresets", type: :request do
   context 'alarm_presetを作成しようとしたとき' do
     before do
       @alarm_preset = FactoryBot.attributes_for(:alarm_preset)
+      @user = FactoryBot.build(:user)
     end
 
     it "正常な値なら作成できる" do
@@ -14,7 +15,8 @@ RSpec.describe "AlarmPresets", type: :request do
 
   context 'alarm_presetを更新しようとしたとき' do
     before do
-      @alarm_preset = FactoryBot.create(:alarm_preset)
+      @user = FactoryBot.create(:user)
+      @alarm_preset = FactoryBot.create(:alarm_preset, user_id: @user[:id])
     end
 
     it 'alarm_presetはDBに存在する' do
@@ -59,10 +61,9 @@ RSpec.describe "AlarmPresets", type: :request do
 
     # FactoryBotではuser_id: 1で作成
     it 'user_idは変更できない' do
-      before_user_id = @alarm_preset.user_id
       patch api_v1_alarm_preset_path(@alarm_preset), params: {
         alarm_preset: {
-          user_id: 2
+          user_id: @user[:id] + 1
         }
       }
       expect(response).to have_http_status(:bad_request)
