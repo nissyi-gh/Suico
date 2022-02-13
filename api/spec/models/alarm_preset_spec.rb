@@ -2,6 +2,11 @@ require 'rails_helper'
 
 RSpec.describe AlarmPreset, type: :model do
   context '新規のプリセットを作成しようとしたとき' do
+    it '正規のデータなら有効' do
+      new_preset = FactoryBot.build(:alarm_preset)
+      expect(new_preset).to be_valid
+    end
+
     it 'user_idがnilなら無効' do
       new_preset = FactoryBot.build(:alarm_preset, user_id: nil)
       expect(new_preset).to_not be_valid
