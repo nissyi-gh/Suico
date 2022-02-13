@@ -1,0 +1,2 @@
+class AlarmPresetsController < ApplicationController
+end
