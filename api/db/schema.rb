@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_01_024352) do
+ActiveRecord::Schema.define(version: 2022_02_13_050501) do
+
+  create_table "alarm_presets", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "preset_name"
+    t.datetime "wake_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "how_to_stop", limit: 1
+    t.index ["user_id"], name: "index_alarm_presets_on_user_id"
+  end
 
   create_table "sleep_logs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
@@ -32,5 +42,6 @@ ActiveRecord::Schema.define(version: 2022_02_01_024352) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "alarm_presets", "users"
   add_foreign_key "sleep_logs", "users"
 end
