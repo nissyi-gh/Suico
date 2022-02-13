@@ -9,6 +9,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 8 }, allow_nil: true
 
   has_many :sleep_logs, dependent: :destroy
+  has_many :alarm_presets, dependent: :destroy
 
   # Userクラスのクラスメソッドを定義
   class << self

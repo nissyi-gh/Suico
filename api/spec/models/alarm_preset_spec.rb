@@ -17,6 +17,11 @@ RSpec.describe AlarmPreset, type: :model do
       expect(new_preset).to_not be_valid
     end
 
+    it 'preset_nameが空白文字なら無効' do
+      new_preset = FactoryBot.build(:alarm_preset, preset_name: " ")
+      expect(new_preset).to_not be_valid
+    end
+
     it 'wake_atがnilなら無効' do
       new_preset = FactoryBot.build(:alarm_preset, wake_at: nil)
       expect(new_preset).to_not be_valid

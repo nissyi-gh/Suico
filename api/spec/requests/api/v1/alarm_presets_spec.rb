@@ -7,9 +7,8 @@ RSpec.describe "AlarmPresets", type: :request do
     end
 
     it "正常な値なら作成できる" do
-      expect(
-        post api_v1_alarm_presets_path, params: { alarm_preset: @alarm_preset }
-      ).to have_http_status(200)
+      post api_v1_alarm_presets_path, params: { alarm_preset: @alarm_preset }
+      expect(response).to have_http_status(:created)
     end
   end
 
@@ -18,14 +17,55 @@ RSpec.describe "AlarmPresets", type: :request do
       @alarm_preset = FactoryBot.create(:alarm_preset)
     end
 
+    it 'alarm_presetはDBに存在する' do
+      expect(AlarmPreset.find(@alarm_preset.id)).to be_valid
+    end
+
     it 'preset_nameは空欄にできない' do
-      expect (
-        patch api_v1_alarm_preset_path(@alarm_preset.id), params: {
-          alarm_preset: {
-            title: ''
-          }
+      patch api_v1_alarm_preset_path(@alarm_preset), params: {
+        alarm_preset: {
+          preset_name: ""
         }
-      ).to eq false
+      }
+      expect(response).to have_http_status(:bad_request)
+    end
+
+    it 'user_idは空欄にできない' do
+      patch api_v1_alarm_preset_path(@alarm_preset), params: {
+        alarm_preset: {
+          user_id: ""
+        }
+      }
+      expect(response).to have_http_status(:bad_request)
+    end
+
+    it 'wake_atは空欄にできない' do
+      patch api_v1_alarm_preset_path(@alarm_preset), params: {
+        alarm_preset: {
+          preset_name: ""
+        }
+      }
+      expect(response).to have_http_status(:bad_request)
+    end
+
+    it 'how_to_stopは空欄にできない' do
+      patch api_v1_alarm_preset_path(@alarm_preset), params: {
+        alarm_preset: {
+          how_to_stop: ""
+        }
+      }
+      expect(response).to have_http_status(:bad_request)
+    end
+
+    # FactoryBotではuser_id: 1で作成
+    it 'user_idは変更できない' do
+      before_user_id = @alarm_preset.user_id
+      patch api_v1_alarm_preset_path(@alarm_preset), params: {
+        alarm_preset: {
+          user_id: 2
+        }
+      }
+      expect(response).to have_http_status(:bad_request)
     end
   end
 end
