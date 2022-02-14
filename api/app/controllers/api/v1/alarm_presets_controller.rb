@@ -20,6 +20,14 @@ module Api
         end
       end
 
+      def destroy
+        if correct_preset(params[:id]).destroy
+          render json: {}, status: :no_content
+        else
+          render json: {}, status: :bad_request
+        end
+      end
+
       private
 
       def alarm_preset_params
@@ -27,7 +35,7 @@ module Api
       end
 
       def correct_preset(preset_id)
-        AlarmPreset.find(id: preset_id)
+        AlarmPreset.find(preset_id)
       end
     end
   end

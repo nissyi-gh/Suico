@@ -69,4 +69,21 @@ RSpec.describe "AlarmPresets", type: :request do
       expect(response).to have_http_status(:bad_request)
     end
   end
+
+  context 'alarm_presetを削除しようとしたとき' do
+    before do
+      @alarm_preset = FactoryBot.create(:alarm_preset)
+    end
+
+    it "削除に成功しno_contentが返される" do
+      delete api_v1_alarm_preset_path(@alarm_preset) 
+      expect(response).to have_http_status(:no_content)
+    end
+    
+    it "削除に成功し、alarm_presetの数が減る" do
+      expect{
+        delete api_v1_alarm_preset_path(@alarm_preset)
+      }.to change{AlarmPreset.count}.by(-1)
+    end
+  end
 end
