@@ -1,6 +1,15 @@
 module Api
   module V1
     class AlarmPresetsController < ApplicationController
+      def index
+        alarm_presets = AlarmPreset.where(user_id: current_user.id)
+        if alarm_presets
+          render json: { alarm_presets: alarm_presets }, status: :ok
+        else
+          render json: {}, status: :no_content
+        end
+      end
+
       def create
         alarm_preset = AlarmPreset.new(alarm_preset_params)
         if alarm_preset.save
