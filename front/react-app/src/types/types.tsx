@@ -60,7 +60,7 @@ export type sleepLogsData = {
 export type AlarmPreset = {
   preset_name: string,
   wake_at: dayjs.Dayjs,
-  how_to_stop: number
+  task: number
 }
 
 export type AlarmPresetListItem = {

@@ -78,7 +78,7 @@ const returnPresetsArray = (presets: AlarmPreset[]): AlarmPresetListItem[] => {
     return {
       presetName: element.preset_name,
       wakeAt: dayjs(element.wake_at),
-      task: element.how_to_stop
+      task: element.task
     }
   })
 }
