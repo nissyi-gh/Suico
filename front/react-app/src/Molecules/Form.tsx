@@ -110,7 +110,7 @@ export const ControlledAlarmSetterWithLabel = (itemName: string, name: string, i
 
   return (
     <div className="w-full flex">
-      <label htmlFor={ id } className="inline-block w-1/4">{ itemName }</label>
+      <label htmlFor={ id } className="inline-block w-1/4 select-none">{ itemName }</label>
       <div className="w-3/4 flex">
         <select name={ name } id={ `${ id }_hour` } className={ selecterCSS } value={ defaultHour } onChange={ onHourChange } >
           { timerOptionCreate(24) }
@@ -176,7 +176,7 @@ export const TaskSelecterWithLabel = (itemName:string, name: string, id: string)
 export const ControlledTaskSelecterWithLabel = (itemName:string, name: string, id: string, value: number | undefined, onChange: any): JSX.Element => {
   return (
     <div className="w-full">
-      <label htmlFor={ id } className="inline-block w-1/4 text-center">
+      <label htmlFor={ id } className="inline-block w-1/4 text-center select-none">
         { itemName }
       </label>
       <select name={ name } id={ id } className="border w-3/4" value={ taskConverter(value) } onChange={ onChange }>{ taskOptionCreate() }</select>

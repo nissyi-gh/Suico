@@ -105,7 +105,7 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: props
 
   return (
     <>
-      <div className="border border-white">
+      <div className="border border-white text-white">
         <p className="block">
           アラーム日時 : { alarm.format('YYYY/MM/DD HH:mm') }
         </p>
@@ -113,7 +113,7 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: props
           残り時間 : { alarmLeftTime }
         </p>
       </div>
-      <div id="task_field" className="hidden">
+      <div id="task_field" className="hidden text-white">
         { taskLeft ? <p>残りの問題数 { taskLeft }</p> : <></> }
         { task === 1 ? <>
           <div id="calculate" className="w-64 h-48 my-0 mx-auto">
