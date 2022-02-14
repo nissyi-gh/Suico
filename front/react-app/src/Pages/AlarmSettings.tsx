@@ -67,34 +67,34 @@ const AlarmSettingsContent = (): JSX.Element => {
 
   return (
     <div className="flex h-full">
-      <div className="w-1/4 h-full">
-        <p className="hover:bg-amber-300 cursor-pointer select-none w-fit">プリセット編集</p>
+      <div className="w-1/5 h-full border-r border-gray-700">
+        <p className="hover:bg-amber-300 cursor-pointer select-none w-fit mb-4">プリセット編集</p>
         <p className="hover:bg-amber-300 w-fit">新規プリセット</p>
       </div>
-      <div className="w-3/4">
+      <div className="w-4/5">
         <div className="flex w-full justify-between text-center">
           <div className="w-1/4">
             プリセット
           </div>
           <div className="w-3/4">
             <div className="w-full flex justify-between bg-gray-100">
-              <div className="w-1/3 border">タイトル</div>
-              <div className="w-1/3 border">起床時刻</div>
-              <div className="w-1/3 border">停止方法</div>
+              <div className="w-1/3 border border-gray-300 py-2">タイトル</div>
+              <div className="w-1/3 border border-gray-300 py-2">起床時刻</div>
+              <div className="w-1/3 border border-gray-300 py-2">停止方法</div>
             </div>
-            <ul className="bg-gray-50 h-40 overflow-y-scroll shadow-inner">
+            <ul className="bg-gray-50 h-40 overflow-y-scroll shadow-inner shadow-gray-300/75 mb-4">
               <AlarmPresetsListItem alarmPresets={ alarmPresets } setCorrectPreset={ setCorrectPreset } />
             </ul>
           </div>
         </div>
-        <div className="w-full text-center">
+        <div className="w-full text-center mb-2">
           <label htmlFor="title" className="w-1/4 inline-block">タイトル</label>
-          <input type="text" name="title" id="title" className="border w-3/4" value={ correctPreset.presetName } onChange={ onPresetNameChange } />
+          <input type="text" name="title" id="title" className="border w-3/4 px-2" value={ correctPreset.presetName } onChange={ onPresetNameChange } />
         </div>
-        <div className="w-full justify-between text-center">
+        <div className="w-full justify-between text-center mb-2">
           { ControlledAlarmSetterWithLabel("起床時刻", "wakeAt", "wakeAt", onHourChange, onMinuteChange, correctPreset.wakeAt) }
         </div>
-        <div className="w-full">
+        <div className="w-full mb">
           { ControlledTaskSelecterWithLabel("停止方法", "task", "task", correctPreset.task, onTaskChange) }
         </div>
         <div className="w-full justify-between text-center">

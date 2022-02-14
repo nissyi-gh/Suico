@@ -82,7 +82,7 @@ export const AlarmSetterWithLabel = (itemName: string, name: string, id: string,
 }
 
 export const ControlledAlarmSetterWithLabel = (itemName: string, name: string, id: string, onHourChange: any , onMinuteChange: any, defaultTime?: dayjs.Dayjs): JSX.Element => {
-  const selecterCSS: string = "border w-1/4 text-center block";
+  const selecterCSS: string = "border w-fit text-center block px-2";
   const defaultHour: string = defaultTime ? formatNumberDigit(defaultTime?.hour()) : '' ;
   const defaultMin: string = defaultTime ? formatNumberDigit(defaultTime?.minute()) : '';
   
