@@ -1,9 +1,22 @@
 // import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { fetchAlarmPresets } from "../Functions/Functions"
 import { AlarmPresetsListItem } from "../Molecules/AlarmPresetsListItem"
-import { AlarmSetterWithLabel, inputWithLabel, submitButton, TaskSelecterWithLabel } from "../Molecules/Form"
+import { AlarmSetterWithLabel, submitButton, TaskSelecterWithLabel } from "../Molecules/Form"
 import { MainContentInner } from "../Templates/MainContentInner"
+import { AlarmPresetListItem } from "../types/types"
+
+
 
 const AlarmSettingsContent = (): JSX.Element => {
+  const [alarmPresets, setAlarmPresets] = useState<AlarmPresetListItem[]>([]);
+
+  useEffect(() => {
+    fetchAlarmPresets(setAlarmPresets);
+  }, [])
+
+  console.log(alarmPresets)
+
   return (
     <div className="flex h-full">
       <div className="w-1/4 h-full">

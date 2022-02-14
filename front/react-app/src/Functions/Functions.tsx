@@ -1,7 +1,7 @@
 import axios from "axios";
 import { satisfactions } from "../constants/constants";
-import { sleepLogsAPI } from "../constants/urls";
-import { SleepLog, SleepLogListItem } from "../types/types";
+import { alarmPresetsIndexAPI, sleepLogsAPI } from "../constants/urls";
+import { AlarmPreset, AlarmPresetListItem, SleepLog, SleepLogListItem } from "../types/types";
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
 dayjs.locale('ja');
@@ -45,7 +45,7 @@ export const timeConverterForNumber = (hour: number, min: number, sleepIn?: bool
 }
 
 const returnLogsArray = (logs: SleepLog[]) => {
-return logs.map((element: SleepLog) => {
+  return logs.map((element: SleepLog) => {
     return {
       sleepLogId: element.id.toString(),
       wakeAt: dayjs(element.wake_at),
@@ -71,4 +71,21 @@ export const fetchSleepLogs = (setSleepLogs: React.Dispatch<React.SetStateAction
     setSleepLogs(returnLogsArray(res.data.sleep_logs));
   })
   .catch(e => console.log(e));
+}
+
+const returnPresetsArray = (presets: AlarmPreset[]): AlarmPresetListItem[] => {
+  return presets.map(element => {
+    return {
+      presetName: element.preset_name,
+      wakeAt: dayjs(element.wake_at),
+      task: element.how_to_stop
+    }
+  })
+}
+
+export const fetchAlarmPresets = (setAlarmPresets: React.Dispatch<React.SetStateAction<AlarmPresetListItem[]>>) => {
+  axios.get(alarmPresetsIndexAPI, { withCredentials: true})
+    .then( res => {
+      setAlarmPresets(returnPresetsArray(res.data.alarm_presets))
+    })
 }
