@@ -1,7 +1,7 @@
 import axios from "axios";
 import { satisfactions } from "../constants/constants";
 import { alarmPresetsIndexAPI, sleepLogsAPI } from "../constants/urls";
-import { AlarmPreset, AlarmPresetListItem, SleepLog, SleepLogListItem } from "../types/types";
+import { AlarmPreset, AlarmPresetsListItemType, SleepLog, SleepLogListItem } from "../types/types";
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
 dayjs.locale('ja');
@@ -73,7 +73,7 @@ export const fetchSleepLogs = (setSleepLogs: React.Dispatch<React.SetStateAction
   .catch(e => console.log(e));
 }
 
-const returnPresetsArray = (presets: AlarmPreset[]): AlarmPresetListItem[] => {
+const returnPresetsArray = (presets: AlarmPreset[]): AlarmPresetsListItemType[] => {
   return presets.map(element => {
     return {
       presetName: element.preset_name,
@@ -83,7 +83,7 @@ const returnPresetsArray = (presets: AlarmPreset[]): AlarmPresetListItem[] => {
   })
 }
 
-export const fetchAlarmPresets = (setAlarmPresets: React.Dispatch<React.SetStateAction<AlarmPresetListItem[]>>) => {
+export const fetchAlarmPresets = (setAlarmPresets: React.Dispatch<React.SetStateAction<AlarmPresetsListItemType[]>>) => {
   axios.get(alarmPresetsIndexAPI, { withCredentials: true})
     .then( res => {
       setAlarmPresets(returnPresetsArray(res.data.alarm_presets))

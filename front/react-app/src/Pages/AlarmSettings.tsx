@@ -4,18 +4,16 @@ import { fetchAlarmPresets } from "../Functions/Functions"
 import { AlarmPresetsListItem } from "../Molecules/AlarmPresetsListItem"
 import { AlarmSetterWithLabel, submitButton, TaskSelecterWithLabel } from "../Molecules/Form"
 import { MainContentInner } from "../Templates/MainContentInner"
-import { AlarmPresetListItem } from "../types/types"
+import { AlarmPresetsListItemType } from "../types/types"
 
 
 
 const AlarmSettingsContent = (): JSX.Element => {
-  const [alarmPresets, setAlarmPresets] = useState<AlarmPresetListItem[]>([]);
+  const [alarmPresets, setAlarmPresets] = useState<AlarmPresetsListItemType[]>([]);
 
   useEffect(() => {
     fetchAlarmPresets(setAlarmPresets);
   }, [])
-
-  console.log(alarmPresets)
 
   return (
     <div className="flex h-full">
@@ -35,7 +33,7 @@ const AlarmSettingsContent = (): JSX.Element => {
               <div className="w-1/3 border">停止方法</div>
             </div>
             <ul className="bg-gray-50 h-40 overflow-y-scroll shadow-inner">
-              <AlarmPresetsListItem />
+              <AlarmPresetsListItem alarmPresets={ alarmPresets } />
             </ul>
           </div>
         </div>

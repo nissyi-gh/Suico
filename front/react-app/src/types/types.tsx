@@ -63,7 +63,7 @@ export type AlarmPreset = {
   task: number
 }
 
-export type AlarmPresetListItem = {
+export type AlarmPresetsListItemType = {
   presetName: string,
   wakeAt: dayjs.Dayjs,
   task: number
