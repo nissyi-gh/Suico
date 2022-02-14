@@ -5,12 +5,15 @@ import reportWebVitals from './reportWebVitals';
 import { LoginFlagProvider } from './providers/LoginFlagProvider';
 import { SleepLogsProvider } from './providers/SleepLogsProvider';
 import './css/output.css'
+import { AlarmPresetsProvider } from './providers/AlarmPresetsProvider';
 
 ReactDOM.render(
   <React.StrictMode>
     <LoginFlagProvider>
       <SleepLogsProvider>
-        <App />
+        <AlarmPresetsProvider>
+          <App />
+        </AlarmPresetsProvider>
       </SleepLogsProvider>
     </LoginFlagProvider>
   </React.StrictMode>,

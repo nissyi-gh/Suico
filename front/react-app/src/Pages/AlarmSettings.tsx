@@ -1,15 +1,16 @@
 import axios from "axios"
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, useContext, useState } from "react"
 import { alarmPresetsAPI } from "../constants/urls"
 import { fetchAlarmPresets } from "../Functions/Functions"
 import { AlarmPresetsListItem } from "../Molecules/AlarmPresetsListItem"
 import { ControlledAlarmSetterWithLabel, ControlledTaskSelecterWithLabel, submitButton, taskInverter } from "../Molecules/Form"
+import { AlarmPresetsContext } from "../providers/AlarmPresetsProvider"
 import { MainContentInner } from "../Templates/MainContentInner"
 import { AlarmPresetsListItemType } from "../types/types"
 
 
 const AlarmSettingsContent = (): JSX.Element => {
-  const [alarmPresets, setAlarmPresets] = useState<AlarmPresetsListItemType[]>([]);
+  const { alarmPresets, setAlarmPresets } = useContext(AlarmPresetsContext);
   const [correctPreset, setCorrectPreset] = useState<AlarmPresetsListItemType>({
     id: undefined,
     presetName: "",
@@ -60,10 +61,6 @@ const AlarmSettingsContent = (): JSX.Element => {
     })
     .catch(e => console.log(e))
   }
-
-  useEffect(() => {
-    fetchAlarmPresets(setAlarmPresets);
-  }, [])
 
   return (
     <div className="flex h-full">
