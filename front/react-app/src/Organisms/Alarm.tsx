@@ -50,7 +50,7 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
     <>
       <div className="flex justify-between h-16 mb-16">
         <div>
-          <img src="title_dark.png" alt="ダークモードのタイトル" className="inline-block h-full" />
+          <img src='../../public/title_dark.png' alt="ダークモードのタイトル" className="inline-block h-full" />
         </div>
         <div className="flex items-center justify-center text-gray-50">
           <VscChromeClose onClick={ hideModalFunction } />
