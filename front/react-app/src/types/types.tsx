@@ -64,7 +64,7 @@ export type AlarmPreset = {
 }
 
 export type AlarmPresetsListItemType = {
-  presetName: string,
-  wakeAt: dayjs.Dayjs,
-  task: number
+  presetName: string | undefined,
+  wakeAt: dayjs.Dayjs | undefined,
+  task: number | undefined
 }
