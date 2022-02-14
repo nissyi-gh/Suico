@@ -44,7 +44,7 @@ const AlarmSettingsContent = (): JSX.Element => {
         <div className="w-full justify-between text-center">
           { AlarmSetterWithLabel("起床時刻", "wakeAt", "wakeAt") }
         </div>
-        <div className="w-full bg-amber-500">
+        <div className="w-full">
           { TaskSelecterWithLabel("停止方法", "task", "task") }
         </div>
         <div className="w-full justify-between text-center">

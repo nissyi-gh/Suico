@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
 import { inputAtom } from "../Atoms/form";
 import { satisfactions } from "../constants/constants";
-import { taskOptionCreate } from "../Functions/Alarm";
 import { formatNumberDigit } from "../Functions/Functions";
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
@@ -63,35 +61,45 @@ const timerOptionCleate = (limit: number) => {
 }
 
 export const AlarmSetterWithLabel = (itemName: string, name: string, id: string, defaultTime?: dayjs.Dayjs): JSX.Element => {
-  const selecterCSS: string = "border bg-black text-gray-100 w-1/6";
+  const selecterCSS: string = "border w-1/3 bg-inherit text-center bg-white";
   const defaultHour: string = defaultTime ? formatNumberDigit(defaultTime?.hour()) : '' ;
   const defaultMin: string = defaultTime ? formatNumberDigit(defaultTime?.minute()) : '';
   
   return (
-    <div className="text-gray-100 w-full">
-      <label htmlFor={ id } className=" bg-black inline-block w-1/3">{ itemName }</label>
-      <select name={ name } id={ `${ id }_hour` } className={ selecterCSS } defaultValue={ defaultHour } >
-        { timerOptionCleate(24) }
-      </select>
-      <select name={ name } id={ `${ id }_min` } className={ selecterCSS } defaultValue={ defaultMin } >
-        { timerOptionCleate(60) }
-      </select>
+    <div className="w-full flex">
+      <label htmlFor={ id } className="inline-block w-1/4">{ itemName }</label>
+      <div className="w-3/4">
+        <select name={ name } id={ `${ id }_hour` } className={ selecterCSS } defaultValue={ defaultHour } >
+          { timerOptionCleate(24) }
+        </select>
+        <select name={ name } id={ `${ id }_min` } className={ selecterCSS } defaultValue={ defaultMin } >
+          { timerOptionCleate(60) }
+        </select>
+      </div>
     </div>
   )
 }
 
-export const TaskSelecterWithLabel = (itemName:string, name: string, id: string): JSX.Element => {
-  useEffect(() => {
-    const selector = document.getElementById(id) as HTMLSelectElement;
-    taskOptionCreate(selector);
-  }, [id])
+// taskSelecterのOptionを生成
+const taskOptionCreate = () => {
+  const setValues: string[] = ["ボタン", "かんたんな計算", "パネル選択"];
 
   return (
+    <>
+      { setValues.map((value) => {
+        return <option key={ value }>{ value }</option>
+      })}
+    </>
+  )
+}
+
+export const TaskSelecterWithLabel = (itemName:string, name: string, id: string): JSX.Element => {
+  return (
     <div className="w-full">
-      <label htmlFor={ id } className="inline-block w-1/3 text-gray-100">
+      <label htmlFor={ id } className="inline-block w-1/4 text-center">
         { itemName }
       </label>
-      <select name={ name } id={ id } className="border bg-inherit text-gray-100 w-1/2"></select>
+      <select name={ name } id={ id } className="border bg-inherit w-3/4">{ taskOptionCreate() }</select>
     </div>
   )
 }

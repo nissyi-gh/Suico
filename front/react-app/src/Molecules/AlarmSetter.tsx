@@ -24,7 +24,7 @@ export const AlarmSetter = ({ onClickSleepIn } : propsFunctions ): JSX.Element =
 
 
   return (
-    <form id="alarm_setter">
+    <form id="alarm_setter" className="text-white">
       <div className="border py-6 h-72 mb-4 flex justify-center roun">
         <div className="w-80 flex flex-col items-center justify-around">
           <div className="text-white w-full">プリセット</div>

@@ -9,19 +9,6 @@ import "dayjs/locale/ja";
 dayjs.extend(utc);
 dayjs.locale('ja');
 
-// taskSelecterのOptionを生成
-export const taskOptionCreate = (selector: HTMLSelectElement) => {
-  const setValues: string[] = ["ボタン", "かんたんな計算", "パネル選択"];
-
-  for (let i = 0; i < setValues.length; i++) {
-    const element = document.createElement('option');
-    
-    element.value = i.toString();
-    element.textContent = setValues[i];
-
-    selector.append(element);
-  }
-}
 
 // アラームの日時をセット
 export const setAlarmDateTime = (): dayjs.Dayjs => {
