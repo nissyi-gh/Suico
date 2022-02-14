@@ -1,5 +1,6 @@
-import dayjs from "dayjs"
+import axios from "axios"
 import { ChangeEvent, useEffect, useState } from "react"
+import { alarmPresetsAPI } from "../constants/urls"
 import { fetchAlarmPresets } from "../Functions/Functions"
 import { AlarmPresetsListItem } from "../Molecules/AlarmPresetsListItem"
 import { ControlledAlarmSetterWithLabel, ControlledTaskSelecterWithLabel, submitButton, taskInverter } from "../Molecules/Form"
@@ -10,7 +11,8 @@ import { AlarmPresetsListItemType } from "../types/types"
 const AlarmSettingsContent = (): JSX.Element => {
   const [alarmPresets, setAlarmPresets] = useState<AlarmPresetsListItemType[]>([]);
   const [correctPreset, setCorrectPreset] = useState<AlarmPresetsListItemType>({
-    presetName: undefined,
+    id: undefined,
+    presetName: "",
     wakeAt: undefined,
     task: undefined
   })
@@ -43,6 +45,22 @@ const AlarmSettingsContent = (): JSX.Element => {
     })
   }
 
+  const patchPreset = () => {
+    console.log(correctPreset.wakeAt)
+    axios.patch(`${alarmPresetsAPI}/${correctPreset.id}`,
+    {
+      preset_name: correctPreset.presetName,
+      wake_at: correctPreset.wakeAt,
+      task: correctPreset.task
+    },
+    { withCredentials: true })
+    .then(res => {
+      console.log(res)
+      fetchAlarmPresets(setAlarmPresets)
+    })
+    .catch(e => console.log(e))
+  }
+
   useEffect(() => {
     fetchAlarmPresets(setAlarmPresets);
   }, [])
@@ -71,7 +89,7 @@ const AlarmSettingsContent = (): JSX.Element => {
         </div>
         <div className="w-full text-center">
           <label htmlFor="title" className="w-1/4 inline-block">タイトル</label>
-          <input type="text" name="title" id="title" className="border w-3/4" defaultValue={ correctPreset.presetName } onChange={ onPresetNameChange } />
+          <input type="text" name="title" id="title" className="border w-3/4" value={ correctPreset.presetName } onChange={ onPresetNameChange } />
         </div>
         <div className="w-full justify-between text-center">
           { ControlledAlarmSetterWithLabel("起床時刻", "wakeAt", "wakeAt", onHourChange, onMinuteChange, correctPreset.wakeAt) }
@@ -80,7 +98,7 @@ const AlarmSettingsContent = (): JSX.Element => {
           { ControlledTaskSelecterWithLabel("停止方法", "task", "task", correctPreset.task, onTaskChange) }
         </div>
         <div className="w-full justify-between text-center">
-          { submitButton("変更") }
+          { submitButton("変更", patchPreset) }
         </div>
       </div>
     </div>

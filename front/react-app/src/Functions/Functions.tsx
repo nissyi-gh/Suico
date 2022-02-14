@@ -1,6 +1,6 @@
 import axios from "axios";
 import { satisfactions } from "../constants/constants";
-import { alarmPresetsIndexAPI, sleepLogsAPI } from "../constants/urls";
+import { alarmPresetsAPI, sleepLogsAPI } from "../constants/urls";
 import { AlarmPreset, AlarmPresetsListItemType, SleepLog, SleepLogListItem } from "../types/types";
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
@@ -76,6 +76,7 @@ export const fetchSleepLogs = (setSleepLogs: React.Dispatch<React.SetStateAction
 const returnPresetsArray = (presets: AlarmPreset[]): AlarmPresetsListItemType[] => {
   return presets.map(element => {
     return {
+      id: element.id,
       presetName: element.preset_name,
       wakeAt: dayjs(element.wake_at),
       task: element.task
@@ -84,7 +85,7 @@ const returnPresetsArray = (presets: AlarmPreset[]): AlarmPresetsListItemType[] 
 }
 
 export const fetchAlarmPresets = (setAlarmPresets: React.Dispatch<React.SetStateAction<AlarmPresetsListItemType[]>>) => {
-  axios.get(alarmPresetsIndexAPI, { withCredentials: true})
+  axios.get(alarmPresetsAPI, { withCredentials: true})
     .then( res => {
       setAlarmPresets(returnPresetsArray(res.data.alarm_presets))
     })

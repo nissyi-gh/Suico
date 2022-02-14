@@ -12,7 +12,7 @@ export const sleepLogsURL: string = '/sleep_logs';
 export const notifications: string = `/notifications`;
 
 // alarm_settings
-export const alarmPresetsIndexAPI: string = `${DEFAULT_API_LOCALHOST}/alarm_presets`;
+export const alarmPresetsAPI: string = `${DEFAULT_API_LOCALHOST}/alarm_presets`;
 export const alarmPresetsIndexURL: string = '/alarm_settings/presets';
 export const alarmPresetsNewURL: string = '/alarm_settings/presets/new';
 

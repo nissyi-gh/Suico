@@ -40,7 +40,7 @@ module Api
       private
 
       def alarm_preset_params
-        params.require(:alarm_preset).permit(:user_id, :preset_name, :wake_at, :how_to_stop)
+        params.require(:alarm_preset).permit(:user_id, :preset_name, :wake_at, :task)
       end
 
       def correct_preset(preset_id)

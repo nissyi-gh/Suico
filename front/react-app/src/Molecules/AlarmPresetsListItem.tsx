@@ -10,6 +10,7 @@ export const AlarmPresetsListItem = ({ alarmPresets, setCorrectPreset } : AlarmP
 
   const onClickListItem = (id: number) => {
     setCorrectPreset({
+      id: alarmPresets[id].id,
       presetName: alarmPresets[id].presetName,
       wakeAt: alarmPresets[id].wakeAt,
       task: alarmPresets[id].task
