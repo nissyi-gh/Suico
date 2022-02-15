@@ -32,8 +32,8 @@ def make_sleep_logs(times, user_id)
   times.downto(1) do |i|
     SleepLog.create(
       user_id: user_id,
-      sleep_at: Time.mktime(t.year, t.month, (t - i).day, sleep_in_hour[rand(0..3)], rand(0..59), 0),
-      wake_at: Time.mktime(t.year, t.month, (t - i + 1).day, rand(6..10), rand(0..59), 0),
+      sleep_at: Time.local(t.year, t.month, (t - i).day, sleep_in_hour[rand(0..3)], rand(0..59), 0).in_time_zone,
+      wake_at: Time.local(t.year, t.month, (t - i + 1).day, rand(6..10), rand(0..59), 0).in_time_zone,
       satisfaction: satisfactions[rand(6)]
     )
   end

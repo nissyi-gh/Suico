@@ -55,7 +55,6 @@ class SleepLog < ApplicationRecord
       max = Time.at(sleep_times.max).in_time_zone.strftime('%H:%M')
       min = Time.at(sleep_times.min).in_time_zone.strftime('%H:%M')
 
-      puts max, min, average
       [average, max, min]
     end
 
