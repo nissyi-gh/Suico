@@ -15,13 +15,13 @@ class SleepLog < ApplicationRecord
 
     def time_average(model, target)
       # UTCとJSTの時差540分。RailsはUTC、文字列での出力時にはJSTに変換する
-      time_difference_between_utc_and_jst = 540
+      # time_difference_between_utc_and_jst = 540
       # 24時台は0時扱いになってしまう。1440秒足すことで24時台として計算する
       add_24_hour = 60 * 24
       times = model.pluck(target).map do |log|
-        log.hour.zero? ? (log.hour * 60) + log.min + add_24_hour : (log.hour * 60) + log.min
+        log.hour.zero? ? log.min + add_24_hour : (log.hour * 60) + log.min
       end
-      time_average = (times.sum / model.size) + time_difference_between_utc_and_jst
+      time_average = (times.sum / model.size)
       # 24時間を超えている場合は、24時間をマイナス
       time_average -= (24 * 60) if time_average > (24 * 60)
       format('%02<hour>d:%02<min>d', hour: time_average / 60, min: time_average % 60)
@@ -37,17 +37,30 @@ class SleepLog < ApplicationRecord
     def sleep_time_analyze(logs)
       sleep_times = []
       logs.each do |log|
-        sleep_times << (log[:wake_at] - log[:sleep_at])
+        add_24_hour = log[:wake_at].hour + 9 < 2 ? 24 : 0
+        wake = {
+          hour: log[:wake_at].hour + 9 + add_24_hour,
+          min: log[:wake_at].min + 9
+        }
+
+        add_24_hour = log[:sleep_at].hour + 9 < 2 ? 24 : 0
+        sleep = {
+          hour: log[:sleep_at].hour + 9 + add_24_hour,
+          min: log[:sleep_at].min + 9
+        }
+
+        sleep_times << (((wake[:hour] * 60) + wake[:min]) - ((sleep[:hour] * 60) + sleep[:min]))
       end
       average = sleep_time_average(sleep_times, logs.size)
-      max = Time.at(sleep_times.max).utc.strftime('%H:%M')
-      min = Time.at(sleep_times.min).utc.strftime('%H:%M')
+      max = Time.at(sleep_times.max).in_time_zone.strftime('%H:%M')
+      min = Time.at(sleep_times.min).in_time_zone.strftime('%H:%M')
 
+      puts max, min, average
       [average, max, min]
     end
 
     def sleep_time_average(sleep_times, size)
-      time_average = sleep_times.sum / size / 60
+      time_average = sleep_times.sum / size
       format('%02<hour>d:%02<min>d', hour: time_average / 60, min: time_average % 60)
     end
 

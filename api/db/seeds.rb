@@ -40,9 +40,9 @@ def make_sleep_logs(times, user_id)
 end
 
 # 管理者
-make_sleep_logs(50, 1)
+make_sleep_logs(10, 1)
 # ゲスト
-make_sleep_logs(100, 2)
+make_sleep_logs(10, 2)
 
 # ゲストのみ睡眠プリセットを登録
 1.upto(20) do |i|
