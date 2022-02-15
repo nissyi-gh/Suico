@@ -12,10 +12,12 @@ module Api
 
       def create
         alarm_preset = AlarmPreset.new(alarm_preset_params)
+        alarm_preset[:user_id] = current_user[:id]
+        
         if alarm_preset.save
           render json: {}, status: :created
         else
-          render json: {}, status: :bad_request
+          render json: { alarm_preset: alarm_preset }
         end
       end
 

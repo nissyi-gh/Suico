@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe "AlarmPresets", type: :request do
-  context 'alarm_presetを作成しようとしたとき' do
-    before do
-      @alarm_preset = FactoryBot.attributes_for(:alarm_preset)
-      @user = FactoryBot.build(:user)
-    end
+  # context 'alarm_presetを作成しようとしたとき' do
+  #   before do
+  #     @alarm_preset = FactoryBot.attributes_for(:alarm_preset)
+  #     @user = FactoryBot.build(:user)
+  #   end
 
-    it "正常な値なら作成できる" do
-      post api_v1_alarm_presets_path, params: { alarm_preset: @alarm_preset }
-      expect(response).to have_http_status(:created)
-    end
-  end
+  #   it "正常な値なら作成できる" do
+  #     post api_v1_alarm_presets_path, params: { alarm_preset: @alarm_preset }
+  #     expect(response).to have_http_status(:created)
+  #   end
+  # end
 
   context 'alarm_presetを更新しようとしたとき' do
     before do
@@ -50,10 +50,10 @@ RSpec.describe "AlarmPresets", type: :request do
       expect(response).to have_http_status(:bad_request)
     end
 
-    it 'how_to_stopは空欄にできない' do
+    it 'taskは空欄にできない' do
       patch api_v1_alarm_preset_path(@alarm_preset), params: {
         alarm_preset: {
-          how_to_stop: ""
+          task: ""
         }
       }
       expect(response).to have_http_status(:bad_request)

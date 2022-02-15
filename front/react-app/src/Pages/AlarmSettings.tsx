@@ -1,27 +1,37 @@
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { AlarmPresetEdit } from "../Organisms/AlarmPresetEdit"
-import { AlarmPresetsContext } from "../providers/AlarmPresetsProvider"
+import { AlarmPresetNew } from "../Organisms/AlarmPresetNew"
 import { MainContentInner } from "../Templates/MainContentInner"
-import { AlarmPresetsListItemType } from "../types/types"
 
 
 const AlarmSettingsContent = (): JSX.Element => {
-  const { setAlarmPresets } = useContext(AlarmPresetsContext);
-  const [correctPreset, setCorrectPreset] = useState<AlarmPresetsListItemType>({
-    id: undefined,
-    presetName: "",
-    wakeAt: undefined,
-    task: undefined
-  })
+  const [viewing, setViewing] = useState<"edit" | "new">("edit");
+
+  const LocationCheck = (): JSX.Element => {
+    switch (viewing) {
+      case "edit":
+        return <AlarmPresetEdit />;
+      case "new":
+        return <AlarmPresetNew />;
+    }
+  }
+
+  const selectCSS = (locate: string): string => {
+    if (locate === viewing) {
+      return "bg-amber-300 cursor-pointer select-none w-fit mb-4";
+    } else {
+      return "hover:bg-amber-300 cursor-pointer select-none w-fit mb-4";
+    }
+  }
 
   return (
     <div className="flex h-full">
       <div className="w-1/5 h-full border-r border-gray-700">
-        <p className="hover:bg-amber-300 cursor-pointer select-none w-fit mb-4">プリセット編集</p>
-        <p className="hover:bg-amber-300 w-fit">新規プリセット</p>
+        <p className={ selectCSS('edit') } onClick={ () => setViewing('edit') } >プリセット編集</p>
+        <p className={ selectCSS('new') } onClick={ () => setViewing('new') } >新規プリセット</p>
       </div>
       <div className="w-4/5">
-        <AlarmPresetEdit />
+        <LocationCheck />
       </div>
     </div>
   )

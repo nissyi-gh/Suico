@@ -28,7 +28,7 @@ RSpec.describe AlarmPreset, type: :model do
     end
 
     it 'how_to_stopがnilなら無効' do
-      new_preset = FactoryBot.build(:alarm_preset, how_to_stop: nil)
+      new_preset = FactoryBot.build(:alarm_preset, task: nil)
       expect(new_preset).to_not be_valid
     end
   end
