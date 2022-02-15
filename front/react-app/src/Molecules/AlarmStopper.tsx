@@ -2,7 +2,7 @@ import { memo, useCallback, useContext, useEffect, useState } from "react";
 import { calculateProblem } from '../types/types';
 import { problemTypeConverter, randomAnswers, setCalclationProblems } from "../Functions/Tasks/Calculate";
 import { hiddenTaskField, showTaskField, showWakeUpSubmit, submitSleepLog } from "../Functions/Alarm";
-import { getRandomIntInclusive } from "../Functions/Functions";
+import { fetchSleepLogs, getRandomIntInclusive } from "../Functions/Functions";
 import { returnRandomPanels, reRenderPanleContent } from "../Functions/Tasks/Panles";
 import { Satisfactionselector } from "./Form";
 import { showAlarmContext } from "../providers/ShowAlarmFlagProvider";
@@ -11,6 +11,7 @@ import { REQUEST_STATE } from "../constants/constants";
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
 import { useNavigate } from "react-router-dom";
+import { sleepLogsProviderContext } from "../providers/SleepLogsProvider";
 dayjs.locale('ja');
 
 type propsFunctions = {
@@ -22,6 +23,7 @@ type propsFunctions = {
 
 export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: propsFunctions): JSX.Element => {
   const { setShowAlarmFlag } = useContext(showAlarmContext);
+  const { setSleepLogs, setSleepLogsData } = useContext(sleepLogsProviderContext);
   const [taskLeft, setTaskLeft] = useState<number>(task === 0 ? 0 : getRandomIntInclusive(1, 5));
   const [answers, setAnswers] = useState<number[] | undefined>();
   const [problem, setProblem] = useState<calculateProblem>({
@@ -79,8 +81,8 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: props
   const panelAnswerCheck = (panel: number): void =>  {
     if (panelAnswer === panel) {
       const selectPanel = document.getElementById(panel.toString()) as HTMLLIElement;
-
       selectPanel.classList.remove("cursor-pointer");
+      selectPanel.classList.remove("text-gray-50");
       selectPanel.classList.add("text-gray-900");
       if (panelAnswer < panelMax) {
         setPanelAnswer(panelAnswer + 1);
@@ -96,6 +98,7 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: props
   // 睡眠データの登録が完了したらアラームモーダルを閉じる
   const onClickWakeUpButton = async (): Promise<void> => {
     if (await submitSleepLog(sleepAt) === REQUEST_STATE.OK) {
+      fetchSleepLogs(setSleepLogs, setSleepLogsData);
       navigate("/sleep_logs");
       setShowAlarmFlag(false);
     }
@@ -105,7 +108,7 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: props
 
   return (
     <>
-      <div className="border border-white">
+      <div className="border border-white text-white">
         <p className="block">
           アラーム日時 : { alarm.format('YYYY/MM/DD HH:mm') }
         </p>
@@ -113,7 +116,7 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: props
           残り時間 : { alarmLeftTime }
         </p>
       </div>
-      <div id="task_field" className="hidden">
+      <div id="task_field" className="hidden text-white">
         { taskLeft ? <p>残りの問題数 { taskLeft }</p> : <></> }
         { task === 1 ? <>
           <div id="calculate" className="w-64 h-48 my-0 mx-auto">

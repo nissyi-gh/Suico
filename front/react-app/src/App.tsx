@@ -13,10 +13,10 @@ import { NotFound } from "./Pages/NotFound";
 import { Header } from "./Organisms/Header";
 import {
   sleepLogsURL,
-  alarmSettingsURL,
+  alarmPresetsIndexURL,
   accountSettingsURL, 
   aboutURL, 
-  contactURL
+  contactURL,
 } from "./constants/urls";
 import { Home } from "./Pages/Home";
 import { useContext } from "react";
@@ -42,7 +42,9 @@ export const App = (): JSX.Element => {
             <Routes>
               <Route path="/users" element={ <UsersIndex /> } />
               <Route path={ sleepLogsURL } element={ LoginCheck({component: <SleepLogs /> }) } />
-              <Route path={ alarmSettingsURL } element={ LoginCheck({component: <AlarmSettings /> }) } />
+              <Route path={ alarmPresetsIndexURL } element={ LoginCheck({component: <AlarmSettings /> }) }>
+                <Route path="new" element={ LoginCheck({component: <AlarmSettings /> }) } />
+              </Route>
               <Route path={ accountSettingsURL } element={  LoginCheck({component: <AccountSettings/> }) } />
               <Route path={ aboutURL } element={ LoginCheck({component: <About /> }) } />
               <Route path={ contactURL } element={ LoginCheck({component: <Contact /> }) } />

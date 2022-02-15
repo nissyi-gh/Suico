@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
 import { inputAtom } from "../Atoms/form";
 import { satisfactions } from "../constants/constants";
-import { taskOptionCreate } from "../Functions/Alarm";
 import { formatNumberDigit } from "../Functions/Functions";
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
@@ -46,7 +44,7 @@ export const inputCheckBox = (spanText: string, name: string, id: string): JSX.E
   )
 }
 
-const timerOptionCleate = (limit: number) => {
+const timerOptionCreate = (limit: number) => {
   const times = [];
 
   for (let i: number = 0; i < limit; i++ ) {
@@ -63,35 +61,142 @@ const timerOptionCleate = (limit: number) => {
 }
 
 export const AlarmSetterWithLabel = (itemName: string, name: string, id: string, defaultTime?: dayjs.Dayjs): JSX.Element => {
-  const selecterCSS: string = "border bg-black text-gray-100 w-1/6";
+  const selecterCSS: string = "border w-1/3 text-center";
   const defaultHour: string = defaultTime ? formatNumberDigit(defaultTime?.hour()) : '' ;
   const defaultMin: string = defaultTime ? formatNumberDigit(defaultTime?.minute()) : '';
   
+
   return (
-    <div className="text-gray-100 w-full">
-      <label htmlFor={ id } className=" bg-black inline-block w-1/3">{ itemName }</label>
-      <select name={ name } id={ `${ id }_hour` } className={ selecterCSS } defaultValue={ defaultHour } >
-        { timerOptionCleate(24) }
-      </select>
-      <select name={ name } id={ `${ id }_min` } className={ selecterCSS } defaultValue={ defaultMin } >
-        { timerOptionCleate(60) }
-      </select>
+    <div className="w-full flex">
+      <label htmlFor={ id } className="inline-block w-1/3">{ itemName }</label>
+      <div className="w-2/3">
+        <select name={ name } id={ `${ id }_hour` } className={ selecterCSS } defaultValue={ defaultHour } >
+          { timerOptionCreate(24) }
+        </select>
+        <select name={ name } id={ `${ id }_min` } className={ selecterCSS } defaultValue={ defaultMin } >
+          { timerOptionCreate(60) }
+        </select>
+      </div>
     </div>
   )
 }
 
-export const TaskSelecterWithLabel = (itemName:string, name: string, id: string): JSX.Element => {
-  useEffect(() => {
-    const selector = document.getElementById(id) as HTMLSelectElement;
-    taskOptionCreate(selector);
-  }, [id])
+export const AlarmSetterWithLabelOnDark = (itemName: string, name: string, id: string, onChangeHour: any, onChangeMinute: any, defaultTime?: dayjs.Dayjs): JSX.Element => {
+  const selecterCSS: string = "border w-1/3 bg-black text-center";
+  const defaultHour: string = defaultTime ? formatNumberDigit(defaultTime?.hour()) : '' ;
+  const defaultMin: string = defaultTime ? formatNumberDigit(defaultTime?.minute()) : '';
+  
 
   return (
+    <div className="w-full flex">
+      <label htmlFor={ id } className="inline-block w-1/4">{ itemName }</label>
+      <div className="w-3/4">
+        <select name={ name } id={ `${ id }_hour` } className={ selecterCSS } value={ defaultHour } onChange={ onChangeHour } >
+          { timerOptionCreate(24) }
+        </select>
+        <select name={ name } id={ `${ id }_min` } className={ selecterCSS } value={ defaultMin } onChange={ onChangeMinute } >
+          { timerOptionCreate(60) }
+        </select>
+      </div>
+    </div>
+  )
+}
+
+export const ControlledAlarmSetterWithLabel = (itemName: string, name: string, id: string, onHourChange: any , onMinuteChange: any, defaultTime?: dayjs.Dayjs): JSX.Element => {
+  const selecterCSS: string = "border w-fit text-center block px-2";
+  const defaultHour: string = defaultTime ? formatNumberDigit(defaultTime?.hour()) : '' ;
+  const defaultMin: string = defaultTime ? formatNumberDigit(defaultTime?.minute()) : '';
+  
+
+  return (
+    <div className="w-full flex">
+      <label htmlFor={ id } className="inline-block w-1/4 select-none">{ itemName }</label>
+      <div className="w-3/4 flex">
+        <select name={ name } id={ `${ id }_hour` } className={ selecterCSS } value={ defaultHour } onChange={ onHourChange } >
+          { timerOptionCreate(24) }
+        </select>
+        <select name={ name } id={ `${ id }_min` } className={ selecterCSS } value={ defaultMin } onChange={ onMinuteChange } >
+          { timerOptionCreate(60) }
+        </select>
+      </div>
+    </div>
+  )
+}
+
+// taskSelecterのOptionを生成
+export const taskOptionCreate = () => {
+  const setValues: string[] = ["ボタン", "かんたんな計算", "パネル選択"];
+
+  return (
+    <>
+      { setValues.map((value) => {
+        return <option key={ value }>{ value }</option>
+      })}
+    </>
+  )
+}
+
+export const taskConverterNumberToString = (select: number | string | undefined): string | undefined => {
+  switch(select) {
+    case 0 :
+      return "ボタン";
+    case 1:
+      return "かんたんな計算";
+    case 2:
+      return "パネル選択";
+    case "0":
+      return "ボタン";
+    case "1":
+      return "かんたんな計算";
+    case "2":
+      return "パネル選択";
+    default:
+      return undefined;
+  }
+}
+
+export const taskInverter = (select: string | number | undefined): number | undefined => {
+  switch(select) {
+    case "ボタン":
+      return 0;
+    case "かんたんな計算":
+      return 1;
+    case "パネル選択":
+      return 2;
+    default:
+      return undefined;
+  }
+}
+
+export const TaskSelecterWithLabel = (itemName:string, name: string, id: string): JSX.Element => {
+  return (
     <div className="w-full">
-      <label htmlFor={ id } className="inline-block w-1/3 text-gray-100">
+      <label htmlFor={ id } className="inline-block w-1/4 text-center">
         { itemName }
       </label>
-      <select name={ name } id={ id } className="border bg-inherit text-gray-100 w-1/2"></select>
+      <select name={ name } id={ id } className="border bg-inherit w-3/4">{ taskOptionCreate() }</select>
+    </div>
+  )
+}
+
+export const ControlledTaskSelecterWithLabel = (itemName:string, name: string, id: string, value: number | undefined, onChange: any): JSX.Element => {
+  return (
+    <div className="w-full">
+      <label htmlFor={ id } className="inline-block w-1/4 text-center select-none">
+        { itemName }
+      </label>
+      <select name={ name } id={ id } className="border w-3/4" value={ taskConverterNumberToString(value) } onChange={ onChange }>{ taskOptionCreate() }</select>
+    </div>
+  )
+}
+
+export const ControlledTaskSelecterWithLabelOnDark = (itemName:string, name: string, id: string, value: number | undefined, onChange: any): JSX.Element => {
+  return (
+    <div className="w-full">
+      <label htmlFor={ id } className="inline-block w-1/4 text-center">
+        { itemName }
+      </label>
+      <select name={ name } id={ id } className="border w-3/4 bg-black" value={ taskConverterNumberToString(value) } onChange={ onChange }>{ taskOptionCreate() }</select>
     </div>
   )
 }
@@ -108,7 +213,7 @@ export const Satisfactionselector = (defaultValue?: number): JSX.Element => {
 
   return (
     <>
-      <select name="satisfaction" id="satisfaction" className="border zzzzm-2" defaultValue={ defaultValue }>
+      <select name="satisfaction" id="satisfaction" className="border zzzzm-2 text-center" defaultValue={ defaultValue }>
         { 
           satisfactionsArray.map( item => {
             return <option value={ item[0] } key={item[0] }> {item[1]} </option>
@@ -121,7 +226,7 @@ export const Satisfactionselector = (defaultValue?: number): JSX.Element => {
 
 export const SatisfactionSelectorWithLabel = (defaultValue?: number): JSX.Element => {
   return (
-    <div className="w-full">
+    <div className="w-full text-select">
       <label htmlFor="satisfaction" className="inline-block w-1/3">
         睡眠の満足度
       </label>

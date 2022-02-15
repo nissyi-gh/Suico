@@ -56,3 +56,17 @@ export type sleepLogsData = {
   sleepMax: string,
   sleepMin: string
 }
+
+export type AlarmPreset = {
+  id: number,
+  preset_name: string,
+  wake_at: dayjs.Dayjs,
+  task: number
+}
+
+export type AlarmPresetsListItemType = {
+  id: number | undefined,
+  presetName: string,
+  wakeAt: dayjs.Dayjs | undefined,
+  task: number | undefined
+}
