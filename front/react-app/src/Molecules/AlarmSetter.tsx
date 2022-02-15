@@ -33,10 +33,8 @@ export const AlarmSetter = ({ onClickSleepIn } : propsFunctions ): JSX.Element =
   // }
 
   const onClickPreset = (e: ChangeEvent<HTMLSelectElement>): any => {
-    // console.log(e.target.selectedIndex)
     const correctPreset = alarmPresets[e.target.selectedIndex - 1];
 
-    // console.log(alarmPresets[e.target.selectedIndex - 1]);
     setCorrectPreset({
       id: correctPreset.id,
       presetName: correctPreset.presetName,
@@ -80,7 +78,7 @@ export const AlarmSetter = ({ onClickSleepIn } : propsFunctions ): JSX.Element =
             </select>
           </div>
           { AlarmSetterWithLabelOnDark("起床時刻", "timer", "wake_at", onChangeAlarmHour, onChangeAlarmMinute, correctPreset.wakeAt) }
-          { ControlledTaskSelecterWithLabelOnDark("停止方法", "stop_method", "task_selector", correctPreset.task, onTaskChange ) }
+          { ControlledTaskSelecterWithLabelOnDark("停止方法", "task_selector", "task_selector", correctPreset.task, onTaskChange ) }
           {/* { submitButton('1分後に設定する', setAfterMinute) } */}
         </div>
       </div>

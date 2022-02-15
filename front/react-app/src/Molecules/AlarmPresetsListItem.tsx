@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { AlarmPresetsContext } from "../providers/AlarmPresetsProvider"
 import { AlarmPresetsListItemType } from "../types/types"
-import { taskConverter } from "./Form"
+import { taskConverterNumberToString } from "./Form"
 
 type AlarmPresetsListItemProps = {
   correctPreset: AlarmPresetsListItemType,
@@ -31,7 +31,7 @@ export const AlarmPresetsListItem = ({ correctPreset, setCorrectPreset } : Alarm
             <li key={ index } className={ `w-full flex justify-between hover:bg-red-100 cursor-pointer ${ selectedBackGroundCSS }` } onClick={ () => onClickListItem( index ) }>
               <p className="w-1/3 border truncate px-2">{ alarmPreset.presetName }</p>
               <p className="w-1/3 border truncate px-2">{ alarmPreset.wakeAt?.format('HH:mm') }</p>
-              <p className="w-1/3 border truncate px-2">{ taskConverter(alarmPreset.task) }</p>  
+              <p className="w-1/3 border truncate px-2">{ taskConverterNumberToString(alarmPreset.task) }</p>  
             </li>
           )
         })

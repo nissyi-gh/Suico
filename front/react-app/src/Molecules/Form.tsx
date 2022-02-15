@@ -82,7 +82,7 @@ export const AlarmSetterWithLabel = (itemName: string, name: string, id: string,
 }
 
 export const AlarmSetterWithLabelOnDark = (itemName: string, name: string, id: string, onChangeHour: any, onChangeMinute: any, defaultTime?: dayjs.Dayjs): JSX.Element => {
-  const selecterCSS: string = "border w-1/3 bg-black text-center bg-white";
+  const selecterCSS: string = "border w-1/3 bg-black text-center";
   const defaultHour: string = defaultTime ? formatNumberDigit(defaultTime?.hour()) : '' ;
   const defaultMin: string = defaultTime ? formatNumberDigit(defaultTime?.minute()) : '';
   
@@ -136,13 +136,19 @@ export const taskOptionCreate = () => {
   )
 }
 
-export const taskConverter = (select: string | number | undefined): string | undefined => {
+export const taskConverterNumberToString = (select: number | string | undefined): string | undefined => {
   switch(select) {
-    case 0:
+    case 0 :
       return "ボタン";
     case 1:
       return "かんたんな計算";
     case 2:
+      return "パネル選択";
+    case "0":
+      return "ボタン";
+    case "1":
+      return "かんたんな計算";
+    case "2":
       return "パネル選択";
     default:
       return undefined;
@@ -179,7 +185,7 @@ export const ControlledTaskSelecterWithLabel = (itemName:string, name: string, i
       <label htmlFor={ id } className="inline-block w-1/4 text-center select-none">
         { itemName }
       </label>
-      <select name={ name } id={ id } className="border w-3/4" value={ taskConverter(value) } onChange={ onChange }>{ taskOptionCreate() }</select>
+      <select name={ name } id={ id } className="border w-3/4" value={ taskConverterNumberToString(value) } onChange={ onChange }>{ taskOptionCreate() }</select>
     </div>
   )
 }
@@ -190,7 +196,7 @@ export const ControlledTaskSelecterWithLabelOnDark = (itemName:string, name: str
       <label htmlFor={ id } className="inline-block w-1/4 text-center">
         { itemName }
       </label>
-      <select name={ name } id={ id } className="border w-3/4 bg-black" value={ taskConverter(value) } onChange={ onChange }>{ taskOptionCreate() }</select>
+      <select name={ name } id={ id } className="border w-3/4 bg-black" value={ taskConverterNumberToString(value) } onChange={ onChange }>{ taskOptionCreate() }</select>
     </div>
   )
 }
@@ -207,7 +213,7 @@ export const Satisfactionselector = (defaultValue?: number): JSX.Element => {
 
   return (
     <>
-      <select name="satisfaction" id="satisfaction" className="border zzzzm-2" defaultValue={ defaultValue }>
+      <select name="satisfaction" id="satisfaction" className="border zzzzm-2 text-center" defaultValue={ defaultValue }>
         { 
           satisfactionsArray.map( item => {
             return <option value={ item[0] } key={item[0] }> {item[1]} </option>
@@ -220,7 +226,7 @@ export const Satisfactionselector = (defaultValue?: number): JSX.Element => {
 
 export const SatisfactionSelectorWithLabel = (defaultValue?: number): JSX.Element => {
   return (
-    <div className="w-full">
+    <div className="w-full text-select">
       <label htmlFor="satisfaction" className="inline-block w-1/3">
         睡眠の満足度
       </label>

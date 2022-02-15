@@ -6,6 +6,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import "dayjs/locale/ja";
+import { taskInverter } from "../Molecules/Form";
 dayjs.extend(utc);
 dayjs.locale('ja');
 
@@ -27,8 +28,9 @@ export const setAlarmDateTime = (): dayjs.Dayjs => {
 // アラームの止め方を取得
 export const setHowToStop = (): number => {
   const taskSelector = (document.getElementById("task_selector") as HTMLSelectElement).value;
-
-  return parseInt(taskSelector, 10);
+  const taskNumber =  taskInverter(taskSelector);
+  console.log(taskSelector)
+  return taskNumber ? taskNumber : 0;
 }
 
 // アラームの残り時間を設定
