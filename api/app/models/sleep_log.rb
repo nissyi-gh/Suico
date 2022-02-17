@@ -15,16 +15,17 @@ class SleepLog < ApplicationRecord
 
     def time_average(model, target)
       # UTCとJSTの時差540分。RailsはUTC、文字列での出力時にはJSTに変換する
-      time_difference_between_utc_and_jst = 540
-      # 24時台は0時扱いになってしまう。1440秒足すことで24時台として計算する
-      add_24_hour = 60 * 24
+      # time_difference_between_utc_and_jst = 540
+      # 2時までは26時台として計算する
+      add_24_hour = 3600 * 24
       times = model.pluck(target).map do |log|
-        log.hour.zero? ? (log.hour * 60) + log.min + add_24_hour : (log.hour * 60) + log.min
+        log.hour < 2 ? (log.min * 60) + add_24_hour : (log.hour * 3600) + (log.min * 60)
       end
-      time_average = (times.sum / model.size) + time_difference_between_utc_and_jst
-      # 24時間を超えている場合は、24時間をマイナス
-      time_average -= (24 * 60) if time_average > (24 * 60)
-      format('%02<hour>d:%02<min>d', hour: time_average / 60, min: time_average % 60)
+
+      time_average = (times.sum / model.size)
+      # 26時を超えている場合は、26時間をマイナス
+      time_average -= (26 * 3600) if time_average > (26 * 3600)
+      format('%02<hour>d:%02<min>d', hour: time_average / 3600, min: time_average % 3600 / 60)
     end
 
     # 睡眠時間を計算する。
@@ -34,21 +35,31 @@ class SleepLog < ApplicationRecord
       end
     end
 
+    # Time型のデータの時間と分を秒ベースに変換
+    def time_convert_to_second_base(log)
+      (log.hour * 3600) + (log.min * 60)
+    end
+
     def sleep_time_analyze(logs)
       sleep_times = []
       logs.each do |log|
-        sleep_times << (log[:wake_at] - log[:sleep_at])
+        wake_at = time_convert_to_second_base(log[:wake_at])
+        sleep_at = time_convert_to_second_base(log[:sleep_at])
+        add_1_day = log[:sleep_at].day == log[:wake_at].day ? 0 : 86400
+
+        sleep_times << ((sleep_at - wake_at) - add_1_day).abs
       end
-      average = sleep_time_average(sleep_times, logs.size)
-      max = Time.at(sleep_times.max).utc.strftime('%H:%M')
-      min = Time.at(sleep_times.min).utc.strftime('%H:%M')
+
+      average = sleep_time_average(sleep_times, sleep_times.size)
+      max = Time.local(2000, 1, 1, sleep_times.max / 3600, sleep_times.max % 3600 / 60).in_time_zone.strftime('%H:%M')
+      min = Time.local(2000, 1, 1, sleep_times.min / 3600, sleep_times.min % 3600 / 60).in_time_zone.strftime('%H:%M')
 
       [average, max, min]
     end
 
     def sleep_time_average(sleep_times, size)
-      time_average = sleep_times.sum / size / 60
-      format('%02<hour>d:%02<min>d', hour: time_average / 60, min: time_average % 60)
+      time_average = sleep_times.sum / size
+      format('%02<hour>d:%02<min>d', hour: time_average / 3600, min: time_average % 3600 / 60)
     end
 
     # 満足度の平均をnull以外から算出。

@@ -59,6 +59,7 @@ const returnLogsArray = (logs: SleepLog[]) => {
 export const fetchSleepLogs = (setSleepLogs: React.Dispatch<React.SetStateAction<SleepLogListItem[]>>, setSleepLogsData: any ): void => {
   axios.get(sleepLogsAPI, { withCredentials: true })
   .then(res => {
+    console.log(res)
     setSleepLogsData({
       satisfaction: res.data.average.satisfaction,
       wakeAtAverage: res.data.average.wake_at,
