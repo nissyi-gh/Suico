@@ -22,7 +22,7 @@ export const SleepLogs = memo((): JSX.Element => {
           <div className="h-3/5 border border-black bg-gray-100 mb-2">
             <SleepGraph sleepLogs={ sleepLogs }/>
           </div>
-          <div className="border border-black w-full bg-gray-100 h-1/5 leading-10 text-center">
+          <div className="border border-black w-full bg-gray-100 dark:bg-gray-500 rounded-md h-1/5 leading-10 text-center">
             <div className="flex justify-around h-1/2">
               <div className="w-1/3">起床平均 : { sleepLogsData.wakeAtAverage }</div>
               <div className="w-1/3">就寝平均 : { sleepLogsData.sleepInAverage }</div>
