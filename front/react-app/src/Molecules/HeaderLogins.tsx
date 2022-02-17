@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { LoginContext } from "../providers/LoginFlagProvider";
-import { linkAtom, buttonAtom } from "../Atoms/form";
+// import { linkAtom, buttonAtom } from "../Atoms/form";
 import { LoginModal } from "../Organisms/LoginModal";
 import { SignUpModal } from "../Organisms/SignUpModal";
 import axios from "axios";
@@ -10,6 +10,9 @@ import { AlarmModal } from "../Pages/AlarmModal";
 import { showAlarmContext } from "../providers/ShowAlarmFlagProvider";
 import { HeaderButtonSmall } from "./HeaderButton";
 import { useNavigate } from "react-router-dom";
+import { BsAlarm } from 'react-icons/bs';
+import { VscBell } from 'react-icons/vsc';
+import { MdLogout } from 'react-icons/md';
 
 export const HerderLogins = (): JSX.Element => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
@@ -72,11 +75,19 @@ export const HerderLogins = (): JSX.Element => {
       { showSignUpModal ? <SignUpModal onClick={ hiddenSignUpModal } /> : <></> }
       { showAlarmFlag ? <AlarmModal onClick={ hiddenAlarmModal } /> : <></> }
       { loginFlag ? <>
-          <div className="border-2 border-gray-400 bg-sky-100 p-2 h-full w-64 flex items-center justify-around">
-            { buttonAtom("アラーム", "", openAlarmModal) }
-            <div>
-              { buttonAtom("ログアウト", "", clickLogout) }
-              { linkAtom("#", "通知", "block") }
+          <div className="border-2 border-gray-700 bg-sky-100 p-1 h-full w-72 flex items-center justify-around rounded-lg">
+            {/* { buttonAtom(, "", openAlarmModal) } */}
+            <button className="h-full w-32 text-lg font-semibold rounded-lg border-2 border-amber-400 bg-amber-100 hover:bg-amber-200" onClick={ openAlarmModal } >
+              アラーム<BsAlarm className="inline-block mb-1 ml-2" />
+            </button>
+            <div className="w-28 h-full text-center flex flex-col justify-around">
+              <button className="inline-block w-full h-2/5 border border-gray-500 rounded-md bg-gray-100 hover:bg-gray-300" onClick={ clickLogout } >
+                ログアウト<MdLogout className="inline-block mb-1 ml-1" />
+              </button>
+              {/* { buttonAtom("ログアウト", "", clickLogout) } */}
+              <button className="inline-block w-full h-2/5 border border-gray-500 rounded-md bg-gray-100 hover:bg-gray-300">
+                通知<VscBell className="inline-block mb-1 ml-1" />
+              </button>
             </div>
           </div>
         </> : <>
