@@ -75,17 +75,17 @@ export const HerderLogins = (): JSX.Element => {
       { showSignUpModal ? <SignUpModal onClick={ hiddenSignUpModal } /> : <></> }
       { showAlarmFlag ? <AlarmModal onClick={ hiddenAlarmModal } /> : <></> }
       { loginFlag ? <>
-          <div className="border-2 border-gray-700 bg-sky-100 p-1 h-full w-72 flex items-center justify-around rounded-lg">
+          <div className="border-2 border-gray-700 bg-sky-100 dark:bg-gray-600 p-1 h-full w-72 flex items-center justify-around rounded-lg">
             {/* { buttonAtom(, "", openAlarmModal) } */}
-            <button className="h-full w-32 text-lg font-semibold rounded-lg border-2 border-amber-400 bg-amber-100 hover:bg-amber-200" onClick={ openAlarmModal } >
+            <button className="h-full w-32 text-lg font-semibold rounded-lg border-2 border-amber-400 dark:border-gray-400 bg-amber-100 dark:bg-gray-500 hover:bg-amber-200" onClick={ openAlarmModal } >
               アラーム<BsAlarm className="inline-block mb-1 ml-2" />
             </button>
             <div className="w-28 h-full text-center flex flex-col justify-around">
-              <button className="inline-block w-full h-2/5 border border-gray-500 rounded-md bg-gray-100 hover:bg-gray-300" onClick={ clickLogout } >
+              <button className="inline-block w-full h-2/5 border border-gray-500 dark:border-gray-400 rounded-md bg-gray-100 dark:bg-gray-500 hover:bg-gray-300" onClick={ clickLogout } >
                 ログアウト<MdLogout className="inline-block mb-1 ml-1" />
               </button>
               {/* { buttonAtom("ログアウト", "", clickLogout) } */}
-              <button className="inline-block w-full h-2/5 border border-gray-500 rounded-md bg-gray-100 hover:bg-gray-300">
+              <button className="inline-block w-full h-2/5 border border-gray-500 dark:border-gray-400 rounded-md bg-gray-100 dark:bg-gray-500 hover:bg-gray-300">
                 通知<VscBell className="inline-block mb-1 ml-1" />
               </button>
             </div>
