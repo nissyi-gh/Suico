@@ -21,6 +21,7 @@ import {
 import { Home } from "./Pages/Home";
 import { useContext } from "react";
 import { LoginContext } from "./providers/LoginFlagProvider";
+import { DarkMordToggle } from "./Organisms/DarkModeToggle";
 
 export const App = (): JSX.Element => {
   const { loginFlag } = useContext(LoginContext);
@@ -52,6 +53,7 @@ export const App = (): JSX.Element => {
               <Route path="*" element={ <NotFound /> } />
             </Routes>
           </div>
+          <DarkMordToggle />
         </Router>
       </div>
     </div>
