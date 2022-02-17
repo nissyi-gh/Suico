@@ -35,11 +35,11 @@ export const App = (): JSX.Element => {
   }
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-[url('../../public/yoake.jpg')] bg-cover">
+    <div className="fixed top-0 left-0 w-full h-full bg-[url('../../public/yoake.jpg')] bg-cover text-gray-700 dark:text-white">
       <div className="w-2/3 mx-auto my-0">
         <Router>
           <Header />
-          <div className="border w-2/3 h-2/3 border-gray-600 border-t-0 bg-sky-100 fixed top-34 flex justify-center">
+          <div className="border w-2/3 h-2/3 border-gray-600 border-t-0 bg-sky-100 dark:bg-gray-600 fixed top-34 flex justify-center">
             <Routes>
               <Route path="/users" element={ <UsersIndex /> } />
               <Route path={ sleepLogsURL } element={ LoginCheck({component: <SleepLogs /> }) } />

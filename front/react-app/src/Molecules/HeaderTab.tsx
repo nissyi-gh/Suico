@@ -28,8 +28,9 @@ export const HeaderTab = (): JSX.Element => {
 
   const loginCSS: string = loginFlag ? "" : "pointer-events-none";
   const commonCSS: string = "inline-block font-bold w-1/5 h-fit text-center p-2 border rounded-t-md border-gray-600";
-  const selectTabCSS: string = "border-b-sky-100 bg-sky-100";
-  const otherTabCSS: string = "text-gray-600 bg-sky-300";
+  const selectTabCSS: string = "border-b-sky-100 dark:border-b-gray-600 bg-sky-100 dark:bg-gray-600";
+  const otherTabCSS: string = "text-gray-600 dark:text-gray-400 bg-sky-300 dark:bg-gray-700";
+
   return (
     <div>
       { headerLinks.map(link => {
