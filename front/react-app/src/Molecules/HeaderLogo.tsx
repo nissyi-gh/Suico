@@ -8,7 +8,7 @@ export const HeaderLogo = ({ isDark } : DarkModeProps): JSX.Element => {
   const { loginFlag } = useContext(LoginContext);
   
   return (
-    <Link to={ loginFlag ? sleepLogsURL : "/" } className="inline-block h-full">
+    <Link to={ loginFlag ? sleepLogsURL : "/" } className="inline-block h-full ml-2 p-2 w-28">
       { isDark ?
         <img src="color_logo.png" alt="Suicoのロゴ画像" className="h-full" />
         :  

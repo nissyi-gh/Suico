@@ -3,6 +3,8 @@ import { HeaderTab } from "../Molecules/HeaderTab";
 import { HerderLogins } from "../Molecules/HeaderLogins";
 import { ShowAlarmFlagProvider } from "../providers/ShowAlarmFlagProvider";
 import { useEffect, useState } from "react";
+import { DarkMordToggle } from "./DarkModeToggle";
+import { MdMenu } from 'react-icons/md';
 
 export const Header = (): JSX.Element => {
   const [isDark, setIsDark] = useState<boolean>(false);
@@ -22,10 +24,14 @@ export const Header = (): JSX.Element => {
   }
 
   return (
-    <header className="mt-10">
-      <div className="flex h-20 mb-2 items-center justify-between">
+    <header className="bg-sky-200 md:bg-inherit dark:bg-gray-900  border-b border-gray-700 md:mt-10">
+      <div className="flex md:h-16 md:mb-2 items-center justify-between">
         <HeaderLogo isDark={ isDark } toggleDarkClassForHtml={ toggleDarkClassForHtml } />
+        <DarkMordToggle isDark={ isDark } toggleDarkClassForHtml={ toggleDarkClassForHtml }/>
         <ShowAlarmFlagProvider>
+          <div className="w-10 h-10 mr-2 cursor-pointer">
+            <MdMenu className="w-full h-full" />
+          </div>
           <HerderLogins isDark={ isDark } toggleDarkClassForHtml={ toggleDarkClassForHtml } />
         </ShowAlarmFlagProvider>
       </div>

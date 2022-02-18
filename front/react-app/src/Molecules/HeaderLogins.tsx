@@ -75,7 +75,7 @@ export const HerderLogins = ({ isDark, toggleDarkClassForHtml } : DarkModeProps)
       { showSignUpModal ? <SignUpModal onClick={ hiddenSignUpModal } /> : <></> }
       { showAlarmFlag ? <AlarmModal onClick={ hiddenAlarmModal } /> : <></> }
       { loginFlag ? <>
-          <div className="border-2 border-gray-700 bg-sky-100 dark:bg-gray-600 p-1 h-full w-96 flex items-center justify-around rounded-lg">
+          <div className="hidden md:flex border-2 items-center justify-around border-gray-700 bg-sky-100 dark:bg-gray-600 p-1 h-full w-96 rounded-lg">
             <button className="h-full w-32 text-lg font-semibold rounded-lg border-2 border-amber-400 dark:border-gray-400 bg-amber-100 dark:bg-gray-500 hover:bg-amber-200" onClick={ openAlarmModal } >
               アラーム<BsAlarm className="inline-block mb-1 ml-2" />
             </button>
@@ -96,7 +96,7 @@ export const HerderLogins = ({ isDark, toggleDarkClassForHtml } : DarkModeProps)
             </button>
           </div>
         </> : <>
-          <div className="border-2 border-gray-400 bg-sky-100 dark:bg-gray-600 rounded-md p-2 h-full w-96 flex items-center justify-around">
+          <div className="hidden md:flex items-center justify-around border-2 border-gray-400 bg-sky-100 dark:bg-gray-600 rounded-md p-2 h-full w-96">
             <button className="border border-gray-300 bg-gray-200 rounded-md dark:bg-gray-500 p-2 cursor-pointer" onClick={ guestLogin }>ゲストログイン</button>
             <button className="border border-gray-300 bg-gray-200 rounded-md dark:bg-gray-500 p-2 cursor-pointer" onClick={ openSignUpModal }>新規登録</button>
             <button className="border border-gray-300 bg-gray-200 rounded-md dark:bg-gray-500 p-2 cursor-pointer" onClick={ openLoginModal }>ログイン</button>
