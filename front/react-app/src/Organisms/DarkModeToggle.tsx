@@ -1,29 +1,14 @@
-import { useEffect, useState } from 'react';
 import { BsSun, BsMoon } from 'react-icons/bs';
-
-export const DarkMordToggle = () => {
-  const [isdark, setIsDark] = useState<boolean>(false);
-  const htmlElement = document.getElementById('html');
-
-  useEffect(() => {
-    if (htmlElement?.classList.contains('dark')) {
-      setIsDark(true);
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches === true) {
-      htmlElement?.classList.add('dark');
-    }
-  }, [htmlElement?.classList]) 
+import { DarkModeProps } from '../types/types';
 
 
-  const toggleDarkClassForHtml = () => {
-    htmlElement?.classList.toggle('dark');
-    isdark ? setIsDark(false) : setIsDark(true);
-  }
 
+export const DarkMordToggle = ({ isDark, toggleDarkClassForHtml } : DarkModeProps) => {
   return (
     <>
       <div className='w-full bg-white dark:bg-slate-800 h-12 fixed bottom-0 left-0'>
         <div className='flex w-24'>
-          { isdark ? 
+          { isDark ? 
               <BsSun className='text-black inline-block hover:cursor-pointer w-16 h-6' onClick={ toggleDarkClassForHtml } />
             :
               <BsMoon className='inline-block hover:cursor-pointer w-16 h-6' onClick={ toggleDarkClassForHtml } />

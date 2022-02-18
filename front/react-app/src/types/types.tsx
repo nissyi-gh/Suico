@@ -75,3 +75,8 @@ export type AlarmPresetsListItemProps = {
   correctPreset: AlarmPresetsListItemType,
   setCorrectPreset: React.Dispatch<React.SetStateAction<AlarmPresetsListItemType>>
 }
+
+export type DarkModeProps = {
+  isDark: boolean,
+  toggleDarkClassForHtml: () => void
+}
