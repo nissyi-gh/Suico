@@ -97,9 +97,9 @@ export const HerderLogins = ({ isDark, toggleDarkClassForHtml } : DarkModeProps)
           </div>
         </> : <>
           <div className="border-2 border-gray-400 bg-sky-100 dark:bg-gray-600 rounded-md p-2 h-full w-96 flex items-center justify-around">
-            <button className="border-2 border-gray-300 rounded-md dark:bg-gray-500 p-2 cursor-pointer" onClick={ guestLogin }>ゲストログイン</button>
-            <button className="border-2 border-gray-300 rounded-md dark:bg-gray-500 p-2 cursor-pointer" onClick={ openSignUpModal }>新規登録</button>
-            <button className="border-2 border-gray-300 rounded-md dark:bg-gray-500 p-2 cursor-pointer" onClick={ openLoginModal }>ログイン</button>
+            <button className="border border-gray-300 bg-gray-200 rounded-md dark:bg-gray-500 p-2 cursor-pointer" onClick={ guestLogin }>ゲストログイン</button>
+            <button className="border border-gray-300 bg-gray-200 rounded-md dark:bg-gray-500 p-2 cursor-pointer" onClick={ openSignUpModal }>新規登録</button>
+            <button className="border border-gray-300 bg-gray-200 rounded-md dark:bg-gray-500 p-2 cursor-pointer" onClick={ openLoginModal }>ログイン</button>
           </div>
         </>}
     </>
