@@ -2,11 +2,7 @@ import { useContext } from "react"
 import { AlarmPresetsContext } from "../providers/AlarmPresetsProvider"
 import { AlarmPresetsListItemType } from "../types/types"
 import { taskConverterNumberToString } from "./Form"
-
-type AlarmPresetsListItemProps = {
-  correctPreset: AlarmPresetsListItemType,
-  setCorrectPreset: React.Dispatch<React.SetStateAction<AlarmPresetsListItemType>>
-}
+import { AlarmPresetsListItemProps } from "../types/types"
 
 export const AlarmPresetsListItem = ({ correctPreset, setCorrectPreset } : AlarmPresetsListItemProps): JSX.Element => {
   const { alarmPresets } = useContext(AlarmPresetsContext);
