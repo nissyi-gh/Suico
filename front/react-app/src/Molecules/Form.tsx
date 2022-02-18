@@ -20,7 +20,7 @@ export const inputWithLabel = (itemName: string, type: string, name: string, id:
 }
 
 export const submitButton = (text: string, clickFunction?: (e: React.FormEvent<HTMLInputElement>) => void) =>  {
-  const css: string = "inline-block w-24 border-2 border-gray-500 dark:border-gray-300 cursor-pointer rounded-md p-2 m-4 bg-gray-200 dark:bg-inherit";
+  const css: string = "dark:text-gray-50 inline-block w-24 border-2 border-gray-500 dark:border-gray-300 cursor-pointer rounded-md p-2 m-4 bg-gray-200 dark:bg-gray-500 hover:dark:bg-gray-400";
 
   return (
     <div className="text-center">
@@ -61,7 +61,7 @@ const timerOptionCreate = (limit: number) => {
 }
 
 export const AlarmSetterWithLabel = (itemName: string, name: string, id: string, defaultTime?: dayjs.Dayjs): JSX.Element => {
-  const selecterCSS: string = "border w-1/3 text-center";
+  const selecterCSS: string = "border w-1/3 text-center dark:bg-inherit mb-2";
   const defaultHour: string = defaultTime ? formatNumberDigit(defaultTime?.hour()) : '' ;
   const defaultMin: string = defaultTime ? formatNumberDigit(defaultTime?.minute()) : '';
   
@@ -88,7 +88,7 @@ export const AlarmSetterWithLabelOnDark = (itemName: string, name: string, id: s
   
 
   return (
-    <div className="w-full flex">
+    <div className="w-full flex mb-2">
       <label htmlFor={ id } className="inline-block w-1/4">{ itemName }</label>
       <div className="w-3/4">
         <select name={ name } id={ `${ id }_hour` } className={ selecterCSS } value={ defaultHour } onChange={ onChangeHour } >
@@ -213,7 +213,7 @@ export const Satisfactionselector = (defaultValue?: number): JSX.Element => {
 
   return (
     <>
-      <select name="satisfaction" id="satisfaction" className="border zzzzm-2 text-center" defaultValue={ defaultValue }>
+      <select name="satisfaction" id="satisfaction" className="border text-center dark:bg-inherit" defaultValue={ defaultValue }>
         { 
           satisfactionsArray.map( item => {
             return <option value={ item[0] } key={item[0] }> {item[1]} </option>
