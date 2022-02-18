@@ -18,15 +18,15 @@ const AlarmSettingsContent = (): JSX.Element => {
 
   const selectCSS = (locate: string): string => {
     if (locate === viewing) {
-      return "bg-amber-300 cursor-pointer select-none w-fit mb-4";
+      return "bg-amber-300 dark:bg-gray-800 cursor-pointer select-none w-fit mb-4";
     } else {
-      return "hover:bg-amber-300 cursor-pointer select-none w-fit mb-4";
+      return "hover:bg-amber-300 hover:dark:bg-gray-700 cursor-pointer select-none w-fit mb-4";
     }
   }
 
   return (
     <div className="flex h-full">
-      <div className="w-1/5 h-full border-r border-gray-700">
+      <div className="w-1/5 h-full border-r border-gray-700 dark:border-gray-300">
         <p className={ selectCSS('edit') } onClick={ () => setViewing('edit') } >プリセット編集</p>
         <p className={ selectCSS('new') } onClick={ () => setViewing('new') } >新規プリセット</p>
       </div>

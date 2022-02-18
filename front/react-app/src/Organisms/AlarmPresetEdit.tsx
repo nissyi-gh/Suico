@@ -65,19 +65,19 @@ export const AlarmPresetEdit = () => {
         プリセット
       </div>
       <div className="w-3/4">
-        <div className="w-full flex justify-between bg-gray-100 select-none">
+        <div className="w-full flex justify-between bg-gray-100 dark:bg-gray-800 select-none">
           <div className="w-1/3 border border-gray-300 py-2">タイトル</div>
-          <div className="w-1/3 border border-gray-300 py-2">起床時刻</div>
-          <div className="w-1/3 border border-gray-300 py-2">停止方法</div>
+          <div className="w-1/3 border-y border-r border-gray-300 py-2">起床時刻</div>
+          <div className="w-1/3 border-y border-r border-gray-300 py-2">停止方法</div>
         </div>
-        <ul className="bg-gray-50 h-40 overflow-y-scroll shadow-inner shadow-gray-300/75 mb-4">
+        <ul className="bg-gray-50 dark:bg-gray-700 h-40 overflow-y-scroll shadow-inner shadow-gray-300/75 dark:shadow-gray-800 mb-4">
           <AlarmPresetsListItem correctPreset={ correctPreset } setCorrectPreset={ setCorrectPreset } />
         </ul>
       </div>
     </div>
     <div className="w-full text-center mb-2">
       <label htmlFor="title" className="w-1/4 inline-block select-none">タイトル</label>
-      <input type="text" name="title" id="title" className="border w-3/4 px-2" value={ correctPreset.presetName } onChange={ onPresetNameChange } />
+      <input type="text" name="title" id="title" className="border w-3/4 px-2 dark:bg-inherit" value={ correctPreset.presetName } onChange={ onPresetNameChange } />
     </div>
     <div className="w-full justify-between text-center mb-2">
       { ControlledAlarmSetterWithLabel("起床時刻", "wakeAt", "wakeAt", onHourChange, onMinuteChange, correctPreset.wakeAt) }

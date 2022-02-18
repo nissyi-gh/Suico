@@ -20,7 +20,7 @@ export const inputWithLabel = (itemName: string, type: string, name: string, id:
 }
 
 export const submitButton = (text: string, clickFunction?: (e: React.FormEvent<HTMLInputElement>) => void) =>  {
-  const css: string = "inline-block border border-black cursor-pointer bg-gray-200 p-2 m-4";
+  const css: string = "inline-block w-24 border-2 border-gray-500 dark:border-gray-300 cursor-pointer rounded-md p-2 m-4 bg-gray-200 dark:bg-inherit";
 
   return (
     <div className="text-center">
@@ -103,7 +103,7 @@ export const AlarmSetterWithLabelOnDark = (itemName: string, name: string, id: s
 }
 
 export const ControlledAlarmSetterWithLabel = (itemName: string, name: string, id: string, onHourChange: any , onMinuteChange: any, defaultTime?: dayjs.Dayjs): JSX.Element => {
-  const selecterCSS: string = "border w-fit text-center block px-2";
+  const selecterCSS: string = "border w-fit text-center block px-2 dark:bg-inherit";
   const defaultHour: string = defaultTime ? formatNumberDigit(defaultTime?.hour()) : '' ;
   const defaultMin: string = defaultTime ? formatNumberDigit(defaultTime?.minute()) : '';
   
@@ -185,7 +185,7 @@ export const ControlledTaskSelecterWithLabel = (itemName:string, name: string, i
       <label htmlFor={ id } className="inline-block w-1/4 text-center select-none">
         { itemName }
       </label>
-      <select name={ name } id={ id } className="border w-3/4" value={ taskConverterNumberToString(value) } onChange={ onChange }>{ taskOptionCreate() }</select>
+      <select name={ name } id={ id } className="border w-3/4 dark:bg-inherit" value={ taskConverterNumberToString(value) } onChange={ onChange }>{ taskOptionCreate() }</select>
     </div>
   )
 }
