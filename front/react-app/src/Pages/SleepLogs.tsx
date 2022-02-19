@@ -17,9 +17,9 @@ export const SleepLogs = memo((): JSX.Element => {
 
   return (
     <>
-      <div className="flex h-full w-full justify-around">
-        <div className="w-3/5 m-2">
-          <div className="h-3/5 border border-black bg-gray-100 mb-2">
+      <div className="md:flex h-full w-full justify-around overflow-y-scroll">
+        <div className="w-full p-2 md:w-3/5 md:m-2">
+          <div className="h-64 md:h-3/5 border border-black bg-gray-100 mb-2">
             <SleepGraph sleepLogs={ sleepLogs }/>
           </div>
           <div className="border border-black w-full bg-gray-100 dark:bg-gray-500 rounded-md h-1/5 leading-10 text-center">
@@ -35,7 +35,7 @@ export const SleepLogs = memo((): JSX.Element => {
             </div>
           </div>
         </div>
-        <div className="w-2/5 m-2">
+        <div className="h-2/5 md:w-2/5 m-2">
           <SleepLogList sleepLogs={ sleepLogs } />
         </div>
       </div>

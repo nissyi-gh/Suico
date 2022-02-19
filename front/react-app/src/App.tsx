@@ -36,10 +36,10 @@ export const App = (): JSX.Element => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full md:bg-[url('../../public/yoake.jpg')] bg-cover text-gray-700 dark:text-gray-200">
-      <div className="w-full md:w-2/3 mx-auto my-0">
+      <div className="w-full md:w-2/3 mx-auto md:my-0">
         <Router>
           <Header />
-          <div className="border w-full md:w-2/3 h-full md:h-2/3 border-gray-600 border-t-0 bg-sky-100 dark:bg-gray-600 fixed md:top-34 flex justify-center">
+          <main className="border w-full h-full md:h-2/3 mt-12 pb-28 md:w-2/3  border-gray-600 border-t-0 bg-sky-100 dark:bg-gray-600 fixed top-0 md:top-34 flex justify-center">
             <Routes>
               <Route path="/users" element={ <UsersIndex /> } />
               <Route path={ sleepLogsURL } element={ LoginCheck({component: <SleepLogs /> }) } />
@@ -52,7 +52,7 @@ export const App = (): JSX.Element => {
               <Route path="/" element={ LoginCheck({component: <Home/> })  } />
               <Route path="*" element={ <NotFound /> } />
             </Routes>
-          </div>
+          </main>
           <FixedTab />
         </Router>
       </div>
