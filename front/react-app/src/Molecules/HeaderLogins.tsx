@@ -8,11 +8,10 @@ import { GUEST_USER_DATA } from "../constants/constants";
 import { AlarmModal } from "../Pages/AlarmModal";
 import { showAlarmContext } from "../providers/ShowAlarmFlagProvider";
 import { useNavigate } from "react-router-dom";
-import { BsAlarm } from 'react-icons/bs';
+import { BsAlarm, BsSun, BsMoon } from 'react-icons/bs';
 import { VscBell } from 'react-icons/vsc';
 import { MdLogout } from 'react-icons/md';
 import { DarkModeProps } from "../types/types";
-import { BsSun, BsMoon } from 'react-icons/bs';
 
 export const HerderLogins = ({ isDark, toggleDarkClassForHtml } : DarkModeProps): JSX.Element => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
