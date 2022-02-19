@@ -38,7 +38,54 @@ export const SleepGraph = memo(({ sleepLogs } : { sleepLogs: SleepLogListItem[] 
 
   return (
     <>
+      {/* モバイル画面 */}
       <ResponsiveContainer width="100%" height="89%">
+        <LineChart
+          width={500}
+          height={200}
+          data={logs}
+          margin={{
+            top: 20,
+            right: 0,
+            left: 0,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" />
+          <YAxis yAxisId={1} label={{ value: "時刻", angle: -90, dx: -12 }} domain={[2, 26]}/>
+          <YAxis yAxisId={2} orientation="right" label={{ value: contents[2], angle: -90, dx: 12 }} domain={[0, 5]} />
+          <Tooltip />
+          { showSatisfaction ? <Line type="monotone" yAxisId={2} dataKey={ contents[2] } stroke="#82ca9d" strokeWidth={1} /> : <></> }
+          { showWakeAt ? <Line type="monotone" yAxisId={1} dataKey={ contents[0] } stroke="#fcca9d" activeDot={{ r: 8 }} strokeWidth={2} /> : <></>}
+          { showSleepIn ? <Line type="monotone" yAxisId={1} dataKey={ contents[1] } stroke="#8884d8"  strokeWidth={2} /> : <></>}
+        </LineChart>
+      </ResponsiveContainer>
+      {/* タブレット画面 */}
+      <ResponsiveContainer width="100%" height="89%" className="hidden">
+        <LineChart
+          width={500}
+          height={200}
+          data={logs}
+          margin={{
+            top: 20,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" />
+          <YAxis yAxisId={1} label={{ value: "時刻", angle: -90, dx: -12 }} domain={[2, 26]}/>
+          <YAxis yAxisId={2} orientation="right" label={{ value: contents[2], angle: -90, dx: 12 }} domain={[0, 5]} />
+          <Tooltip />
+          { showSatisfaction ? <Line type="monotone" yAxisId={2} dataKey={ contents[2] } stroke="#82ca9d" strokeWidth={1.5} /> : <></> }
+          { showWakeAt ? <Line type="monotone" yAxisId={1} dataKey={ contents[0] } stroke="#fcca9d" activeDot={{ r: 8 }} strokeWidth={3} /> : <></>}
+          { showSleepIn ? <Line type="monotone" yAxisId={1} dataKey={ contents[1] } stroke="#8884d8"  strokeWidth={3} /> : <></>}
+        </LineChart>
+      </ResponsiveContainer>
+      {/* PC画面 */}
+      <ResponsiveContainer width="100%" height="89%" className="hidden">
         <LineChart
           width={500}
           height={200}
