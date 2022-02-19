@@ -35,7 +35,7 @@ export const SleepLogs = memo((): JSX.Element => {
             </div>
           </div>
         </div>
-        <div className="h-2/5 md:w-2/5 m-2">
+        <div className="h-2/3 md:w-2/5 m-2">
           <SleepLogList sleepLogs={ sleepLogs } />
         </div>
       </div>
