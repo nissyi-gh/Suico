@@ -2,14 +2,16 @@ import { HeaderLogo } from "../Molecules/HeaderLogo";
 import { HeaderTab } from "../Molecules/HeaderTab";
 import { HerderLogins } from "../Molecules/HeaderLogins";
 import { ShowAlarmFlagProvider } from "../providers/ShowAlarmFlagProvider";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DarkMordToggle } from "./DarkModeToggle";
 import { MdMenu } from 'react-icons/md';
 import { HamburgerMenuModal } from "../Pages/HamburgerMenuModal";
+import { LoginContext } from "../providers/LoginFlagProvider";
 
 export const Header = (): JSX.Element => {
   const [isDark, setIsDark] = useState<boolean>(false);
   const [isShowHamburger, setIsShowHamburger] = useState<boolean>(false);
+  const { loginFlag } = useContext(LoginContext);
   const htmlElement = document.getElementById('html');
 
   useEffect(() => {
@@ -35,10 +37,12 @@ export const Header = (): JSX.Element => {
         <HeaderLogo isDark={ isDark } toggleDarkClassForHtml={ toggleDarkClassForHtml } />
         <DarkMordToggle isDark={ isDark } toggleDarkClassForHtml={ toggleDarkClassForHtml }/>
         <ShowAlarmFlagProvider>
-          <div className="w-10 h-10 mr-2 cursor-pointer" onClick={ () => setIsShowHamburger(true) }>
-            <MdMenu className="w-full h-full" />
-            { isShowHamburger && < HamburgerMenuModal hiddenModalFunction={ closeHamburgerModal }/>}
-          </div>
+          { loginFlag &&
+            <div className="w-10 h-10 mr-2 cursor-pointer" onClick={ () => setIsShowHamburger(true) }>
+              <MdMenu className="w-full h-full" />
+              { isShowHamburger && < HamburgerMenuModal hiddenModalFunction={ closeHamburgerModal }/>}
+            </div>
+          }
           <HerderLogins isDark={ isDark } toggleDarkClassForHtml={ toggleDarkClassForHtml } />
         </ShowAlarmFlagProvider>
       </div>

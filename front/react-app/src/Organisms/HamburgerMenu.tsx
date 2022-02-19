@@ -14,7 +14,7 @@ type HeaderLink = {
 export const HamburgerMenu = (hideModalFunction: () => void): JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { loginFlag, setLoginFlag } = useContext(LoginContext);
+  const { setLoginFlag } = useContext(LoginContext);
 
   const headerLinks: HeaderLink[] = [
     { url: sleepLogsURL, text: "睡眠データ" },
