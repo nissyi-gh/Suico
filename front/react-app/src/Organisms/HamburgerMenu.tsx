@@ -1,8 +1,10 @@
-import { Link, useLocation } from "react-router-dom"
-import { aboutURL, accountSettingsURL, alarmPresetsIndexURL, contactURL, sleepLogsURL } from "../constants/urls"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { aboutURL, accountSettingsURL, alarmPresetsIndexURL, contactURL, delete_session, sleepLogsURL } from "../constants/urls"
 import { VscChromeClose, VscBell } from 'react-icons/vsc'
 import { MdLogout } from 'react-icons/md';
-import React from "react"
+import React, { useContext } from "react"
+import axios from "axios";
+import { LoginContext } from "../providers/LoginFlagProvider";
 
 type HeaderLink = {
   url: string,
@@ -11,6 +13,8 @@ type HeaderLink = {
 
 export const HamburgerMenu = (hideModalFunction: () => void): JSX.Element => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { loginFlag, setLoginFlag } = useContext(LoginContext);
 
   const headerLinks: HeaderLink[] = [
     { url: sleepLogsURL, text: "睡眠データ" },
@@ -29,6 +33,17 @@ export const HamburgerMenu = (hideModalFunction: () => void): JSX.Element => {
     hideModalFunction();
   }
 
+  const clickLogout = (event: React.MouseEvent) => {
+    axios.delete(delete_session, { withCredentials: true })
+      .then(response => {
+        setLoginFlag(false);
+        navigate('/');
+        console.log(response);
+        hideModal(event);
+      })
+      .catch(error => console.log(error))
+  }
+
   return <>
       <div className="flex items-center justify-end">
         <VscChromeClose className="cursor-pointer h-8 w-8 mt-2 mb-4 hover:bg-gray-500/25 hover:dark:bg-gray-400/25" onClick={ hideModal }/>
@@ -43,7 +58,7 @@ export const HamburgerMenu = (hideModalFunction: () => void): JSX.Element => {
         })}
       </div>
       <div className="w-full flex font-bold items-center justify-between">
-        <button className="block w-5/12 h-fit text-center p-2 border rounded-md border-gray-700 mb-4 bg-sky-100 dark:bg-gray-600">
+        <button className="block w-5/12 h-fit text-center p-2 border rounded-md border-gray-700 mb-4 bg-sky-100 dark:bg-gray-600" onClick={ clickLogout }>
           ログアウト<MdLogout className="inline-block mb-1 ml-1" />
         </button>
         <button className="block w-5/12 h-fit text-center p-2 border rounded-md border-gray-700 mb-4 bg-sky-100 dark:bg-gray-600">
