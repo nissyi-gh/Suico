@@ -52,8 +52,8 @@ export const App = (): JSX.Element => {
               <Route path="/" element={ LoginCheck({component: <Home/> })  } />
               <Route path="*" element={ <NotFound /> } />
             </Routes>
+            <FixedTab />
           </main>
-          <FixedTab />
         </Router>
       </div>
     </div>
