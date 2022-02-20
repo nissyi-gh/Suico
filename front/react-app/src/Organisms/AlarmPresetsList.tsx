@@ -4,7 +4,7 @@ import { AlarmPresetsListItemProps } from '../types/types';
 export const AlarmPresetsList = ({ correctPreset, setCorrectPreset } : AlarmPresetsListItemProps): JSX.Element => {
   return (
     <>
-      <div className="w-full flex justify-between bg-gray-100 dark:bg-gray-800 select-none">
+      <div className="w-full flex justify-between bg-gray-100 dark:bg-gray-800 select-none text-center">
         <div className="w-1/3 border border-gray-300 py-2">タイトル</div>
         <div className="w-1/3 border-y border-r border-gray-300 py-2">起床時刻</div>
         <div className="w-1/3 border-y border-r border-gray-300 py-2">停止方法</div>

@@ -60,22 +60,22 @@ export const AlarmPresetEdit = () => {
   }
 
   return (<>
-    <div className="flex w-full justify-between text-center">
-      <div className="w-1/4 select-none">
-        プリセット
+    <div className="md:flex w-full justify-between md:text-center">
+      <div className="hidden md:block md:w-1/4 select-none mb-2">
+        プリセット一覧
       </div>
-      <div className="w-3/4">
+      <div className="md:w-3/4">
         <AlarmPresetsList correctPreset={ correctPreset } setCorrectPreset={ setCorrectPreset } />
       </div>
     </div>
-    <div className="w-full text-center mb-2">
-      <label htmlFor="title" className="w-1/4 inline-block select-none">タイトル</label>
-      <input type="text" name="title" id="title" className="border w-3/4 px-2 dark:bg-inherit" value={ correctPreset.presetName } onChange={ onPresetNameChange } />
+    <div className="w-full md:text-center mb-2">
+      <label htmlFor="title" className="w-full md:w-1/4 block md:inline-block select-none">タイトル</label>
+      <input type="text" name="title" id="title" className="border w-full md:w-3/4 px-2 dark:bg-inherit" value={ correctPreset.presetName } onChange={ onPresetNameChange } />
     </div>
-    <div className="w-full justify-between text-center mb-2">
+    <div className="w-full justify-between mb-2">
       { ControlledAlarmSetterWithLabel("起床時刻", "wakeAt", "wakeAt", onHourChange, onMinuteChange, correctPreset.wakeAt) }
     </div>
-    <div className="w-full mb">
+    <div className="w-full">
       { ControlledTaskSelecterWithLabel("停止方法", "task", "task", correctPreset.task, onTaskChange) }
     </div>
     <div className="w-full justify-between text-center">

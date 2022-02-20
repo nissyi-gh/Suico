@@ -24,7 +24,7 @@ export const AlarmPresetsListItem = ({ correctPreset, setCorrectPreset } : Alarm
           }
 
           return (
-            <li key={ index } className={ `w-full flex justify-between hover:bg-red-100 hover:dark:bg-gray-500 cursor-pointer ${ selectedBackGroundCSS }` } onClick={ () => onClickListItem( index ) }>
+            <li key={ index } className={ `w-full flex justify-between hover:bg-red-100 hover:dark:bg-gray-500 text-center cursor-pointer ${ selectedBackGroundCSS }` } onClick={ () => onClickListItem( index ) }>
               <p className="w-1/3 border-x border-b truncate px-2">{ alarmPreset.presetName }</p>
               <p className="w-1/3 border-b border-r truncate px-2">{ alarmPreset.wakeAt?.format('HH:mm') }</p>
               <p className="w-1/3 border-b border-r truncate px-2">{ taskConverterNumberToString(alarmPreset.task) }</p>  

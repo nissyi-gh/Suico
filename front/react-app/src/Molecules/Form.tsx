@@ -103,15 +103,15 @@ export const AlarmSetterWithLabelOnDark = (itemName: string, name: string, id: s
 }
 
 export const ControlledAlarmSetterWithLabel = (itemName: string, name: string, id: string, onHourChange: any , onMinuteChange: any, defaultTime?: dayjs.Dayjs): JSX.Element => {
-  const selecterCSS: string = "border w-fit text-center block px-2 dark:bg-inherit";
+  const selecterCSS: string = "border w-fit md:text-center block px-2 bg-white dark:bg-inherit";
   const defaultHour: string = defaultTime ? formatNumberDigit(defaultTime?.hour()) : '' ;
   const defaultMin: string = defaultTime ? formatNumberDigit(defaultTime?.minute()) : '';
   
 
   return (
-    <div className="w-full flex">
-      <label htmlFor={ id } className="inline-block w-1/4 select-none">{ itemName }</label>
-      <div className="w-3/4 flex">
+    <div className="w-full md:flex">
+      <label htmlFor={ id } className="md:inline-block md:w-1/4 select-none">{ itemName }</label>
+      <div className="md:w-3/4 flex">
         <select name={ name } id={ `${ id }_hour` } className={ selecterCSS } value={ defaultHour } onChange={ onHourChange } >
           { timerOptionCreate(24) }
         </select>
@@ -182,10 +182,10 @@ export const TaskSelecterWithLabel = (itemName:string, name: string, id: string)
 export const ControlledTaskSelecterWithLabel = (itemName:string, name: string, id: string, value: number | undefined, onChange: any): JSX.Element => {
   return (
     <div className="w-full">
-      <label htmlFor={ id } className="inline-block w-1/4 text-center select-none">
+      <label htmlFor={ id } className="block md:inline-block md:w-1/4 md:text-center select-none">
         { itemName }
       </label>
-      <select name={ name } id={ id } className="border w-3/4 dark:bg-inherit" value={ taskConverterNumberToString(value) } onChange={ onChange }>{ taskOptionCreate() }</select>
+      <select name={ name } id={ id } className="border w-full md:w-3/4 bg-white dark:bg-inherit" value={ taskConverterNumberToString(value) } onChange={ onChange }>{ taskOptionCreate() }</select>
     </div>
   )
 }
