@@ -135,7 +135,7 @@ export const SignUpForm = (hideModalFunction: () => void): JSX.Element => {
   return(
     <>
       { ModalClose(hideModalFunction, "新規登録フォーム")}
-      <form className="border-2 border-white bg-amber-100 p-4 flex justify-center">
+      <form className="border-2 border-white bg-yellow-50 dark:bg-gray-500 p-4 flex justify-center">
         <div className="w-5/6">
           { inputWithLabel("お名前", "text", "name", "input_name") }
           { inputWithLabel("Email", "email", "email", "input_email") }

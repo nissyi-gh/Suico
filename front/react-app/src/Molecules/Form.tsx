@@ -6,8 +6,8 @@ import "dayjs/locale/ja";
 dayjs.locale('ja');
 
 export const inputWithLabel = (itemName: string, type: string, name: string, id: string, defaultValue?: string): JSX.Element => {
-  const inputCss: string = "border border-gray-600 w-3/5";
-  const labelCss: string = "w-2/5 inline-block text-center";
+  const inputCss: string = "block md:inline border border-gray-600 w-full md:w-3/5 px-2";
+  const labelCss: string = "md:w-2/5 block md:inline-block md:text-center";
 
   return (
     <>
