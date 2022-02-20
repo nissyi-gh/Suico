@@ -24,8 +24,8 @@ export const HamburgerMenu = (hideModalFunction: () => void): JSX.Element => {
     { url: contactURL, text: "お問い合わせ" },
   ]
 
-  const commonCSS: string = "block font-bold w-full h-fit text-center p-2 border rounded-md border-gray-600 mb-4 last:mb-0";
-  const selectTabCSS: string = "dark:border-b-gray-600 bg-sky-100 dark:bg-gray-600";
+  const commonCSS: string = "block font-bold w-full h-fit text-center p-2 border rounded-md border-gray-600 mb-4 sm:w-1/2 last:mb-0 sm:last:mb-4";
+  const selectTabCSS: string = "dark:border-b-gray-600 bg-sky-50 dark:bg-gray-600";
   const otherTabCSS: string = "text-gray-600 dark:text-gray-400 bg-sky-300 dark:bg-gray-700";
 
   const hideModal = (event: React.MouseEvent) => {
@@ -46,9 +46,9 @@ export const HamburgerMenu = (hideModalFunction: () => void): JSX.Element => {
 
   return <>
       <div className="flex items-center justify-end">
-        <VscChromeClose className="cursor-pointer h-8 w-8 mt-2 mb-4 hover:bg-gray-500/25 hover:dark:bg-gray-400/25" onClick={ hideModal }/>
+        <VscChromeClose className="cursor-pointer h-8 w-8 mt-2 mb-4 sm:mb-2 hover:bg-gray-500/25 hover:dark:bg-gray-400/25" onClick={ hideModal }/>
       </div>
-      <div className="mb-12">
+      <div className="mb-12 w-full sm:flex sm:items-center sm:flex-wrap sm:justify-around">
         { headerLinks.map(link => {
           if (location.pathname === link.url) {
             return <Link to={link.url} className={ `${ commonCSS } ${ selectTabCSS }` } onClick={ hideModal } key={ link.url }>{link.text}</Link>;
