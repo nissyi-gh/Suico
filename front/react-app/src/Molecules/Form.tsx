@@ -61,15 +61,15 @@ const timerOptionCreate = (limit: number) => {
 }
 
 export const AlarmSetterWithLabel = (itemName: string, name: string, id: string, defaultTime?: dayjs.Dayjs): JSX.Element => {
-  const selecterCSS: string = "border w-1/3 text-center dark:bg-inherit mb-2";
+  const selecterCSS: string = "border w-24 text-center dark:bg-inherit mb-2";
   const defaultHour: string = defaultTime ? formatNumberDigit(defaultTime?.hour()) : '' ;
   const defaultMin: string = defaultTime ? formatNumberDigit(defaultTime?.minute()) : '';
   
 
   return (
-    <div className="w-full flex">
-      <label htmlFor={ id } className="inline-block w-1/3">{ itemName }</label>
-      <div className="w-2/3">
+    <div className="w-full md:flex mb-2">
+      <label htmlFor={ id } className="block md:inline-block w-full md:w-1/3">{ itemName }</label>
+      <div className="w-full md:w-2/3">
         <select name={ name } id={ `${ id }_hour` } className={ selecterCSS } defaultValue={ defaultHour } >
           { timerOptionCreate(24) }
         </select>
@@ -213,7 +213,7 @@ export const Satisfactionselector = (defaultValue?: number): JSX.Element => {
 
   return (
     <>
-      <select name="satisfaction" id="satisfaction" className="border text-center dark:bg-inherit" defaultValue={ defaultValue }>
+      <select name="satisfaction" id="satisfaction" className="border w-24 text-center dark:bg-inherit" defaultValue={ defaultValue }>
         { 
           satisfactionsArray.map( item => {
             return <option value={ item[0] } key={item[0] }> {item[1]} </option>
@@ -226,8 +226,8 @@ export const Satisfactionselector = (defaultValue?: number): JSX.Element => {
 
 export const SatisfactionSelectorWithLabel = (defaultValue?: number): JSX.Element => {
   return (
-    <div className="w-full text-select">
-      <label htmlFor="satisfaction" className="inline-block w-1/3">
+    <div className="w-full text-select mb-4">
+      <label htmlFor="satisfaction" className="block md:inline-block md:w-1/3">
         睡眠の満足度
       </label>
       { Satisfactionselector(defaultValue) }
