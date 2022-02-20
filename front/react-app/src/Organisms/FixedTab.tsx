@@ -2,20 +2,21 @@ import { Link } from "react-router-dom";
 import { GiNotebook } from 'react-icons/gi';
 import { BsAlarm } from 'react-icons/bs';
 import { sleepLogsURL } from "../constants/urls";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AlarmModal } from '../Pages/AlarmModal';
 import { LoginContext } from "../providers/LoginFlagProvider";
+import { showAlarmContext } from "../providers/ShowAlarmFlagProvider";
 
 export const FixedTab = (): JSX.Element => {
-  const [isAlarmShow, setIsAlarmShow] = useState<boolean>(false);
+  const { showAlarmFlag, setShowAlarmFlag } = useContext(showAlarmContext);
   const { loginFlag } = useContext(LoginContext);
 
   const hiddenAlarmModal = (): void => {
-    setIsAlarmShow(false);
+    setShowAlarmFlag(false);
   }
 
   const openAlarmModal = ():void => {
-    if (loginFlag) setIsAlarmShow(true);
+    if (loginFlag) setShowAlarmFlag(true);
   }
 
   return (
@@ -28,7 +29,7 @@ export const FixedTab = (): JSX.Element => {
         <BsAlarm className="w-full h-2/3 mb-1" />
         アラーム（睡眠記録）
       </button>
-      { isAlarmShow && 
+      { showAlarmFlag && 
         <AlarmModal onClick={ hiddenAlarmModal } />
       }
     </div>
