@@ -1,7 +1,6 @@
 import { HeaderLogo } from "../Molecules/HeaderLogo";
 import { HeaderTab } from "../Molecules/HeaderTab";
 import { HerderLogins } from "../Molecules/HeaderLogins";
-import { ShowAlarmFlagProvider } from "../providers/ShowAlarmFlagProvider";
 import { useContext, useEffect, useState } from "react";
 import { DarkMordToggle } from "./DarkModeToggle";
 import { MdMenu } from 'react-icons/md';
@@ -36,15 +35,13 @@ export const Header = (): JSX.Element => {
       <div className="flex h-12 md:h-16 md:mb-2 items-center justify-between">
         <HeaderLogo isDark={ isDark } toggleDarkClassForHtml={ toggleDarkClassForHtml } />
         <DarkMordToggle isDark={ isDark } toggleDarkClassForHtml={ toggleDarkClassForHtml }/>
-        <ShowAlarmFlagProvider>
-          { loginFlag &&
-            <div className="w-10 h-10 mr-2 cursor-pointer" onClick={ () => setIsShowHamburger(true) }>
-              <MdMenu className="w-full h-full" />
-              { isShowHamburger && < HamburgerMenuModal hiddenModalFunction={ closeHamburgerModal }/>}
-            </div>
-          }
-          <HerderLogins isDark={ isDark } toggleDarkClassForHtml={ toggleDarkClassForHtml } />
-        </ShowAlarmFlagProvider>
+        { loginFlag &&
+          <div className="w-10 h-10 mr-2 cursor-pointer" onClick={ () => setIsShowHamburger(true) }>
+            <MdMenu className="w-full h-full" />
+            { isShowHamburger && < HamburgerMenuModal hiddenModalFunction={ closeHamburgerModal }/>}
+          </div>
+        }
+        <HerderLogins isDark={ isDark } toggleDarkClassForHtml={ toggleDarkClassForHtml } />
       </div>
       <HeaderTab />
     </header>
