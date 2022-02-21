@@ -82,7 +82,7 @@ export const AlarmSetterWithLabel = (itemName: string, name: string, id: string,
 }
 
 export const AlarmSetterWithLabelOnDark = (itemName: string, name: string, id: string, onChangeHour: any, onChangeMinute: any, defaultTime?: dayjs.Dayjs): JSX.Element => {
-  const selecterCSS: string = "border w-1/3 bg-black text-center";
+  const selecterCSS: string = "border w-1/3 bg-inherit text-center";
   const defaultHour: string = defaultTime ? formatNumberDigit(defaultTime?.hour()) : '' ;
   const defaultMin: string = defaultTime ? formatNumberDigit(defaultTime?.minute()) : '';
   
@@ -196,7 +196,7 @@ export const ControlledTaskSelecterWithLabelOnDark = (itemName:string, name: str
       <label htmlFor={ id } className="inline-block w-1/4 md:text-center">
         { itemName }
       </label>
-      <select name={ name } id={ id } className="border w-3/4 bg-black px-2" value={ taskConverterNumberToString(value) } onChange={ onChange }>{ taskOptionCreate() }</select>
+      <select name={ name } id={ id } className="border w-3/4 bg-inherit px-2" value={ taskConverterNumberToString(value) } onChange={ onChange }>{ taskOptionCreate() }</select>
     </div>
   )
 }
@@ -213,7 +213,7 @@ export const Satisfactionselector = (defaultValue?: number): JSX.Element => {
 
   return (
     <>
-      <select name="satisfaction" id="satisfaction" className="border w-24 text-center dark:bg-inherit" defaultValue={ defaultValue }>
+      <select name="satisfaction" id="satisfaction" className="border w-2/3 text-center dark:bg-inherit" defaultValue={ defaultValue }>
         { 
           satisfactionsArray.map( item => {
             return <option value={ item[0] } key={item[0] }> {item[1]} </option>

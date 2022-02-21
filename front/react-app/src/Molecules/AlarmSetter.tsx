@@ -66,11 +66,13 @@ export const AlarmSetter = ({ onClickSleepIn } : propsFunctions ): JSX.Element =
 
   return (
     <form id="alarm_setter" className="text-white">
-      <div className="border py-6 h-72 mb-4 flex justify-center roun">
+      <div className="border h-72 mb-4 flex justify-center">
         <div className="w-80 flex flex-col items-center justify-around">
           <div className="text-white w-full">
-            <label htmlFor="alarmPreset">プリセット</label>
-            <select name="alarmPreset" id="alarmPreset" onChange={ onClickPreset } className="bg-black w-2/3 border border-white px-2" value={ correctPreset.presetName }>
+            <label htmlFor="alarmPreset" className="inline-block w-1/4">
+              プリセット
+            </label>
+            <select name="alarmPreset" id="alarmPreset" onChange={ onClickPreset } className="bg-inherit border w-3/4 border-white px-2" value={ correctPreset.presetName }>
               <option key={ 'non-select' } id={ 'non-select' }>---- 指定しない ----</option>
               { alarmPresets.map(preset => {
                 return <option key={ preset.id } >{ preset.presetName }</option>
