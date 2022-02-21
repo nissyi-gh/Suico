@@ -171,7 +171,7 @@ export const taskInverter = (select: string | number | undefined): number | unde
 export const TaskSelecterWithLabel = (itemName:string, name: string, id: string): JSX.Element => {
   return (
     <div className="w-full">
-      <label htmlFor={ id } className="inline-block w-1/4 text-center">
+      <label htmlFor={ id } className="inline-block w-1/4 md:text-center">
         { itemName }
       </label>
       <select name={ name } id={ id } className="border bg-inherit w-3/4">{ taskOptionCreate() }</select>
@@ -193,10 +193,10 @@ export const ControlledTaskSelecterWithLabel = (itemName:string, name: string, i
 export const ControlledTaskSelecterWithLabelOnDark = (itemName:string, name: string, id: string, value: number | undefined, onChange: any): JSX.Element => {
   return (
     <div className="w-full">
-      <label htmlFor={ id } className="inline-block w-1/4 text-center">
+      <label htmlFor={ id } className="inline-block w-1/4 md:text-center">
         { itemName }
       </label>
-      <select name={ name } id={ id } className="border w-3/4 bg-black" value={ taskConverterNumberToString(value) } onChange={ onChange }>{ taskOptionCreate() }</select>
+      <select name={ name } id={ id } className="border w-3/4 bg-black px-2" value={ taskConverterNumberToString(value) } onChange={ onChange }>{ taskOptionCreate() }</select>
     </div>
   )
 }

@@ -50,16 +50,12 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
     <>
       <div className="flex justify-between h-16 mb-16">
         <div>
-          <img src='title_dark.png' alt="ダークモードのタイトル" className="inline-block h-full" />
+          <img src='title_dark.png' alt="ダークモードのタイトル" className="inline-block h-12" />
         </div>
         <div className="flex items-center justify-center text-gray-50">
-          <VscChromeClose onClick={ hideModalFunction } />
+          <VscChromeClose onClick={ hideModalFunction } className="h-8 w-8" />
         </div>
       </div>
-      {/* <div className="border border-white mb-2">
-        <h2 className={ titleCSS }>現在 : </h2>
-        <p>{ currentDateTime.format('YYYY/MM/DD HH:mm') }</p>
-      </div> */}
       <div>
         { alarm ? <>
           <AlarmStopper alarm={ alarm } task={ task } alarmLeftTime={ alarmLeftTime } sleepAt={ sleepAt }/>
