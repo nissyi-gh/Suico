@@ -61,7 +61,7 @@ const timerOptionCreate = (limit: number) => {
 }
 
 export const AlarmSetterWithLabel = (itemName: string, name: string, id: string, defaultTime?: dayjs.Dayjs): JSX.Element => {
-  const selecterCSS: string = "border w-24 text-center dark:bg-inherit mb-2";
+  const selecterCSS: string = "border w-24 text-center bg-gray-50 dark:bg-inherit mb-2";
   const defaultHour: string = defaultTime ? formatNumberDigit(defaultTime?.hour()) : '' ;
   const defaultMin: string = defaultTime ? formatNumberDigit(defaultTime?.minute()) : '';
   
@@ -213,7 +213,7 @@ export const Satisfactionselector = (defaultValue?: number): JSX.Element => {
 
   return (
     <>
-      <select name="satisfaction" id="satisfaction" className="border w-2/3 text-center dark:bg-inherit" defaultValue={ defaultValue }>
+      <select name="satisfaction" id="satisfaction" className="border w-2/3 text-center bg-gray-50 dark:bg-inherit" defaultValue={ defaultValue }>
         { 
           satisfactionsArray.map( item => {
             return <option value={ item[0] } key={item[0] }> {item[1]} </option>
