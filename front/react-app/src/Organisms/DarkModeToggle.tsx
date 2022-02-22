@@ -6,7 +6,7 @@ import { DarkModeProps } from '../types/types';
 export const DarkMordToggle = ({ isDark, toggleDarkClassForHtml } : DarkModeProps) => {
   return (
     <>
-      <div className='mr-4 md:hidden bg-inherit h-full select-none flex items-center' onClick={ toggleDarkClassForHtml }>
+      <div className='mr-4 lg:hidden bg-inherit h-full select-none flex items-center' onClick={ toggleDarkClassForHtml }>
         { isDark ? 
             <BsSun className='text-black inline-block hover:cursor-pointer w-fit h-6' />
           :
