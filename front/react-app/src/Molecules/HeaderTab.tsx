@@ -32,7 +32,7 @@ export const HeaderTab = (): JSX.Element => {
   const otherTabCSS: string = "text-gray-600 dark:text-gray-400 bg-sky-300 dark:bg-gray-700";
 
   return (
-    <div className="hidden md:block">
+    <div className="hidden lg:block">
       { headerLinks.map(link => {
         if (location.pathname === link.url) {
           return linkAtom(link.url, link.text, `${commonCSS} ${selectTabCSS} ${loginCSS}`);

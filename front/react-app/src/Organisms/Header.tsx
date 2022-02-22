@@ -31,8 +31,8 @@ export const Header = (): JSX.Element => {
   }
   
   return (
-    <header className="bg-sky-200 md:bg-inherit dark:bg-gray-900  border-b border-gray-700 fixed md:block top-0 z-10 w-full md:mt-10">
-      <div className="flex h-12 md:h-16 md:mb-2 items-center justify-between">
+    <header className="bg-sky-200 lg:bg-inherit dark:bg-gray-900  border-b border-gray-700 fixed md:block top-0 z-10 w-full lg:mt-10">
+      <div className="flex h-12 lg:h-16 lg:mb-2 items-center justify-between">
         <HeaderLogo isDark={ isDark } toggleDarkClassForHtml={ toggleDarkClassForHtml } />
         <DarkMordToggle isDark={ isDark } toggleDarkClassForHtml={ toggleDarkClassForHtml }/>
         { loginFlag &&
