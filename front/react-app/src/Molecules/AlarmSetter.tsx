@@ -84,7 +84,7 @@ export const AlarmSetter = ({ onClickSleepIn } : propsFunctions ): JSX.Element =
           {/* { submitButton('1分後に設定する', setAfterMinute) } */}
         </div>
       </div>
-      <div className="border border-gray-100 h-24 flex items-center justify-center">
+      <div className="text-gray-900 border border-gray-100 h-24 flex items-center justify-center">
         { submitButton('おやすみ', onClickSleepIn) }
       </div>
     </form>
