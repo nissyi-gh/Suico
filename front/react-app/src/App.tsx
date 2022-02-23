@@ -35,7 +35,7 @@ export const App = (): JSX.Element => {
   }
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full md:bg-[url('../../public/yoake.jpg')] bg-cover text-gray-700 dark:text-gray-200">
+    <div className="fixed top-0 left-0 w-full h-full lg:dark:bg-[url('../../public/yoake.jpg')] lg:bg-[url('../../public/blue_sky.jpg')] bg-cover text-gray-700 dark:text-gray-200">
       <div className="w-full lg:w-2/3 mx-auto">
         <Router>
           <Header />
