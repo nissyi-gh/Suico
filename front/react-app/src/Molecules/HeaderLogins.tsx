@@ -78,7 +78,7 @@ export const HerderLogins = ({ isDark, toggleDarkClassForHtml } : DarkModeProps)
             <button className="h-full w-32 text-lg font-semibold rounded-lg border-2 border-amber-400 dark:border-gray-400 bg-amber-100 dark:bg-gray-500 hover:bg-amber-200" onClick={ openAlarmModal } >
               アラーム<BsAlarm className="inline-block mb-1 ml-2" />
             </button>
-            <div className="w-28 h-full text-center flex flex-col justify-around">
+            <div className="w-28 h-full text-center flex flex-col justify-around leading-tight">
               <button className="inline-block w-full h-2/5 border border-gray-500 dark:border-gray-400 rounded-md bg-gray-100 dark:bg-gray-500 hover:bg-gray-300" onClick={ clickLogout } >
                 ログアウト<MdLogout className="inline-block mb-1 ml-1" />
               </button>
