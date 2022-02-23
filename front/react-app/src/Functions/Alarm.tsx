@@ -35,14 +35,11 @@ export const setHowToStop = (): number => {
 
 // アラームの残り時間を設定
 export const setLeftTime = (now: dayjs.Dayjs, alarm: dayjs.Dayjs): string => {
-  if (alarm.diff(now, "ms") > 0) {
-    // 秒までしか残り時間を表示しないため、"00:00:00:xxx"のようにミリ秒が
-    // 残っていても残りは0秒と表示されてしまう。補正のため1秒をプラス。
-    const adjsutSecond = 1;
+  if (alarm.isAfter(now)) {
 
     const formatHour: string = formatNumberDigit(alarm.diff(now, 'hour'));
     const formatMin: string = formatNumberDigit(alarm.diff(now, 'minute') % 60);
-    const formatSec: string = formatNumberDigit((alarm.diff(now, 'second') + adjsutSecond) % 60);
+    const formatSec: string = formatNumberDigit(alarm.diff(now, 'second') % 60);
 
     return `${formatHour}:${formatMin}:${formatSec}`;
   } else {
