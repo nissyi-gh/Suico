@@ -26,11 +26,11 @@ const AlarmSettingsContent = (): JSX.Element => {
 
   return (
     <div className="lg:flex lg:h-full">
-      <div className="flex items-center justify-around lg:w-1/5 h-full mb-4 border-b lg:border-r border-gray-700 dark:border-gray-300">
+      <div className="flex items-center justify-around lg:flex-col lg:w-1/4 h-full mb-4 lg:mb-0 lg:mr-4 border-b lg:border-b-0 lg:border-r border-gray-700 dark:border-gray-300">
         <p className={ selectCSS('edit') } onClick={ () => setViewing('edit') } >プリセット編集</p>
         <p className={ selectCSS('new') } onClick={ () => setViewing('new') } >新規プリセット</p>
       </div>
-      <div className="lg:w-4/5">
+      <div className="lg:w-3/4">
         <LocationCheck />
       </div>
     </div>
