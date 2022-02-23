@@ -38,6 +38,7 @@ export const SleepGraph = memo(({ sleepLogs } : { sleepLogs: SleepLogListItem[] 
 
   return (
     <>
+      {/* モバイル画面 */}
       <ResponsiveContainer width="100%" height="89%">
         <LineChart
           width={500}
@@ -45,8 +46,8 @@ export const SleepGraph = memo(({ sleepLogs } : { sleepLogs: SleepLogListItem[] 
           data={logs}
           margin={{
             top: 20,
-            right: 30,
-            left: 20,
+            right: 0,
+            left: 0,
             bottom: 5,
           }}
         >
@@ -56,8 +57,8 @@ export const SleepGraph = memo(({ sleepLogs } : { sleepLogs: SleepLogListItem[] 
           <YAxis yAxisId={2} orientation="right" label={{ value: contents[2], angle: -90, dx: 12 }} domain={[0, 5]} />
           <Tooltip />
           { showSatisfaction ? <Line type="monotone" yAxisId={2} dataKey={ contents[2] } stroke="#82ca9d" strokeWidth={1.5} /> : <></> }
-          { showWakeAt ? <Line type="monotone" yAxisId={1} dataKey={ contents[0] } stroke="#fcca9d" activeDot={{ r: 8 }} strokeWidth={3} /> : <></>}
-          { showSleepIn ? <Line type="monotone" yAxisId={1} dataKey={ contents[1] } stroke="#8884d8"  strokeWidth={3} /> : <></>}
+          { showWakeAt ? <Line type="monotone" yAxisId={1} dataKey={ contents[0] } stroke="#fcca9d" activeDot={{ r: 8 }} strokeWidth={2} /> : <></>}
+          { showSleepIn ? <Line type="monotone" yAxisId={1} dataKey={ contents[1] } stroke="#8884d8"  strokeWidth={2} /> : <></>}
         </LineChart>
       </ResponsiveContainer>
       <GraphLegend contents={ contents } toggleWakeAt={ toggleWakeAt } toggleSleepIn={toggleSleepIn} toggleSatisfaction={toggleSatisfaction} />

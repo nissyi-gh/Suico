@@ -8,10 +8,10 @@ type SleepLogListType = {
 
 export const SleepLogList = ({ sleepLogs }: SleepLogListType): JSX.Element => {
   return (
-    <ul id="sleep_log_list" className="h-full border-2 border-gray-400 rounded-md overflow-scroll shadow-inner z-10">
+    <ul id="sleep_log_list" className="h-full border-2 border-gray-400 dark:border-gray-800 rounded-md overflow-scroll shadow-inner z-10">
       { sleepLogs?.length !== 0 ?
         sleepLogs?.map((log, index) => (
-          <li key={ index } id={ `sleep_log_${log.sleepLogId}` } className="border-b border-gray-500 divide-y divide-gray-400 p-2 bg-amber-50 last:border-b-0 select-none">
+          <li key={ index } id={ `sleep_log_${log.sleepLogId}` } className="border-b border-gray-500 dark:border-gray-700 divide-y divide-gray-400 p-2 bg-amber-50 dark:bg-gray-500 last:border-b-0 select-none">
             <div className="flex mb-1">
               <div className="w-3/12 tracking-wider text-center">
                 {log.sleepAt.format("MM/DD(dd)")}
@@ -30,7 +30,8 @@ export const SleepLogList = ({ sleepLogs }: SleepLogListType): JSX.Element => {
               <div className="w-1/4 flex justify-center items-center">
                 { satisfactionConverter(log.satisfaction) }
               </div>
-              <div className="w-3/4 overflow-hidden text-gray-600">
+              <div className="w-3/4 overflow-hidden text-gray-600 dark:text-gray-300">
+                コメントコメントコメントコメントコメントコメントコメントコメントコメントコメントコメントコメント
                 コメントコメントコメントコメントコメントコメントコメントコメントコメントコメントコメントコメント
               </div>
             </div>

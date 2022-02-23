@@ -70,3 +70,13 @@ export type AlarmPresetsListItemType = {
   wakeAt: dayjs.Dayjs | undefined,
   task: number | undefined
 }
+
+export type AlarmPresetsListItemProps = {
+  correctPreset: AlarmPresetsListItemType,
+  setCorrectPreset: React.Dispatch<React.SetStateAction<AlarmPresetsListItemType>>
+}
+
+export type DarkModeProps = {
+  isDark: boolean,
+  toggleDarkClassForHtml: () => void
+}

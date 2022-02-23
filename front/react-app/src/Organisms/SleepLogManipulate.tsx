@@ -64,16 +64,16 @@ export const SleepLogManipulate = ({ log } : { log: SleepLogListItem }): JSX.Ele
     <>
       <VscEllipsis onClick={ showManipulate } className="cursor-pointer" />
       { show ? <>
-        <div ref={ manipulateElement } className="sleep_log_manipulate flex justify-around border w-32 p-2 border-black absolute top-0 bg-gray-200 -left-24 z-20 rounded-md shadow-md shadow-gray-700/75">
+        <div ref={ manipulateElement } className="sleep_log_manipulate flex justify-around border w-32 p-2 border-black absolute top-0 bg-gray-200 dark:bg-gray-600 -left-24 z-20 rounded-md shadow-md shadow-gray-700/75">
           <div className='flex flex-col justify-between items-center w-20'>
-            <div className='flex items-center justify-around w-full cursor-pointer hover:bg-gray-500/25 mb-2' onClick={ () => setEditerShow(true) }>
+            <div className='flex items-center justify-around w-full cursor-pointer hover:bg-gray-500/25 hover:dark:bg-gray-400/25 mb-2' onClick={ () => setEditerShow(true) }>
               <VscEdit />編集
             </div>
-            <div className='flex items-center justify-around w-full cursor-pointer hover:bg-gray-500/25' onClick={ deleteRequest }>
+            <div className='flex items-center justify-around w-full cursor-pointer hover:bg-gray-500/25 hover:dark:bg-gray-400/25' onClick={ deleteRequest }>
               <VscTrash />削除
             </div>
           </div>
-          <VscChromeClose onClick={ closeManipulate } className="cursor-pointer hover:bg-gray-500/25"/>
+          <VscChromeClose onClick={ closeManipulate } className="cursor-pointer hover:bg-gray-500/25 hover:dark:bg-gray-400/25"/>
         </div>
       </> : null}
       { editerShow ? <SleepLogEditerModal hideModalFunction={ closeEditer } log={ logForEdit } /> : null }

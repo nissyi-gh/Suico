@@ -66,10 +66,10 @@ export const SleepLogEditForm = ({ hideModalFunction, log } : { hideModalFunctio
 
   return(
     <>
-      { ModalClose(hideModalFunction, '睡眠ログ編集フォーム')}
-      <form className="border-2 border-white bg-amber-100 p-4 flex justify-center">
+      { ModalClose(hideModalFunction, `睡眠ログ編集フォーム`)}
+      <form className="border-2 dark:border border-gray-100 bg-amber-100 dark:bg-gray-500 p-4 flex justify-center rounded-md">
         <div className="w-5/6">
-          <p>{ log.sleepAt.format('MM/DD(dd)')}</p>
+          <p className="block mb-4 text-xl tracking-wider">{ log.sleepAt.format('MM/DD(dd)')}</p>
           { AlarmSetterWithLabel("就寝時刻", "sleepAt", `sleepAt`, log.sleepAt) }
           { AlarmSetterWithLabel("起床時刻", "wakeAt", "wakeAt", log.wakeAt) }
           { SatisfactionSelectorWithLabel(log.satisfaction) }

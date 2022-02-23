@@ -2,10 +2,10 @@ import axios from "axios"
 import { ChangeEvent, useContext, useState } from "react"
 import { alarmPresetsAPI } from "../constants/urls"
 import { fetchAlarmPresets } from "../Functions/Functions"
-import { AlarmPresetsListItem } from "../Molecules/AlarmPresetsListItem"
 import { ControlledAlarmSetterWithLabel, ControlledTaskSelecterWithLabel, submitButton, taskInverter } from "../Molecules/Form"
 import { AlarmPresetsContext } from "../providers/AlarmPresetsProvider"
 import { AlarmPresetsListItemType } from "../types/types"
+import { AlarmPresetsList } from "./AlarmPresetsList"
 
 export const AlarmPresetEdit = () => {
   const { setAlarmPresets } = useContext(AlarmPresetsContext);
@@ -60,29 +60,19 @@ export const AlarmPresetEdit = () => {
   }
 
   return (<>
-    <div className="flex w-full justify-between text-center">
-      <div className="w-1/4 select-none">
-        プリセット
-      </div>
-      <div className="w-3/4">
-        <div className="w-full flex justify-between bg-gray-100 select-none">
-          <div className="w-1/3 border border-gray-300 py-2">タイトル</div>
-          <div className="w-1/3 border border-gray-300 py-2">起床時刻</div>
-          <div className="w-1/3 border border-gray-300 py-2">停止方法</div>
-        </div>
-        <ul className="bg-gray-50 h-40 overflow-y-scroll shadow-inner shadow-gray-300/75 mb-4">
-          <AlarmPresetsListItem correctPreset={ correctPreset } setCorrectPreset={ setCorrectPreset } />
-        </ul>
+    <div className="md:flex w-full justify-between md:text-center">
+      <div className="w-full">
+        <AlarmPresetsList correctPreset={ correctPreset } setCorrectPreset={ setCorrectPreset } />
       </div>
     </div>
-    <div className="w-full text-center mb-2">
-      <label htmlFor="title" className="w-1/4 inline-block select-none">タイトル</label>
-      <input type="text" name="title" id="title" className="border w-3/4 px-2" value={ correctPreset.presetName } onChange={ onPresetNameChange } />
+    <div className="w-full md:text-center mb-2">
+      <label htmlFor="title" className="w-full md:w-1/4 block md:inline-block select-none">タイトル</label>
+      <input type="text" name="title" id="title" className="border w-full md:w-3/4 px-2 dark:bg-inherit" value={ correctPreset.presetName } onChange={ onPresetNameChange } />
     </div>
-    <div className="w-full justify-between text-center mb-2">
+    <div className="w-full justify-between mb-2">
       { ControlledAlarmSetterWithLabel("起床時刻", "wakeAt", "wakeAt", onHourChange, onMinuteChange, correctPreset.wakeAt) }
     </div>
-    <div className="w-full mb">
+    <div className="w-full">
       { ControlledTaskSelecterWithLabel("停止方法", "task", "task", correctPreset.task, onTaskChange) }
     </div>
     <div className="w-full justify-between text-center">

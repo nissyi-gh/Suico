@@ -6,13 +6,16 @@ import { LoginFlagProvider } from './providers/LoginFlagProvider';
 import { SleepLogsProvider } from './providers/SleepLogsProvider';
 import './css/output.css'
 import { AlarmPresetsProvider } from './providers/AlarmPresetsProvider';
+import { ShowAlarmFlagProvider } from './providers/ShowAlarmFlagProvider';
 
 ReactDOM.render(
   <React.StrictMode>
     <LoginFlagProvider>
       <SleepLogsProvider>
         <AlarmPresetsProvider>
-          <App />
+          <ShowAlarmFlagProvider>
+            <App />
+          </ShowAlarmFlagProvider>
         </AlarmPresetsProvider>
       </SleepLogsProvider>
     </LoginFlagProvider>

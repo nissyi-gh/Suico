@@ -21,6 +21,7 @@ import {
 import { Home } from "./Pages/Home";
 import { useContext } from "react";
 import { LoginContext } from "./providers/LoginFlagProvider";
+import { FixedTab } from "./Organisms/FixedTab";
 
 export const App = (): JSX.Element => {
   const { loginFlag } = useContext(LoginContext);
@@ -34,11 +35,11 @@ export const App = (): JSX.Element => {
   }
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-[url('../../public/yoake.jpg')] bg-cover">
-      <div className="w-2/3 mx-auto my-0">
+    <div className="fixed top-0 left-0 w-full h-full lg:dark:bg-[url('../../public/yoake.jpg')] lg:bg-[url('../../public/blue_sky.jpg')] bg-cover text-gray-700 dark:text-gray-200">
+      <div className="w-full lg:w-2/3 mx-auto">
         <Router>
           <Header />
-          <div className="border w-2/3 h-2/3 border-gray-600 border-t-0 bg-sky-100 fixed top-34 flex justify-center">
+          <main className="border w-full h-full lg:h-2/3 mt-12 lg:mt-40 pb-28 lg:pb-0 lg:w-2/3 border-gray-600 border-t-0 bg-sky-100 dark:bg-gray-600 fixed top-0 md:top-34 flex justify-center">
             <Routes>
               <Route path="/users" element={ <UsersIndex /> } />
               <Route path={ sleepLogsURL } element={ LoginCheck({component: <SleepLogs /> }) } />
@@ -51,7 +52,8 @@ export const App = (): JSX.Element => {
               <Route path="/" element={ LoginCheck({component: <Home/> })  } />
               <Route path="*" element={ <NotFound /> } />
             </Routes>
-          </div>
+            <FixedTab />
+          </main>
         </Router>
       </div>
     </div>

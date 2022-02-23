@@ -4,7 +4,7 @@ import { problemTypeConverter, randomAnswers, setCalclationProblems } from "../F
 import { hiddenTaskField, showTaskField, showWakeUpSubmit, submitSleepLog } from "../Functions/Alarm";
 import { fetchSleepLogs, getRandomIntInclusive } from "../Functions/Functions";
 import { returnRandomPanels, reRenderPanleContent } from "../Functions/Tasks/Panles";
-import { Satisfactionselector } from "./Form";
+import { Satisfactionselector, submitButton } from "./Form";
 import { showAlarmContext } from "../providers/ShowAlarmFlagProvider";
 import { REQUEST_STATE } from "../constants/constants";
 // Day.js
@@ -38,7 +38,7 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: props
   const navigate = useNavigate();
 
   const createTask = useCallback(() => {
-    task === 1 ? setCalclationProblems(setProblem) : setPanelMax(getRandomIntInclusive(5, 20));
+    task === 1 ? setCalclationProblems(setProblem) : setPanelMax(getRandomIntInclusive(5, 15));
   }, [task]);
 
   const answerCheck = (id: number): void => {
@@ -104,67 +104,73 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: props
     }
   }
 
-  const answerPanelCSS: string = "inline-block border-2 text-center w-8 h-8 m-2 border-black text-gray-50 bg-gray-500 cursor-pointer select-none"
-
   return (
     <>
-      <div className="border border-white text-white">
-        <p className="block">
-          アラーム日時 : { alarm.format('YYYY/MM/DD HH:mm') }
-        </p>
-        <p className="block">
-          残り時間 : { alarmLeftTime }
-        </p>
-      </div>
-      <div id="task_field" className="hidden text-white">
-        { taskLeft ? <p>残りの問題数 { taskLeft }</p> : <></> }
-        { task === 1 ? <>
-          <div id="calculate" className="w-64 h-48 my-0 mx-auto">
-            <p>
-              <span id="question_left">{ problem.leftNumber }</span>
-              <span id="manipulate_type"> { problemTypeConverter(problem.type) } </span>
-              <span id="question_right">{ problem.rightNumber }</span>
-              <span id="question_equal">= ?</span>
-            </p>
-            <div id="answer">
-              <p className="border-2 bg-gray-400">解答を選んでください。</p>
-              <ul id="answer_buttons" className="flex">
-                { answers?.map((item) => {
-                  return(
-                    <li key={ item } id={ item.toString() } className={ answerPanelCSS } onClick={ () => answerCheck(item)}>{ item }</li>
-                    ) 
-                  })}
-              </ul>
-              <p id="answer_status"></p>
-            </div>
-          </div>
-        </> : <>        
-          <div id="panel_field" className="w-64 h-48 my-0 mx-auto">
-            <ul>
-              { 
-                panels?.map((panel) => {
-                  return (
-                    <li key={ panel } id={ panel.toString() } className={ answerPanelCSS } onClick={ () => panelAnswerCheck(panel) } >
-                      { panel }
-                    </li>
-                  )
-                })
-              }
-            </ul>
-          </div>
-        </>}
-      </div>
-      <div id="wake_up_submit" className="hidden border border-white">
-        { Satisfactionselector() }
-
-        <button className="border border-black w-24 bg-gray-200" onClick={ onClickWakeUpButton }>おはよう</button>
-      </div>
-      <div className="text-right flex flex-end items-end">
-        <div className="w-2/3"></div>
-        <div className="w-1/3">
-          <img src="sheep_dark.png" alt="Sheep" className="block w-full" />
+      { !alarmLeftTime ? <>
+        <div className="w-full text-center text-gray-500">
+          <p className="text-3xl">アラーム読込中</p>
         </div>
-      </div>
+        </> : <>
+        <div className="border border-white flex flex-col py-6 mb-4 items-center rounded-md text-gray-100">
+          <div className="w-80">
+            <p className="block mb-4">
+              { alarm.format('YYYY/MM/DD HH:mm') } まで
+            </p>
+            <p className="block text-6xl text-center">
+              { alarmLeftTime }
+            </p>
+          </div>
+          <div id="task_field" className="hidden mt-4 text-gray-100">
+            { taskLeft ? <p>アラーム停止まで残り { taskLeft } 問</p> : <></> }
+            { task === 1 ? <>
+              <div id="calculate" className="w-80 my-0 mx-auto">
+                <p className="text-2xl text-center my-4 border rounded-md">
+                  <span id="question_left">{ problem.leftNumber }</span>
+                  <span id="manipulate_type"> { problemTypeConverter(problem.type) } </span>
+                  <span id="question_right">{ problem.rightNumber }</span>
+                  <span id="question_equal">= ?</span>
+                </p>
+                <div id="answer">
+                  <ul id="answer_buttons" className="flex items-center justify-around">
+                    { answers?.map((item) => {
+                      return(
+                        <li key={ item } id={ item.toString() } className='inline-block border-2 text-center leading-normal text-3xl w-12 h-12 m-2 border-black text-gray-50 bg-gray-500 cursor-pointer rounded-md select-none' onClick={ () => answerCheck(item) }>{ item }</li>
+                        ) 
+                      })}
+                  </ul>
+                  <p id="answer_status"></p>
+                </div>
+              </div>
+            </> : <>        
+              <div id="panel_field" className="w-80 h-64 my-0 mx-auto">
+                <ul>
+                  { 
+                    panels?.map((panel) => {
+                      return (
+                        <li key={ panel } id={ panel.toString() } className='inline-block border-2 text-center leading-normal text-3xl w-12 h-12 m-2 border-black text-gray-50 bg-gray-500 cursor-pointer rounded-md select-none'onClick={ () => panelAnswerCheck(panel) } >
+                          { panel }
+                        </li>
+                      )
+                    })
+                  }
+                </ul>
+              </div>
+            </>}
+          </div>
+        </div>
+        <div id="wake_up_submit" className="hidden border border-white mb-4 p-4 pb-0">
+          <div className="mb-4">
+            <label htmlFor="satisfaction" className="inline-block w-1/3 text-center text-gray-100">
+              満足度
+            </label>
+            { Satisfactionselector() }
+          </div>
+          { submitButton('起床', onClickWakeUpButton)}
+        </div>
+        <div className="text-right flex justify-end">
+          <img src="sheep_dark.png" alt="Sheep" className="block w-1/3" />
+        </div>
+      </> }
     </>
   )
 })

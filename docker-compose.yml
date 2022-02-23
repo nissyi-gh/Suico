@@ -26,14 +26,14 @@ services:
       - "3001:3000"
     depends_on:
       - db
-  front:
-    build: 
-      context: ./front/
-      dockerfile: Dockerfile
-    volumes:
-      - ./front:/usr/src/app
-    command: sh -c "cd react-app && yarn start"
-    ports:
-      - "3000:3000"
+  # front:
+  #   build: 
+  #     context: ./front/
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./front:/usr/src/app
+  #   command: sh -c "cd react-app && yarn start"
+  #   ports:
+  #     - "3000:3000"
 volumes:
   mysql-data:
