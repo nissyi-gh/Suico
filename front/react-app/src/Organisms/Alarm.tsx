@@ -24,12 +24,9 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
   useEffect(() => {
     const timer = setInterval(() => {
       const now: dayjs.Dayjs = dayjs();
-      // setCurrentDateTime(now);
 
       if (alarm) {
         setAlarmLeftTime(setLeftTime(now, alarm));
-        // if (alarm <= now){
-        // }
       }
 
     }, 1000);
@@ -45,7 +42,6 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
     setTask(setHowToStop());
   }
 
-  // const titleCSS = 'underline text-lg bg-gray-400';
   return (
     <>
       <div className="flex justify-between h-16 mb-12">
@@ -53,7 +49,9 @@ export const Alarm = (hideModalFunction: () => void): JSX.Element => {
           <img src='title_dark.png' alt="ダークモードのタイトル" className="inline-block h-12" />
         </div>
         <div className="flex items-center justify-center text-gray-50">
-          <VscChromeClose onClick={ hideModalFunction } className="h-8 w-8" />
+        {
+          alarmLeftTime !=="00:00:00" && <VscChromeClose onClick={ hideModalFunction } className="h-8 w-8" />
+        }
         </div>
       </div>
       <div>
