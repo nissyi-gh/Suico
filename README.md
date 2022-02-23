@@ -1,4 +1,6 @@
 # Suico
+![Suicoメイン画面](./readme_src/suico_main.png)
+<br>
 
 # 概要
 ご覧いただき誠にありがとうございます。
