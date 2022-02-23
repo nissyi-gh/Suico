@@ -19,7 +19,7 @@ export const SleepLogs = memo((): JSX.Element => {
     <>
       <div className="lg:flex h-full w-full justify-around overflow-y-scroll">
         <div className="w-full p-2 lg:w-3/5 lg:m-2">
-          <div className="h-64 md:h-2/5 border border-black bg-gray-100 mb-2">
+          <div className="h-64 md:h-80 border border-black bg-gray-100 mb-2">
             <SleepGraph sleepLogs={ sleepLogs }/>
           </div>
           <div className="border border-black w-full bg-gray-100 dark:bg-gray-500 rounded-md h-1/5 text-center leading-8 py-2">

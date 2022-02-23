@@ -24,7 +24,7 @@ export const GraphLegend = ({ contents, toggleWakeAt, toggleSleepIn, toggleSatis
   }
 
   return (
-    <ul className="flex items-center justify-around border-t border-gray-800">
+    <ul className="flex items-center justify-around border-t border-gray-800 leading-normal md:pt-1">
       { contents.map((content: string, index: number) => {
           return (
             <li key={ content }>
