@@ -31,12 +31,12 @@ export const Header = (): JSX.Element => {
   }
   
   return (
-    <header className="bg-sky-200 lg:bg-inherit dark:bg-gray-900  border-b border-gray-700 fixed md:block top-0 z-10 w-full lg:mt-10">
+    <header className="bg-sky-200 lg:bg-inherit dark:bg-gray-900 lg:dark:bg-inherit border-gray-700 fixed md:block top-0 z-10 w-full lg:w-2/3 lg:mt-12">
       <div className="flex h-12 lg:h-16 lg:mb-2 items-center justify-between">
         <HeaderLogo isDark={ isDark } toggleDarkClassForHtml={ toggleDarkClassForHtml } />
         <DarkMordToggle isDark={ isDark } toggleDarkClassForHtml={ toggleDarkClassForHtml }/>
         { loginFlag &&
-          <div className="w-10 h-10 mr-2 cursor-pointer" onClick={ () => setIsShowHamburger(true) }>
+          <div className="w-10 h-10 mr-2 cursor-pointer lg:hidden" onClick={ () => setIsShowHamburger(true) }>
             <MdMenu className="w-full h-full" />
             { isShowHamburger && < HamburgerMenuModal hiddenModalFunction={ closeHamburgerModal }/>}
           </div>
