@@ -1,4 +1,4 @@
-import { memo, useCallback, useContext, useEffect, useState } from "react";
+import { memo, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { calculateProblem } from '../types/types';
 import { problemTypeConverter, randomAnswers, setCalclationProblems } from "../Functions/Tasks/Calculate";
 import { hiddenTaskField, showTaskField, showWakeUpSubmit, submitSleepLog } from "../Functions/Alarm";
@@ -36,6 +36,10 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: props
   const [panelMax, setPanelMax] = useState<number>(0);
   const [panelAnswer, setPanelAnswer] = useState<number>(0);
   const navigate = useNavigate();
+  const alarmBell = useMemo(() => {
+    return new Audio('./alarm(loop).mp3');
+  }, []) ;
+  alarmBell.loop = true;
 
   const createTask = useCallback(() => {
     task === 1 ? setCalclationProblems(setProblem) : setPanelMax(getRandomIntInclusive(5, 15));
@@ -59,13 +63,14 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: props
   useEffect(() => {
     if(alarmLeftTime === "00:00:00") {
       showTaskField();
+      alarmBell.play();
 
       if (!taskLeft) {
         showWakeUpSubmit();
         hiddenTaskField();
       }
     }
-  }, [taskLeft, alarmLeftTime])
+  }, [taskLeft, alarmLeftTime, alarmBell])
 
   useEffect(() => {
     if(problem.answer !== undefined) {
@@ -98,6 +103,7 @@ export const AlarmStopper = memo(({ alarm, task, alarmLeftTime, sleepAt }: props
   // 睡眠データの登録が完了したらアラームモーダルを閉じる
   const onClickWakeUpButton = async (): Promise<void> => {
     if (await submitSleepLog(sleepAt) === REQUEST_STATE.OK) {
+      alarmBell.pause();
       fetchSleepLogs(setSleepLogs, setSleepLogsData);
       navigate("/sleep_logs");
       setShowAlarmFlag(false);
