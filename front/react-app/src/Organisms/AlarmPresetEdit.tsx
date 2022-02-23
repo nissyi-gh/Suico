@@ -61,10 +61,7 @@ export const AlarmPresetEdit = () => {
 
   return (<>
     <div className="md:flex w-full justify-between md:text-center">
-      <div className="hidden md:block md:w-1/4 select-none mb-2">
-        プリセット一覧
-      </div>
-      <div className="md:w-3/4">
+      <div className="w-full">
         <AlarmPresetsList correctPreset={ correctPreset } setCorrectPreset={ setCorrectPreset } />
       </div>
     </div>

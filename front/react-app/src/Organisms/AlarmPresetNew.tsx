@@ -65,16 +65,13 @@ export const AlarmPresetNew = () => {
 
   return (<>
     <div className="md:flex w-full justify-between text-center">
-      <div className="hidden md:block md:w-1/4 select-none">
-        既存プリセット
-      </div>
-      <div className="md:w-3/4">
+      <div className="w-full">
         <AlarmPresetsList correctPreset={ correctPreset } setCorrectPreset={ setCorrectPreset } />
       </div>
     </div>
     <div className="w-full mb-2">
-      <label htmlFor="title" className="block md:w-1/4 md:inline-block select-none">タイトル</label>
-      <input type="text" name="title" id="title" className="block border w-full md:w-3/4 px-2 dark:bg-inherit" value={ correctPreset.presetName } onChange={ onPresetNameChange } />
+      <label htmlFor="title" className="block md:w-1/4 md:inline-block select-none md:text-center">タイトル</label>
+      <input type="text" name="title" id="title" className="block md:inline-block border w-full md:w-3/4 px-2 dark:bg-inherit" value={ correctPreset.presetName } onChange={ onPresetNameChange } />
     </div>
     <div className="w-full justify-between mb-2">
       { ControlledAlarmSetterWithLabel("起床時刻", "wakeAt", "wakeAt", onHourChange, onMinuteChange, correctPreset.wakeAt) }
