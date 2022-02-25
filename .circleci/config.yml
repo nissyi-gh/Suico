@@ -12,7 +12,7 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
           MYSQL_ROOT_HOST: '%'
 
-    working_directory: ~/repo
+    working_directory: ~/Suico/api
 
     steps:
       - checkout
