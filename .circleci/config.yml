@@ -12,7 +12,7 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
           MYSQL_ROOT_HOST: '%'
 
-    working_directory: ~/api
+    working_directory: ~/repo
 
     steps:
       - checkout
