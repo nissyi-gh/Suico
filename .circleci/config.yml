@@ -11,10 +11,10 @@ jobs:
           DB_PASSWORD: 'password'
 
       - image: cimg/mysql:8.0
+        command: mysqld --default-authentication-plugin=mysql_native_password
         environment:
-          MYSQL_DATABASE: 'myapp_test'
-          MYSQL_ROOT_PASSWORD: 'password'
-          MYSQL_HOST: 127.0.0.1
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+          MYSQL_ROOT_HOST: '%'
 
     working_directory: ~/repo
 
