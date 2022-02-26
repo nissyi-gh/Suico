@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "Sessions", type: :request do
-  context 'ゲストログインしようとした場合' do      
+  before do
+    FactoryBot.create(:guest)
+  end
+
+  context 'ゲストログインしようとした場合' do
     it 'レスポンスは200を返す' do
       expect(
         post api_v1_login_path, params: {
