@@ -40,7 +40,8 @@ class SleepLog < ApplicationRecord
       (log.hour * 3600) + (log.min * 60)
     end
 
-    def sleep_time_analyze(logs)
+    # logsから各データの睡眠時間を取得する
+    def get_sleep_times_from_logs(logs)
       sleep_times = []
       logs.each do |log|
         wake_at = time_convert_to_second_base(log[:wake_at])
@@ -49,6 +50,12 @@ class SleepLog < ApplicationRecord
 
         sleep_times << ((sleep_at - wake_at) - add_1_day).abs
       end
+
+      sleep_times
+    end
+
+    def sleep_time_analyze(logs)
+      sleep_times = get_sleep_times_from_logs(logs)
 
       average = sleep_time_average(sleep_times, sleep_times.size)
       max = Time.local(2000, 1, 1, sleep_times.max / 3600, sleep_times.max % 3600 / 60).in_time_zone.strftime('%H:%M')
