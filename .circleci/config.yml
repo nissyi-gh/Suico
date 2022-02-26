@@ -6,7 +6,7 @@ jobs:
         environment:
           BUNDLER_VERSION: 2.2.32
           RAILS_ENV: test
-          DB_HOST: db
+          DB_HOST: '127.0.0.1'
           DB_USERNAME: 'root'
           DB_PASSWORD: 'password'
 
@@ -32,12 +32,15 @@ jobs:
             bundle config sert path 'vendor/bundle'
             bundle install --jobs=4 --retry=3
           working_directory: ~/repo/api
+      
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 3m
 
       - save_cache:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "~/repo/api/Gemfile.lock" }}
-
 
       - run:
           command: bundle exec rails db:create
