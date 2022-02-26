@@ -34,7 +34,7 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "~/Suico/api/Gemfile.lock" }}
+          key: v1-dependencies-{{ checksum "~/repo/api/Gemfile.lock" }}
 
 
       - run:
