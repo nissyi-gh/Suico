@@ -73,6 +73,7 @@ jobs:
               --out /tmp/test-results/rspec.xml \
               --format progress \
               $TEST_FILES
+          working_directory: ~/repo/api
 
       # correct reports
       - store_test_results:
