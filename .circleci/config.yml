@@ -6,12 +6,15 @@ jobs:
         environment:
           BUNDLER_VERSION: 2.2.32
           RAILS_ENV: test
-          DB_HOST: 127.0.0.1
+          DB_HOST: db
+          DB_USERNAME: 'root'
+          DB_PASSWORD: 'password'
 
       - image: cimg/mysql:8.0
         environment:
-          MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-          MYSQL_ROOT_HOST: '%'
+          MYSQL_DATABASE: 'myapp_test'
+          MYSQL_USER: 'root'
+          MYSQL_ROOT_PASSWORD: 'password'
 
     working_directory: ~/repo
 
