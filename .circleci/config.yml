@@ -26,8 +26,10 @@ jobs:
       - run:
           name: install dependencies
           command: |
+            gem install bundler
+            bundle config sert path 'vendor/bundle'
             bundle install --jobs=4 --retry=3
-          working_directory: ~/Suico/api
+          working_directory: ~/repo/api
 
       - save_cache:
           paths:
@@ -37,11 +39,11 @@ jobs:
 
       - run:
           command: bundle exec rails db:create
-          working_directory: ~/Suico/api
+          working_directory: ~/repo/api
 
       - run:
           command: bundle exec rake db:schema:load
-          working_directory: ~/Suico/api
+          working_directory: ~/repo/api
 
       - run:
           name: Rubocop
