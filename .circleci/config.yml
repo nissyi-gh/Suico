@@ -43,7 +43,9 @@ jobs:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "~/repo/api/Gemfile.lock" }}
 
-      - run: mv config/database.yml.ci config/database.yml
+      - run:
+          command: mv config/database.yml.ci config/database.yml
+          working_directory: ~/repo/api
 
       - run:
           command: bundle exec rails db:create
