@@ -27,18 +27,26 @@ jobs:
           name: install dependencies
           command: |
             bundle install --jobs=4 --retry=3
+          working_directory: ~/Suico/api
 
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "~/repo/api/Gemfile.lock" }}
+          key: v1-dependencies-{{ checksum "~/Suico/api/Gemfile.lock" }}
 
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+
+      - run:
+          command: bundle exec rails db:create
+          working_directory: ~/Suico/api
+
+      - run:
+          command: bundle exec rake db:schema:load
+          working_directory: ~/Suico/api
 
       - run:
           name: Rubocop
           command: bundle exec rubocop
+          working_directory: ~/repo/api
 
       - run:
           name: run tests
