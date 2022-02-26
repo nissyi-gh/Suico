@@ -13,7 +13,7 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
           MYSQL_ROOT_HOST: '%'
 
-    working_directory: ~/repo
+    working_directory: ~/repo/api
 
     steps:
       - checkout
@@ -27,7 +27,6 @@ jobs:
           name: install dependencies
           command: |
             bundle install --jobs=4 --retry=3
-          working_directory: ~/repo/api
 
       - save_cache:
           paths:
