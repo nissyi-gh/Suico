@@ -72,7 +72,8 @@ RSpec.describe "AlarmPresets", type: :request do
 
   context 'alarm_presetを削除しようとしたとき' do
     before do
-      @alarm_preset = FactoryBot.create(:alarm_preset)
+      @user = FactoryBot.create(:user)
+      @alarm_preset = FactoryBot.create(:alarm_preset, user_id: @user.id)
     end
 
     it "削除に成功しno_contentが返される" do
