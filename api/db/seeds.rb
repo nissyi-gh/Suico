@@ -38,7 +38,14 @@ def diff_day_sleep_log_creater(user_id, today, iterator, satisfactions)
   SleepLog.create(
     user_id: user_id,
     sleep_at: Time.local(today.year, today.month, today.day, rand(21..23), rand(0..59), 0).in_time_zone - iterator.day,
-    wake_at: Time.local(today.year, today.month, today.day, rand(5..9), rand(0..59), 0).in_time_zone - iterator.day + 1.day,
+    wake_at: Time.local(
+      today.year,
+      today.month,
+      today.day,
+      rand(5..9),
+      rand(0..59),
+      0
+    ).in_time_zone - iterator.day + 1.day,
     satisfaction: satisfactions[rand(6)]
   )
 end

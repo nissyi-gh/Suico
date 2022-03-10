@@ -32,6 +32,8 @@ group :development, :test do
   # RSpecとfactory_botの導入
   gem 'factory_bot_rails'
   gem 'rspec-rails'
+  # circleCIでテスト結果のformat
+  gem "rspec_junit_formatter"
 end
 
 group :development do
