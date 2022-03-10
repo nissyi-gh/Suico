@@ -4,6 +4,7 @@ services:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: password
+      TZ: Asia/Tokyo
     command: --default-authentication-plugin=mysql_native_password
     volumes:
       - mysql-data:/var/lib/mysql
@@ -25,14 +26,14 @@ services:
       - "3001:3000"
     depends_on:
       - db
-  front:
-    build: 
-      context: ./front/
-      dockerfile: Dockerfile
-    volumes:
-      - ./front:/usr/src/app
-    command: sh -c "cd react-app && yarn start"
-    ports:
-      - "3000:3000"
+  # front:
+  #   build: 
+  #     context: ./front/
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./front:/usr/src/app
+  #   command: sh -c "cd react-app && yarn start"
+  #   ports:
+  #     - "3000:3000"
 volumes:
   mysql-data:

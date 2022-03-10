@@ -1,12 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { App } from './App';
 import reportWebVitals from './reportWebVitals';
+import { LoginFlagProvider } from './providers/LoginFlagProvider';
+import { SleepLogsProvider } from './providers/SleepLogsProvider';
+import './css/output.css'
+import { AlarmPresetsProvider } from './providers/AlarmPresetsProvider';
+import { ShowAlarmFlagProvider } from './providers/ShowAlarmFlagProvider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <LoginFlagProvider>
+      <SleepLogsProvider>
+        <AlarmPresetsProvider>
+          <ShowAlarmFlagProvider>
+            <App />
+          </ShowAlarmFlagProvider>
+        </AlarmPresetsProvider>
+      </SleepLogsProvider>
+    </LoginFlagProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
