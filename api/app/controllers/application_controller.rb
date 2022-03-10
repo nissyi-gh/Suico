@@ -44,4 +44,12 @@ class ApplicationController < ActionController::API
     cookies.delete(:user_id)
     cookies.delete(:remember_token)
   end
+
+  module Api
+    module V1
+      def health
+        render json: { message: 'hello' }, status: :ok
+      end
+    end
+  end
 end
