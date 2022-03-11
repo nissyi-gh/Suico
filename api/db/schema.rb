@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_14_071750) do
+ActiveRecord::Schema.define(version: 2022_03_11_074112) do
 
   create_table "alarm_presets", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
@@ -20,6 +20,22 @@ ActiveRecord::Schema.define(version: 2022_02_14_071750) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "task", limit: 1
     t.index ["user_id"], name: "index_alarm_presets_on_user_id"
+  end
+
+  create_table "comment_relationships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "sleep_log_id", null: false
+    t.bigint "sleep_log_comment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["sleep_log_comment_id"], name: "index_comment_relationships_on_sleep_log_comment_id"
+    t.index ["sleep_log_id", "sleep_log_comment_id"], name: "comment_relationship", unique: true
+    t.index ["sleep_log_id"], name: "index_comment_relationships_on_sleep_log_id"
+  end
+
+  create_table "sleep_log_comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "body", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "sleep_logs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -43,5 +59,7 @@ ActiveRecord::Schema.define(version: 2022_02_14_071750) do
   end
 
   add_foreign_key "alarm_presets", "users"
+  add_foreign_key "comment_relationships", "sleep_log_comments"
+  add_foreign_key "comment_relationships", "sleep_logs"
   add_foreign_key "sleep_logs", "users"
 end
