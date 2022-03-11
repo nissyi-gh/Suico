@@ -3,7 +3,7 @@ import { LoginContext } from "../providers/LoginFlagProvider";
 import { LoginModal } from "../Organisms/LoginModal";
 import { SignUpModal } from "../Organisms/SignUpModal";
 import axios from "axios";
-import { delete_session, new_session, sleepLogsURL } from "../constants/urls";
+import { createGuestUser, delete_session, new_session, sleepLogsURL } from "../constants/urls";
 import { GUEST_USER_DATA } from "../constants/constants";
 import { AlarmModal } from "../Pages/AlarmModal";
 import { showAlarmContext } from "../providers/ShowAlarmFlagProvider";
@@ -56,16 +56,22 @@ export const HerderLogins = ({ isDark, toggleDarkClassForHtml } : DarkModeProps)
   }
 
   const guestLogin = () => {
-    axios.post(new_session, {
-      email: GUEST_USER_DATA.EMAIL,
-      password: GUEST_USER_DATA.PASSWORD
-    }, { withCredentials: true })
+    axios.get(createGuestUser)
     .then(res => {
-      console.log(res);
-      setLoginFlag(true);
-      navigate(sleepLogsURL);
+      const guestEmail: string = res.data.email;
+
+      axios.post(new_session, {
+        email: guestEmail,
+        password: GUEST_USER_DATA.PASSWORD,
+      }, { withCredentials: true })
+      .then(() => {
+        setLoginFlag(true);
+        navigate(sleepLogsURL);
+      })
+      .catch(e => console.log(e));
     })
-    .catch(e => console.log(e));
+    .catch(e => console.log(e))
+
   }
 
   return (

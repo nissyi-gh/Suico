@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GUEST_USER_DATA } from "../constants/constants";
-import { new_session, sleepLogsURL } from "../constants/urls";
+import { createGuestUser, new_session, sleepLogsURL } from "../constants/urls";
 import { AboutSection } from "../Molecules/AboutSection"
 import { LoginModal } from "../Organisms/LoginModal";
 import { SignUpModal } from "../Organisms/SignUpModal";
@@ -32,16 +32,23 @@ const HomeContent = (): JSX.Element => {
   }
 
   const guestLogin = () => {
-    axios.post(new_session, {
-      email: GUEST_USER_DATA.EMAIL,
-      password: GUEST_USER_DATA.PASSWORD,
-    }, { withCredentials: true })
+    
+    axios.get(createGuestUser)
     .then(res => {
-      console.log(res);
-      setLoginFlag(true);
-      navigate(sleepLogsURL);
+      const guestEmail: string = res.data.email;
+
+      axios.post(new_session, {
+        email: guestEmail,
+        password: GUEST_USER_DATA.PASSWORD,
+      }, { withCredentials: true })
+      .then(() => {
+        setLoginFlag(true);
+        navigate(sleepLogsURL);
+      })
+      .catch(e => console.log(e));
     })
-    .catch(e => console.log(e));
+    .catch(e => console.log(e))
+
   }
   
   return <>
