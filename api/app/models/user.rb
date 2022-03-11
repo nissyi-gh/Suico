@@ -23,6 +23,15 @@ class User < ApplicationRecord
     def User.new_token
       SecureRandom.urlsafe_base64
     end
+
+    def User.guest_create
+      User.create(
+        name: 'ゲストユーザー',
+        email: "user.#{User.count}th@guest.com",
+        password: "password",
+        password_confirmation: "password"
+      )
+    end
   end
 
   # 永続セッションのためにユーザーをデータベースに記憶する

@@ -17,6 +17,11 @@ module Api
         end
       end
 
+      def guest_create
+        user = User.guest_create
+        render json: user
+      end
+
       private
 
       def user_params
