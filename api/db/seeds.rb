@@ -6,23 +6,6 @@ User.create!(
   password_confirmation: "adminuser"
 )
 
-User.create!(
-  name: "ゲストユーザー",
-  email: "guest.user@guest.com",
-  password: "guestuser",
-  password_confirmation: "guestuser"
-)
-
-# 一般テストユーザーを登録
-1.upto(10) do |n|
-  User.create!(
-    name: "#{n}th user",
-    email: "test.user@#{n}th.com",
-    password: "testpass",
-    password_confirmation: "testpass"
-  )
-end
-
 # 就寝と起床が同日になる睡眠データを生成
 def same_day_sleep_log_creater(user_id, today, iterator, satisfactions)
   SleepLog.create(
