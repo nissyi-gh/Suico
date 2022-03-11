@@ -7,10 +7,7 @@ class SleepLog < ApplicationRecord
 
   class << self
     def sleep_log_analyze(logs)
-      sleep_at_average = time_average(logs, :sleep_at)
-      wake_at_avereage = time_average(logs, :wake_at)
-
-      [sleep_at_average, wake_at_avereage]
+      [time_average(logs, :sleep_at), time_average(logs, :wake_at)]
     end
 
     def time_average(model, target)
@@ -91,12 +88,16 @@ class SleepLog < ApplicationRecord
       [*data, satisfaction_average(sleep_logs), *sleep_time_data]
     end
 
+    def sleep_or_wake_data_create(today, hour, min, iterator)
+      Time.local(today.year, today.month, today.day, hour, min, 0).in_time_zone - iterator.day
+    end
+
     # 就寝と起床が同日になる睡眠データを生成
     def same_day_sleep_log_creater(user_id, today, iterator, satisfactions)
       SleepLog.create(
         user_id: user_id,
-        sleep_at: Time.local(today.year, today.month, today.day, rand(0..1), rand(0..59), 0).in_time_zone - iterator.day,
-        wake_at: Time.local(today.year, today.month, today.day, rand(5..9), rand(0..59), 0).in_time_zone - iterator.day,
+        sleep_at: sleep_or_wake_data_create(today, rand(0..1), rand(0..59), iterator),
+        wake_at: sleep_or_wake_data_create(today, rand(5..9), rand(0..59), iterator),
         satisfaction: satisfactions[rand(6)]
       )
     end
@@ -105,15 +106,8 @@ class SleepLog < ApplicationRecord
     def diff_day_sleep_log_creater(user_id, today, iterator, satisfactions)
       SleepLog.create(
         user_id: user_id,
-        sleep_at: Time.local(today.year, today.month, today.day, rand(21..23), rand(0..59), 0).in_time_zone - iterator.day,
-        wake_at: Time.local(
-          today.year,
-          today.month,
-          today.day,
-          rand(5..9),
-          rand(0..59),
-          0
-        ).in_time_zone - iterator.day + 1.day,
+        sleep_at: sleep_or_wake_data_create(today, rand(21..23), rand(0..59), iterator),
+        wake_at: sleep_or_wake_data_create(today, rand(5..9), rand(0..59), iterator) + 1.day,
         satisfaction: satisfactions[rand(6)]
       )
     end
