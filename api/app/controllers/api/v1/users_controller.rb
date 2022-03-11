@@ -19,6 +19,7 @@ module Api
 
       def guest_create
         user = User.guest_create
+        SleepLog.make_sleep_logs(50, user.id)
         render json: user
       end
 
