@@ -48,6 +48,10 @@ module Api
         log.update(sleep_log_params)
       end
 
+      def guest_logs
+        SleepLog.make_sleep_logs(50, params[:id])
+      end
+
       private
 
       def sleep_log_params
