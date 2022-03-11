@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get 'user', to: 'users#show'
       patch 'user', to: 'users#update'
       resources :users, except: %i[show update]
+      get 'guest', to: 'users#guest_create'
 
       get '/login', to: 'sessions#new'
       post '/login', to: 'sessions#create'

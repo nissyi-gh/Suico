@@ -3,7 +3,7 @@ import { LoginContext } from "../providers/LoginFlagProvider";
 import { LoginModal } from "../Organisms/LoginModal";
 import { SignUpModal } from "../Organisms/SignUpModal";
 import axios from "axios";
-import { delete_session, new_session, sleepLogsURL } from "../constants/urls";
+import { createGuestUser, delete_session, new_session, sleepLogsURL } from "../constants/urls";
 import { GUEST_USER_DATA } from "../constants/constants";
 import { AlarmModal } from "../Pages/AlarmModal";
 import { showAlarmContext } from "../providers/ShowAlarmFlagProvider";
@@ -19,6 +19,7 @@ export const HerderLogins = ({ isDark, toggleDarkClassForHtml } : DarkModeProps)
   // const [showAlarmModal, setShowAlarmModal] = useState<boolean>(false);
   const { loginFlag, setLoginFlag } = useContext(LoginContext);
   const { showAlarmFlag, setShowAlarmFlag } = useContext(showAlarmContext);
+  const [guestLoginText, setGuestLoginText] = useState<string>("ゲストログイン");
   const navigate = useNavigate();
 
   const openLoginModal = (): void => {
@@ -56,16 +57,35 @@ export const HerderLogins = ({ isDark, toggleDarkClassForHtml } : DarkModeProps)
   }
 
   const guestLogin = () => {
-    axios.post(new_session, {
-      email: GUEST_USER_DATA.EMAIL,
-      password: GUEST_USER_DATA.PASSWORD
-    }, { withCredentials: true })
+    const guestLoginButton = document.getElementById('guest_login_button');
+    guestLoginButton?.classList.add('select-none');
+    setGuestLoginText('ログイン中…');
+    
+    axios.get(createGuestUser)
     .then(res => {
-      console.log(res);
-      setLoginFlag(true);
-      navigate(sleepLogsURL);
+      const guestEmail: string = res.data.email;
+      
+      axios.post(new_session, {
+        email: guestEmail,
+        password: GUEST_USER_DATA.PASSWORD,
+      }, { withCredentials: true })
+      .then(() => {
+        guestLoginButton?.classList.remove('select-none');
+        setGuestLoginText('ゲストログイン');
+        setLoginFlag(true);
+        navigate(sleepLogsURL);
+      })
+      .catch(e => {
+        console.log(e)
+        guestLoginButton?.classList.remove('select-none');
+        setGuestLoginText('ゲストログイン');
+      });
     })
-    .catch(e => console.log(e));
+    .catch(e => {
+      console.log(e)
+      guestLoginButton?.classList.remove('select-none');
+      setGuestLoginText('ゲストログイン');
+    });
   }
 
   return (
@@ -96,7 +116,7 @@ export const HerderLogins = ({ isDark, toggleDarkClassForHtml } : DarkModeProps)
           </div>
         </> : <>
           <div className="hidden lg:flex items-center justify-around border-2 border-gray-500 bg-sky-100 dark:bg-gray-600 rounded-md p-2 h-full w-96">
-            <button className="border border-gray-500 dark:border-gray-300 bg-gray-200 rounded-md dark:bg-gray-500 p-2 cursor-pointer" onClick={ guestLogin }>ゲストログイン</button>
+            <button id="guest_login_button" className="border border-gray-500 dark:border-gray-300 bg-gray-200 rounded-md dark:bg-gray-500 p-2 cursor-pointer" onClick={ guestLogin }>{ guestLoginText }</button>
             <button className="border border-gray-500 dark:border-gray-300 bg-gray-200 rounded-md dark:bg-gray-500 p-2 cursor-pointer" onClick={ openSignUpModal }>新規登録</button>
             <button className="border border-gray-500 dark:border-gray-300 bg-gray-200 rounded-md dark:bg-gray-500 p-2 cursor-pointer" onClick={ openLoginModal }>ログイン</button>
           </div>

@@ -17,6 +17,13 @@ module Api
         end
       end
 
+      def guest_create
+        user = User.guest_create
+        SleepLog.make_sleep_logs(50, user.id)
+        AlarmPreset.create_sample_preset(user.id)
+        render json: user
+      end
+
       private
 
       def user_params

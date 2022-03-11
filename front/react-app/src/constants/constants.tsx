@@ -8,8 +8,7 @@ export const REQUEST_STATE: RequestState = {
 }
 
 export const GUEST_USER_DATA = {
-  EMAIL: 'guest.user@guest.com',
-  PASSWORD: 'guestuser'
+  PASSWORD: 'password'
 }
 
 export const ALARM_STATE = {
