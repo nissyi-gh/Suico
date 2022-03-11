@@ -63,7 +63,7 @@ const HomeContent = (): JSX.Element => {
       setGuestLoginText('ゲストログイン');
     });
   }
-  
+
   return <>
     { showLoginModal && <LoginModal onClick={ hiddenLoginModal } /> }
     { showSignUpModal && <SignUpModal onClick={ hiddenSignUpModal } /> }
