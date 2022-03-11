@@ -71,17 +71,20 @@ export const HerderLogins = ({ isDark, toggleDarkClassForHtml } : DarkModeProps)
       }, { withCredentials: true })
       .then(() => {
         guestLoginButton?.classList.remove('select-none');
+        setGuestLoginText('ゲストログイン');
         setLoginFlag(true);
         navigate(sleepLogsURL);
       })
       .catch(e => {
         console.log(e)
         guestLoginButton?.classList.remove('select-none');
+        setGuestLoginText('ゲストログイン');
       });
     })
     .catch(e => {
       console.log(e)
       guestLoginButton?.classList.remove('select-none');
+      setGuestLoginText('ゲストログイン');
     });
   }
 
