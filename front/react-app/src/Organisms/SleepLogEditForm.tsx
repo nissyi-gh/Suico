@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { sleepLogsAPI } from "../constants/urls";
-import { AlarmSetterWithLabel, SatisfactionSelectorWithLabel, submitButton } from "../Molecules/Form";
+import { AlarmSetterWithLabel, CommentEditorWithLabel, SatisfactionSelectorWithLabel, submitButton } from "../Molecules/Form";
 import { ModalClose } from "../Molecules/ModalClose";
 import { SleepLogListItem } from "../types/types";
 import { fetchSleepLogs } from "../Functions/Functions";
@@ -25,7 +25,8 @@ export const SleepLogEditForm = ({ hideModalFunction, log } : { hideModalFunctio
         {
           sleep_at: changeLog.sleepAt.utc(),
           wake_at: changeLog.wakeAt.utc(),
-          satisfaction: changeLog.satisfaction
+          satisfaction: changeLog.satisfaction,
+          body: changeLog.comment
         }, 
         { withCredentials: true })
       .then(() => {
@@ -42,6 +43,7 @@ export const SleepLogEditForm = ({ hideModalFunction, log } : { hideModalFunctio
     const sleepAtHour = (document.getElementById('sleepAt_hour') as HTMLSelectElement).value;
     const sleepAtMin = (document.getElementById('sleepAt_min') as HTMLSelectElement).value;
     const satisfaction = (document.getElementById('satisfaction') as HTMLSelectElement).value;
+    const comment = (document.getElementById('comment') as HTMLTextAreaElement).value;
     e.preventDefault();
 
     const changedWakeAt = log.wakeAt.hour(parseInt(wakeAtHour, 10)).minute(parseInt(wakeAtMin, 10));
@@ -51,12 +53,14 @@ export const SleepLogEditForm = ({ hideModalFunction, log } : { hideModalFunctio
       sleepLogId: log.sleepLogId,
       wakeAt: changedWakeAt.utc(),
       sleepAt: changedSleepAt.utc(),
-      satisfaction: parseFloat(satisfaction)
+      satisfaction: parseFloat(satisfaction),
+      comment: comment,
     }
 
     if ((beforeLog.wakeAt.isSame(changingLog.wakeAt)) &&
         (beforeLog.sleepAt.isSame(changingLog.sleepAt)) && 
-        (beforeLog.satisfaction === changingLog.satisfaction))
+        (beforeLog.satisfaction === changingLog.satisfaction) &&
+        (beforeLog.comment === changingLog.comment))
     {
       return console.log("変更なし")
     }
@@ -73,6 +77,7 @@ export const SleepLogEditForm = ({ hideModalFunction, log } : { hideModalFunctio
           { AlarmSetterWithLabel("就寝時刻", "sleepAt", `sleepAt`, log.sleepAt) }
           { AlarmSetterWithLabel("起床時刻", "wakeAt", "wakeAt", log.wakeAt) }
           { SatisfactionSelectorWithLabel(log.satisfaction) }
+          { CommentEditorWithLabel(log.comment) }
           { submitButton("変更する", onClickSubmit) }
         </div>
       </form>

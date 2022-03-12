@@ -4,6 +4,7 @@ class SleepLog < ApplicationRecord
   default_scope { order(created_at: :desc) }
   validates :sleep_at, presence: true
   validates :wake_at, presence: true
+  has_many :sleep_log_comment, dependent: :destroy
 
   class << self
     def sleep_log_analyze(logs)
@@ -92,30 +93,33 @@ class SleepLog < ApplicationRecord
       Time.local(today.year, today.month, today.day, hour, min, 0).in_time_zone - iterator.day
     end
 
-    # 就寝と起床が同日になる睡眠データを生成
-    def same_day_sleep_log_creater(user_id, today, iterator, satisfactions)
-      SleepLog.create(
+    # ゲスト向け、就寝と起床が同日になる睡眠データを生成
+    def same_day_sleep_log_creater(user_id, today, iterator, satisfactions, log_comment)
+      sleep_log = SleepLog.create(
         user_id: user_id,
         sleep_at: sleep_or_wake_data_create(today, rand(0..1), rand(0..59), iterator),
         wake_at: sleep_or_wake_data_create(today, rand(5..9), rand(0..59), iterator),
         satisfaction: satisfactions[rand(6)]
       )
+      sleep_log.sleep_log_comment.create(body: log_comment[rand(0..3)]) if rand(0..3) == 3
     end
 
-    # 就寝と起床が別日になる睡眠データを生成
-    def diff_day_sleep_log_creater(user_id, today, iterator, satisfactions)
-      SleepLog.create(
+    # ゲスト向け、就寝と起床が別日になる睡眠データを生成
+    def diff_day_sleep_log_creater(user_id, today, iterator, satisfactions, log_comment)
+      sleep_log = SleepLog.create(
         user_id: user_id,
         sleep_at: sleep_or_wake_data_create(today, rand(21..23), rand(0..59), iterator),
         wake_at: sleep_or_wake_data_create(today, rand(5..9), rand(0..59), iterator) + 1.day,
         satisfaction: satisfactions[rand(6)]
       )
+      sleep_log.sleep_log_comment.create(body: log_comment[rand(0..3)]) if rand(0..3) == 3
     end
 
     # 睡眠データを登録
     def make_sleep_logs(times, user_id)
       t = Time.zone.now
       satisfactions = [nil, 0.0, 1.25, 2.5, 3.75, 5.0]
+      log_comment = %w[コーヒーを飲みすぎた 程よく疲れていた クタクタだった カフェインを控えた]
 
       times.downto(1) do |i|
         # 0の場合のみ、就寝、起床ともに日付は同じ（夜ふかしパターン）。
@@ -124,10 +128,10 @@ class SleepLog < ApplicationRecord
         case create_mode
         when 0
           # 日付は同じ（夜ふかしパターン）
-          same_day_sleep_log_creater(user_id, t, i, satisfactions)
+          same_day_sleep_log_creater(user_id, t, i, satisfactions, log_comment)
         else
           # 日付はまたぐ（早寝早起きパターン）
-          diff_day_sleep_log_creater(user_id, t, i, satisfactions)
+          diff_day_sleep_log_creater(user_id, t, i, satisfactions, log_comment)
         end
       end
     end

@@ -30,10 +30,15 @@ export const SleepLogList = ({ sleepLogs }: SleepLogListType): JSX.Element => {
               <div className="w-1/4 flex justify-center items-center">
                 { satisfactionConverter(log.satisfaction) }
               </div>
-              <div className="w-3/4 overflow-hidden text-gray-600 dark:text-gray-300">
-                コメントコメントコメントコメントコメントコメントコメントコメントコメントコメントコメントコメント
-                コメントコメントコメントコメントコメントコメントコメントコメントコメントコメントコメントコメント
-              </div>
+              { log.comment ? <>
+                <div className="w-3/4 overflow-hidden text-gray-600 dark:text-gray-200">
+                  { log.comment }
+                </div>
+              </>: <>
+                <div className="w-3/4 overflow-hidden text-gray-400 dark:text-gray-400">
+                  コメントがありません。
+                </div>
+              </>}
             </div>
           </li>
         ))

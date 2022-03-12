@@ -30,7 +30,8 @@ export type SleepLog = {
   updated_at: string,
   user_id: number,
   wake_at: string,
-  sleep_time: string
+  sleep_time: string,
+  body: string
 }
 
 export type RequestState = {
@@ -46,6 +47,7 @@ export type SleepLogListItem = {
   sleepAt: dayjs.Dayjs,
   satisfaction: number,
   sleepTime?: string,
+  comment: string,
 }
 
 export type sleepLogsData = {

@@ -1,5 +1,13 @@
-const DEFAULT_API_HOST: string = 'http://localhost:3001/api/v1'
-// const DEFAULT_API_HOST: string = 'https://api.suico-portfolio.com/api/v1'
+const host_selector = (): string => {
+  switch(process.env.NODE_ENV) {
+    case 'production':
+      return 'https://api.suico-portfolio.com/api/v1';
+    default:
+      return 'http://localhost:3001/api/v1';
+  }
+}
+
+const DEFAULT_API_HOST: string = host_selector();
 
 // user
 export const usersIndex: string = `${DEFAULT_API_HOST}/users`; // GET
