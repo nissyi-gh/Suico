@@ -1,9 +1,6 @@
 module Api
   module V1
     class SleepLogCommentsController < ApplicationController
-      def index
-      end
-
       def create
       end
 

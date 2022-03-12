@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
       resources :sleep_logs
       resources :alarm_presets
-      resources :sleep_log_comments
+      resources :sleep_log_comments, except: %i[index]
     end
   end
 end
