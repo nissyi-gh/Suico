@@ -234,3 +234,14 @@ export const SatisfactionSelectorWithLabel = (defaultValue?: number): JSX.Elemen
     </div>
   )
 }
+
+export const CommentEditorWithLabel = (defaultValue?: string): JSX.Element => {
+  return (
+    <div className="w-full text-select mb-4 md:flex items-start">
+      <label htmlFor="comment" className="block md:inline-block w-full md:w-1/3">
+        コメント
+      </label>
+      <textarea name="comment" id="comment" className="border w-full md:w-2/3 bg-gray-50 px-2 dark:bg-inherit" defaultValue={ defaultValue } />
+    </div>
+  )
+}

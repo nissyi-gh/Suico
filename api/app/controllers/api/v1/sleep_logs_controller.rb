@@ -48,10 +48,15 @@ module Api
       end
 
       def update
-        log = SleepLog.find_by(id: params[:id])
+        log = SleepLog.find(params[:id])
         return if current_user.sleep_logs.exclude?(log)
 
         log.update(sleep_log_params)
+        if log.sleep_log_comment.exists?
+          log.sleep_log_comment.update(body: params[:body])
+        else
+          log.sleep_log_comment.create(body: params[:body])
+        end
       end
 
       private
