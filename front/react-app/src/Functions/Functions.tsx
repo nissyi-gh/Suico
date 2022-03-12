@@ -25,7 +25,7 @@ export const satisfactionConverter = (satisfaction: number): string => {
     case satisfactions.BAD.NUMBER:
       return satisfactions.BAD.CHARACTER;
     case satisfactions.SOSO.NUMBER:
-      return satisfactions.BAD.CHARACTER;
+      return satisfactions.SOSO.CHARACTER;
     case satisfactions.GOOD.NUMBER:
       return satisfactions.GOOD.CHARACTER;
     case satisfactions.BETTER.NUMBER:
