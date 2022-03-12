@@ -101,7 +101,7 @@ class SleepLog < ApplicationRecord
         wake_at: sleep_or_wake_data_create(today, rand(5..9), rand(0..59), iterator),
         satisfaction: satisfactions[rand(6)]
       )
-      sleep_log.sleep_log_comment.new(body: 'コーヒーを飲みすぎた') if rand[0..5] == 4
+      sleep_log.sleep_log_comment.create(body: 'コーヒーを飲みすぎた') if rand[0..5] == 4
     end
 
     # 就寝と起床が別日になる睡眠データを生成
@@ -112,7 +112,7 @@ class SleepLog < ApplicationRecord
         wake_at: sleep_or_wake_data_create(today, rand(5..9), rand(0..59), iterator) + 1.day,
         satisfaction: satisfactions[rand(6)]
       )
-      sleep_log.sleep_log_comment.new(body: 'コーヒーを飲みすぎた') if rand[0..5] == 4
+      sleep_log.sleep_log_comment.create(body: 'コーヒーを飲みすぎた') if rand[0..5] == 4
     end
 
     # 睡眠データを登録

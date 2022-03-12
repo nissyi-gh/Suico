@@ -7,7 +7,13 @@ module Api
 
         # テスト用にuser_id: 1のデータのみ表示
         # sleep_logs = SleepLog.select(:id, :sleep_at, :wake_at, :satisfaction).where(user_id: 1)
-        sleep_logs = SleepLog.select(:id, :sleep_at, :wake_at, :satisfaction).where(user_id: current_user.id)
+        sleep_logs = SleepLog.eager_load(:sleep_log_comment).select(
+          :id,
+          :sleep_at,
+          :wake_at,
+          :satisfaction,
+          :body
+        ).where(user_id: current_user.id)
         sleep_data = sleep_logs.sleep_log_index(sleep_logs)
 
         render json: {
