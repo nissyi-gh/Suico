@@ -1,5 +1,5 @@
-# Suico
-![Suicoメイン画面](./readme_src/suico_main.png)
+# [Suico](https://suico-portfolio.com/)
+[![Suicoメイン画面](./readme_src/suico_main.png)](https://suico-portfolio.com/)
 <br>
 
 # 概要
@@ -119,6 +119,10 @@
 ## 開発環境、インフラ
 - Docker
 - docker-compose
+- CircleCI
+- AWS(ECS(EC2), ECR, Route53, S3, CloudFront, RDS)
+- terraform(バックエンドの構成に使用)
+<br>
 <br>
 
 # テスト、静的コード解析
@@ -127,6 +131,7 @@
 ## バックエンド
 - RSpec
 - Rubocop
+<br>
 <br>
 
 # 開発において意識している点
@@ -144,6 +149,13 @@
 <br>
 <a href="https://www.figma.com/file/RS0YfHW0mLr1LVbpMn3niw/Suico">Suicoデザインカンプ</a>
 <br>
+<br>
+
+# ER図
+![ER図](./readme_src/suico_er_diagram.png)
+<br>
+<br>
+
 
 # 機能一覧
 ## ユーザー機能
