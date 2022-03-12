@@ -4,7 +4,7 @@ class SleepLog < ApplicationRecord
   default_scope { order(created_at: :desc) }
   validates :sleep_at, presence: true
   validates :wake_at, presence: true
-  has_many :sleep_log_comment, through: :comment_relationship
+  has_many :sleep_log_comment, dependent: :destroy
 
   class << self
     def sleep_log_analyze(logs)

@@ -1,3 +1,3 @@
 class SleepLogComment < ApplicationRecord
-  has_one :comment_relationship, dependent: :destroy
+  has_one :sleep_log, dependent: :destroy
 end
