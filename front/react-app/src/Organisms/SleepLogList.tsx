@@ -31,8 +31,7 @@ export const SleepLogList = ({ sleepLogs }: SleepLogListType): JSX.Element => {
                 { satisfactionConverter(log.satisfaction) }
               </div>
               <div className="w-3/4 overflow-hidden text-gray-600 dark:text-gray-300">
-                コメントコメントコメントコメントコメントコメントコメントコメントコメントコメントコメントコメント
-                コメントコメントコメントコメントコメントコメントコメントコメントコメントコメントコメントコメント
+                { log.comment }
               </div>
             </div>
           </li>

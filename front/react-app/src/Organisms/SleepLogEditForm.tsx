@@ -51,7 +51,8 @@ export const SleepLogEditForm = ({ hideModalFunction, log } : { hideModalFunctio
       sleepLogId: log.sleepLogId,
       wakeAt: changedWakeAt.utc(),
       sleepAt: changedSleepAt.utc(),
-      satisfaction: parseFloat(satisfaction)
+      satisfaction: parseFloat(satisfaction),
+      comment: log.comment,
     }
 
     if ((beforeLog.wakeAt.isSame(changingLog.wakeAt)) &&

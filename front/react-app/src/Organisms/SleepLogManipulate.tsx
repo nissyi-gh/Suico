@@ -57,7 +57,8 @@ export const SleepLogManipulate = ({ log } : { log: SleepLogListItem }): JSX.Ele
     sleepLogId: log.sleepLogId,
     sleepAt: log.sleepAt,
     wakeAt: log.wakeAt,
-    satisfaction: log.satisfaction
+    satisfaction: log.satisfaction,
+    comment: log.comment
   }
 
   return (
