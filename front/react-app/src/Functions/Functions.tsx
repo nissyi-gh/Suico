@@ -51,7 +51,8 @@ const returnLogsArray = (logs: SleepLog[]) => {
       wakeAt: dayjs(element.wake_at),
       sleepAt: dayjs(element.sleep_at),
       sleepTime: element.sleep_time,
-      satisfaction: element.satisfaction
+      satisfaction: element.satisfaction,
+      comment: element.body
     };
   })
 }

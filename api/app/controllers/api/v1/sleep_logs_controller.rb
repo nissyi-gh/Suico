@@ -7,7 +7,13 @@ module Api
 
         # テスト用にuser_id: 1のデータのみ表示
         # sleep_logs = SleepLog.select(:id, :sleep_at, :wake_at, :satisfaction).where(user_id: 1)
-        sleep_logs = SleepLog.select(:id, :sleep_at, :wake_at, :satisfaction).where(user_id: current_user.id)
+        sleep_logs = SleepLog.eager_load(:sleep_log_comment).select(
+          :id,
+          :sleep_at,
+          :wake_at,
+          :satisfaction,
+          :body
+        ).where(user_id: current_user.id)
         sleep_data = sleep_logs.sleep_log_index(sleep_logs)
 
         render json: {
@@ -37,15 +43,20 @@ module Api
         # ユーザーがもっているlogでなければ早期リターン
         return if current_user.sleep_logs.exclude?(log)
 
-        log.delete
+        log.destroy
         render json: {}, status: :ok
       end
 
       def update
-        log = SleepLog.find_by(id: params[:id])
+        log = SleepLog.find(params[:id])
         return if current_user.sleep_logs.exclude?(log)
 
         log.update(sleep_log_params)
+        if log.sleep_log_comment.exists?
+          log.sleep_log_comment.update(body: params[:body])
+        else
+          log.sleep_log_comment.create(body: params[:body])
+        end
       end
 
       private
