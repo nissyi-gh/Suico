@@ -95,22 +95,24 @@ class SleepLog < ApplicationRecord
 
     # 就寝と起床が同日になる睡眠データを生成
     def same_day_sleep_log_creater(user_id, today, iterator, satisfactions)
-      SleepLog.create(
+      sleep_log = SleepLog.create(
         user_id: user_id,
         sleep_at: sleep_or_wake_data_create(today, rand(0..1), rand(0..59), iterator),
         wake_at: sleep_or_wake_data_create(today, rand(5..9), rand(0..59), iterator),
         satisfaction: satisfactions[rand(6)]
       )
+      sleep_log.sleep_log_comment.new(body: 'コーヒーを飲みすぎた') if rand[0..5] == 4
     end
 
     # 就寝と起床が別日になる睡眠データを生成
     def diff_day_sleep_log_creater(user_id, today, iterator, satisfactions)
-      SleepLog.create(
+      sleep_log = SleepLog.create(
         user_id: user_id,
         sleep_at: sleep_or_wake_data_create(today, rand(21..23), rand(0..59), iterator),
         wake_at: sleep_or_wake_data_create(today, rand(5..9), rand(0..59), iterator) + 1.day,
         satisfaction: satisfactions[rand(6)]
       )
+      sleep_log.sleep_log_comment.new(body: 'コーヒーを飲みすぎた') if rand[0..5] == 4
     end
 
     # 睡眠データを登録
