@@ -43,7 +43,7 @@ module Api
         # ユーザーがもっているlogでなければ早期リターン
         return if current_user.sleep_logs.exclude?(log)
 
-        log.delete
+        log.destroy
         render json: {}, status: :ok
       end
 
