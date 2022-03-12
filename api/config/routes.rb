@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
       resources :sleep_logs
       resources :alarm_presets
-      resources :sleep_log_comment
+      resources :sleep_log_comments
     end
   end
 end
