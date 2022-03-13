@@ -10,6 +10,7 @@ class User < ApplicationRecord
 
   has_many :sleep_logs, dependent: :destroy
   has_many :alarm_presets, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   # Userクラスのクラスメソッドを定義
   class << self
