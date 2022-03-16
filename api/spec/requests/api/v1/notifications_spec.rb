@@ -32,9 +32,8 @@ RSpec.describe "Notifications", type: :request do
     end
     
     it '保存されている通知を取得できる' do
-      delete api_v1_notification_path, params: { id: @notification.id}
-      expect(JSON.parse(response.body)).to eq [JSON.parse(@notification.to_json)]
+      delete api_v1_notification_path(@notification)
+      expect(response).to have_http_status 200
     end
   end
-
 end
