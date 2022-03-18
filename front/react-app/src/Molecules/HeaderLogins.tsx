@@ -3,11 +3,11 @@ import { LoginContext } from "../providers/LoginFlagProvider";
 import { LoginModal } from "../Organisms/LoginModal";
 import { SignUpModal } from "../Organisms/SignUpModal";
 import axios from "axios";
-import { createGuestUser, delete_session, new_session, sleepLogsURL } from "../constants/urls";
+import { createGuestUser, delete_session, new_session, notificationURL, sleepLogsURL } from "../constants/urls";
 import { GUEST_USER_DATA } from "../constants/constants";
 import { AlarmModal } from "../Pages/AlarmModal";
 import { showAlarmContext } from "../providers/ShowAlarmFlagProvider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { BsAlarm, BsSun, BsMoon } from 'react-icons/bs';
 import { VscBell } from 'react-icons/vsc';
 import { MdLogout } from 'react-icons/md';
@@ -102,9 +102,9 @@ export const HerderLogins = ({ isDark, toggleDarkClassForHtml } : DarkModeProps)
               <button className="inline-block w-full h-2/5 border border-gray-500 dark:border-gray-400 rounded-md bg-gray-100 dark:bg-gray-500 hover:bg-gray-300" onClick={ clickLogout } >
                 ログアウト<MdLogout className="inline-block mb-1 ml-1" />
               </button>
-              <button className="inline-block w-full h-2/5 border border-gray-500 dark:border-gray-400 rounded-md bg-gray-100 dark:bg-gray-500 hover:bg-gray-300">
+              <Link to={ notificationURL } className="inline-block w-full h-2/5 border border-gray-500 dark:border-gray-400 rounded-md bg-gray-100 dark:bg-gray-500 hover:bg-gray-300">
                 通知<VscBell className="inline-block mb-1 ml-1" />
-              </button>
+              </Link>
             </div>
             <button onClick={ toggleDarkClassForHtml } className="border-2 border-gray-400 bg-amber-100 dark:bg-inherit dark:border-gray-300 w-16 h-full rounded-md">
               { isDark ? 

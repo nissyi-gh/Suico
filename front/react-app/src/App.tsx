@@ -17,11 +17,13 @@ import {
   accountSettingsURL, 
   aboutURL, 
   contactURL,
+  notificationURL,
 } from "./constants/urls";
 import { Home } from "./Pages/Home";
 import { useContext } from "react";
 import { LoginContext } from "./providers/LoginFlagProvider";
 import { FixedTab } from "./Organisms/FixedTab";
+import { Notification } from "./Pages/Notification";
 
 export const App = (): JSX.Element => {
   const { loginFlag } = useContext(LoginContext);
@@ -49,6 +51,7 @@ export const App = (): JSX.Element => {
               <Route path={ accountSettingsURL } element={  LoginCheck({component: <AccountSettings/> }) } />
               <Route path={ aboutURL } element={ LoginCheck({component: <About /> }) } />
               <Route path={ contactURL } element={ LoginCheck({component: <Contact /> }) } />
+              <Route path={ notificationURL } element={ LoginCheck({component: <Notification /> }) } />
               <Route path="/" element={ LoginCheck({component: <Home/> })  } />
               <Route path="*" element={ <NotFound /> } />
             </Routes>

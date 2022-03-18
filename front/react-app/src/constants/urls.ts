@@ -30,6 +30,7 @@ export const alarmPresetsIndexURL: string = '/alarm_presets';
 export const accountSettingsURL: string = `/account_settings`;
 export const aboutURL: string = `/about`;
 export const contactURL: string = `/contact`;
+export const notificationURL: string = '/notification';
 
 // sessions
 export const new_session: string = `${DEFAULT_API_HOST}/login`;// GET, POST
