@@ -1,5 +1,5 @@
 # 管理者ユーザーを登録
-User.create!(
+admin_user = User.create!(
   name: "admin user",
   email: "admin.user@test.com",
   password: "adminuser",
@@ -18,5 +18,13 @@ SleepLog.make_sleep_logs(50, 1)
     preset_name: "試作#{i}番",
     wake_at: Time.zone.local(2000, 1, 1, random_hour, random_minute),
     task: rand(3)
+  )
+end
+
+# 開発用、管理者ユーザーに通知を作成
+100.times do
+  admin_user.notifications.create(
+    title: 'test',
+    body: 'seedで作成したデータです'
   )
 end
