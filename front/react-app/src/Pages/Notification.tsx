@@ -65,19 +65,12 @@ const NotificationContent = (): JSX.Element => {
                       <VscTrash className="inline-block hover:cursor-pointer h-6 w-6"/>
                     </button>
                   </span>
-                  <span className="dark:text-gray-300 text-gray-400 flex justify-between">
-                    <span className="inline-block">
-                      from : { item.post_user }
-                    </span>
-                    <span className="inline-block ml-4">
-                      { item.created_at.format("YYYY/MM/DD HH:mm") }
-                    </span>
-                  </span>
                 </p>
-                <p className="flex justify-between">
-                  <span className="inline-block">
-                    { item.body }
-                  </span>
+                <p className="px-4">
+                  { item.body }
+                </p>
+                <p className="dark:text-gray-300 text-gray-400 text-right">
+                  { item.created_at.format("YYYY/MM/DD HH:mm") }
                 </p>
               </li>
             )
