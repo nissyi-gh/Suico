@@ -6,14 +6,6 @@ RSpec.describe Notification, type: :model do
       expect(build(:notification)).to be_valid
     end
 
-    it 'post_user_idが0は有効' do
-      expect(build(:notification, post_user_id: 0)).to be_valid
-    end
-
-    it 'post_user_idがnilなら無効' do
-      expect(build(:notification, post_user_id: nil)).to_not be_valid
-    end
-
     it 'タイトルがnilなら無効' do
       expect(build(:notification, title: nil)).to_not be_valid
     end

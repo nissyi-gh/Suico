@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_13_122547) do
+ActiveRecord::Schema.define(version: 2022_03_20_163913) do
 
   create_table "alarm_presets", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 2022_03_13_122547) do
 
   create_table "notifications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
-    t.integer "post_user_id", default: 0, null: false
     t.string "title", null: false
     t.text "body", null: false
     t.datetime "created_at", precision: 6, null: false
