@@ -1,7 +1,7 @@
 import axios from "axios"
 import { VscTrash } from 'react-icons/vsc';
 import { useEffect, useState } from "react"
-import { fetchNotificationAPI } from "../constants/urls"
+import { notificationAPI } from "../constants/urls"
 import { MainContentInner } from "../Templates/MainContentInner"
 import dayjs from "dayjs"
 import "dayjs/locale/ja";
@@ -17,9 +17,9 @@ type notificationItem = {
 
 const NotificationContent = (): JSX.Element => {
   const [notifications, setNotifications] = useState<notificationItem[]>([]);
-
-  useEffect(() => {
-    axios.get(fetchNotificationAPI, { withCredentials: true })
+  
+  const fetchNotifications = (): void => {
+    axios.get(notificationAPI, { withCredentials: true })
       .then(res => {
         setNotifications(
           res.data.map((item: notificationItem) => {
@@ -31,12 +31,24 @@ const NotificationContent = (): JSX.Element => {
               body: item.body
             }
           })
-        ) 
-      })
+          ) 
+        })
       .catch(e => console.log(e))
-  }, [])
+  }
+    
+    const deleteRequest = (notificationID: number, notificationTitle: string): void => {
+      if (window.confirm(`${ notificationTitle }を削除しますか？`)) {
+        axios.delete(`${ notificationAPI }/${ notificationID }`, { withCredentials: true})
+          .then(() => fetchNotifications())
+          .catch(e => console.log(e))
+      }
+    }    
 
-  return (
+    useEffect(() => {
+      fetchNotifications();
+    }, [])
+
+    return (
     <>
       <h2 className="p-2 border-2 dark:border-gray-300 border-gray-400 rounded-lg">通知一覧</h2>
       <ul>
@@ -44,11 +56,16 @@ const NotificationContent = (): JSX.Element => {
           { notifications.map((item: any) => {
             return (
               <li key={ item.id } className="border-y border-gray-400 px-4 py-2 border-t-0 last:border-b-0">
-                <p className="flex justify-between mb-2">
-                  <span className="inline-block">
-                    { item.title }
+                <p className="mb-2">
+                  <span className="flex justify-between">
+                    <span>
+                      { item.title }
+                    </span>
+                    <button onClick={ () => deleteRequest(item.id, item.title) }>
+                      <VscTrash className="inline-block hover:cursor-pointer h-6 w-6"/>
+                    </button>
                   </span>
-                  <span className="inline-block dark:text-gray-200">
+                  <span className="dark:text-gray-300 text-gray-400 flex justify-between">
                     <span className="inline-block">
                       from : { item.post_user }
                     </span>
@@ -61,7 +78,6 @@ const NotificationContent = (): JSX.Element => {
                   <span className="inline-block">
                     { item.body }
                   </span>
-                  <VscTrash className="inline-block hover:cursor-pointer h-6 w-6"/>
                 </p>
               </li>
             )

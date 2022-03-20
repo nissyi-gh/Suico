@@ -22,9 +22,9 @@ SleepLog.make_sleep_logs(50, 1)
 end
 
 # 開発用、管理者ユーザーに通知を作成
-100.times do
+100.times do |i|
   admin_user.notifications.create(
-    title: 'test',
+    title: "test No.#{i + 1}",
     body: 'seedで作成したデータです'
   )
 end

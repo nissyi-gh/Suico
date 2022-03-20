@@ -22,7 +22,7 @@ export const sleepLogsURL: string = '/sleep_logs';
 
 // notification
 export const notifications: string = `/notifications`;
-export const fetchNotificationAPI: string = `${DEFAULT_API_HOST}/notifications`
+export const notificationAPI: string = `${DEFAULT_API_HOST}/notifications`
 
 // alarm_settings
 export const alarmPresetsAPI: string = `${DEFAULT_API_HOST}/alarm_presets`;
