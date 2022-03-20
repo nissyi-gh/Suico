@@ -50,7 +50,7 @@ const NotificationContent = (): JSX.Element => {
 
     return (
     <>
-      <h2 className="p-2 border-2 dark:border-gray-300 border-gray-400 rounded-lg">通知一覧</h2>
+      <h2 className="p-2 border-2 dark:border-gray-300 border-gray-500 rounded-lg dark:bg-inherit bg-amber-300 mb-2">通知一覧</h2>
       <ul>
         { notifications.length ? <>
           { notifications.map((item: any) => {
