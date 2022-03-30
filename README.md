@@ -1,5 +1,5 @@
-# [Suico](https://suico-portfolio.com/)
-[![Suicoメイン画面](./readme_src/suico_main.png)](https://suico-portfolio.com/)
+# Suico（3/30をもちまして公開終了しました。）
+![Suicoメイン画面](./readme_src/suico_main.png)
 <br>
 
 # 概要
